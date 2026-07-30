@@ -288,9 +288,9 @@ h1 span {
 
 .hero-image-wrap {
   position: relative;
-  aspect-ratio: 0.91;
+  aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 45% 45% 2rem 2rem;
+  border-radius: 1.75rem;
   box-shadow: var(--shadow-soft);
 }
 
@@ -305,34 +305,12 @@ h1 span {
 .hero-image-gradient {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(11, 46, 43, 0.02) 45%, rgba(8, 43, 39, 0.77)),
-    linear-gradient(90deg, rgba(16, 70, 64, 0.22), transparent 58%);
-}
-
-.hero-image-caption {
-  position: absolute;
-  right: 2.5rem;
-  bottom: 2.5rem;
-  left: 2.5rem;
-  display: grid;
-  gap: 0.4rem;
-  color: white;
-}
-
-.hero-image-caption span {
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-
-.hero-image-caption strong {
-  max-width: 15ch;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.55rem, 3vw, 2.5rem);
-  font-weight: 400;
-  line-height: 1.08;
+  background: linear-gradient(
+    90deg,
+    rgba(247, 248, 245, 0.78) 0%,
+    rgba(247, 248, 245, 0.28) 32%,
+    rgba(247, 248, 245, 0) 64%
+  );
 }
 
 .arrival-card {
@@ -620,9 +598,9 @@ h1 span {
 
 .command-image {
   max-width: 31rem;
-  aspect-ratio: 0.82;
+  aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 45% 45% 1.5rem 1.5rem;
+  border-radius: 1.75rem;
 }
 
 .command-image img {
@@ -751,8 +729,7 @@ h1 span {
   }
 
   .hero-image-wrap {
-    aspect-ratio: 1 / 0.92;
-    border-radius: 2rem;
+    aspect-ratio: 1;
   }
 
   .arrival-card {
@@ -856,14 +833,7 @@ h1 span {
   }
 
   .hero-image-wrap {
-    aspect-ratio: 0.9;
-    border-radius: 40% 40% 1.4rem 1.4rem;
-  }
-
-  .hero-image-caption {
-    right: 1.5rem;
-    bottom: 1.5rem;
-    left: 1.5rem;
+    border-radius: 1.25rem;
   }
 
   .arrival-card {

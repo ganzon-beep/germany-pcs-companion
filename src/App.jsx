@@ -98,10 +98,6 @@ function App() {
                 alt="Aerial view of the Landstuhl Regional Medical Center campus"
               />
               <div className="hero-image-gradient" />
-              <div className="hero-image-caption">
-                <span>Landstuhl, Germany</span>
-                <strong>Your new chapter starts here.</strong>
-              </div>
             </div>
             <div className="arrival-card">
               <span className="arrival-card__label">Built around you</span>
