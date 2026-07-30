@@ -94,8 +94,8 @@ function App() {
           <div className="hero-visual">
             <div className="hero-image-wrap">
               <img
-                src="/images/lrmc-entrance.jpg"
-                alt="Entrance to Landstuhl Regional Medical Center"
+                src="/images/lrmc-aerial.jpg"
+                alt="Aerial view of the Landstuhl Regional Medical Center campus"
               />
               <div className="hero-image-gradient" />
               <div className="hero-image-caption">
@@ -202,8 +202,8 @@ function App() {
 
         <section className="closing section-pad">
           <img
-            src="/images/lrmc-aerial.jpg"
-            alt="Aerial view of the Landstuhl Regional Medical Center campus"
+            src="/images/lrmc-entrance.jpg"
+            alt="Entrance to Landstuhl Regional Medical Center"
           />
           <div className="closing-overlay" />
           <div className="closing-copy">
