@@ -70,9 +70,11 @@ function App() {
               <span>feeling at home.</span>
             </h1>
             <p className="hero-lede">
-              A personalized companion for your move to LRMC—bringing your PCS,
-              first days at work, and new life in Germany into one calm,
-              step-by-step experience.
+              We’re excited to welcome you to the LRMC family and support you
+              through every step of your overseas PCS. Whether you’re preparing
+              to move, getting ready to arrive, or settling into your new home
+              in Germany, the LRMC PCS Companion will help you understand what
+              to expect and what to do next.
             </p>
             <div className="hero-actions">
               <a className="button button--primary" href="#journey">
@@ -184,18 +186,23 @@ function App() {
           <div className="command-copy">
             <p className="eyebrow">Welcome to LRMC</p>
             <blockquote>
-              “Your arrival is more than a move. It’s the beginning of your
-              place in our community.”
+              “You are the institutional memory, the consistent expertise, and
+              the heart of LRMC.”
             </blockquote>
             <p>
-              Get to know LRMC, our mission, and the people who will welcome you
-              to the team.
+              Our civilian employees and local nationals are essential to
+              LRMC’s success and to the care we provide.
             </p>
             <a className="text-link" href="#top">
-              Meet our leadership
+              Read the command philosophy
               <ArrowIcon />
             </a>
-            <small>Welcome message placeholder pending command approval</small>
+            <div className="command-attribution">
+              <strong>Colonel Warren A. Stewart</strong>
+              <span>
+                Commander/Director, Landstuhl Regional Medical Center
+              </span>
+            </div>
           </div>
         </section>
 

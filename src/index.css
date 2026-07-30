@@ -640,11 +640,18 @@ h1 span {
   line-height: 1.75;
 }
 
-.command-copy small {
-  display: block;
+.command-attribution {
+  display: grid;
+  gap: 0.2rem;
   margin-top: 1.2rem;
   color: #7b8783;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.command-attribution strong {
+  color: var(--ink);
+  font-size: 0.76rem;
 }
 
 .closing {
