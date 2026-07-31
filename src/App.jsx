@@ -268,7 +268,7 @@ const directoryEntries = [
   },
   {
     id: 'landstuhl-outprocessing',
-    name: 'Landstuhl Outprocessing',
+    name: 'LRMC In/Out-Processing',
     category: 'Finance',
     location: 'Bldg 3700',
     area: 'Landstuhl',
