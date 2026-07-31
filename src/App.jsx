@@ -258,13 +258,71 @@ const directoryEntries = [
   },
   {
     id: 'kleber-id-cards',
-    name: 'Kleber ID Cards & UTAP',
+    name: 'Kleber DEERS Office',
     category: 'Identification',
     location: 'Kleber Kaserne, Bldg 3245',
     area: 'Kaiserslautern',
-    phone: '06311-43-5121',
-    services: 'CAC issuance, SOFA stamps, ID cards, and UTAP support.',
-    steps: ['Complete CAC and DEERS enrollment', 'Set up UTAP for eligible utilities'],
+    phone: '0631-411-7662',
+    alternatePhone: '0631-411-7072',
+    dsn: '483-7072',
+    hours: 'Mon–Thu 0800–1530; Fri 0800–1200',
+    services: 'DEERS enrollment, CAC issuance, SOFA stamps, and ID cards.',
+    steps: ['Complete CAC and DEERS enrollment'],
+  },
+  {
+    id: 'lrmc-deers',
+    name: 'LRMC DEERS Office',
+    category: 'Identification',
+    location: 'Bldg 3766, Room 15B 120',
+    area: 'Landstuhl',
+    phone: '06371-9464-5917',
+    dsn: '590-5917',
+    services: 'Local DEERS enrollment and identification support.',
+    steps: ['Complete CAC and DEERS enrollment'],
+  },
+  {
+    id: 'kleber-utap',
+    name: 'Kleber UTAP Office',
+    category: 'Housing',
+    location: 'Kleber Kaserne, Bldg 3245',
+    area: 'Kaiserslautern',
+    services: 'Utility Tax Avoidance Program support for eligible electricity, gas, and water accounts.',
+    steps: ['Set up UTAP for eligible utilities'],
+  },
+  {
+    id: 'kleber-passports',
+    name: 'Kleber Passport Office',
+    category: 'Passports',
+    location: '90th Personnel Service Battalion, Bldg 3245, Room 117',
+    area: 'Kleber Kaserne',
+    phone: '0631-411-8892',
+    alternatePhone: '0631-411-7659',
+    dsn: '483-8892 / 483-7659',
+    hours: 'Birth registration by appointment only, Mon–Thu 0800–1100',
+    website: 'http://www.rp.army.mil/Directorates/DHR/passports.html',
+    services: 'U.S. Army passport services and appointment-only birth registration.',
+    steps: ['Obtain No-Fee passports and SOFA stamps'],
+  },
+  {
+    id: 'baumholder-passports',
+    name: 'Baumholder Passport Office',
+    category: 'Passports',
+    location: 'Bldg 8660',
+    area: 'Baumholder',
+    phone: '06783-6-7215',
+    dsn: '485-7215',
+    services: 'U.S. Army passport services.',
+    steps: ['Obtain No-Fee passports and SOFA stamps'],
+  },
+  {
+    id: 'ramstein-passports',
+    name: 'Ramstein Passport Office',
+    category: 'Passports',
+    location: 'Bldg 2106, Room 110',
+    area: 'Ramstein Air Base',
+    hours: 'Mon–Fri 0900–1500; birth registration by appointment only',
+    services: 'Passport services and appointment-only birth registration.',
+    steps: ['Obtain No-Fee passports and SOFA stamps'],
   },
   {
     id: 'landstuhl-outprocessing',
@@ -377,6 +435,50 @@ const directoryEntries = [
     steps: ['Audit your overseas health coverage', 'Save local healthcare options'],
   },
   {
+    id: 'kleber-tricare',
+    name: 'Kleber TRICARE Service Center',
+    category: 'Healthcare',
+    location: 'Kleber Kaserne',
+    area: 'Kaiserslautern',
+    phone: '0631-411-6358',
+    dsn: '483-6358',
+    services: 'TRICARE enrollment and beneficiary support.',
+    steps: ['Audit your overseas health coverage', 'Save local healthcare options'],
+  },
+  {
+    id: 'baumholder-tricare',
+    name: 'Baumholder TRICARE Service Center',
+    category: 'Healthcare',
+    location: 'Baumholder',
+    area: 'Baumholder',
+    phone: '06783-6-8089',
+    dsn: '485-8089',
+    services: 'TRICARE enrollment and beneficiary support.',
+    steps: ['Audit your overseas health coverage', 'Save local healthcare options'],
+  },
+  {
+    id: 'ramstein-tricare',
+    name: 'Ramstein TRICARE Service Center',
+    category: 'Healthcare',
+    location: 'Ramstein Air Base',
+    area: 'Ramstein',
+    phone: '06371-46-2616',
+    dsn: '479-2616',
+    services: 'TRICARE enrollment and beneficiary support.',
+    steps: ['Audit your overseas health coverage', 'Save local healthcare options'],
+  },
+  {
+    id: 'lrmc-tricare',
+    name: 'LRMC TRICARE Service Center',
+    category: 'Healthcare',
+    location: 'Bldg 3744',
+    area: 'Landstuhl',
+    phone: '06371-9464-4830',
+    dsn: '590-4830',
+    services: 'TRICARE enrollment and beneficiary support.',
+    steps: ['Audit your overseas health coverage', 'Save local healthcare options'],
+  },
+  {
     id: 'dentistry-4-kidz',
     name: 'Dentistry 4 Kidz',
     category: 'Healthcare',
@@ -459,6 +561,9 @@ function Directory({ onHome, onPlan }) {
       entry.location,
       entry.area,
       entry.phone,
+      entry.alternatePhone,
+      entry.dsn,
+      entry.hours,
       entry.services,
       ...entry.steps,
     ]
@@ -544,6 +649,12 @@ function Directory({ onHome, onPlan }) {
               </div>
               <h3>{entry.name}</h3>
               <p className="directory-location">{entry.location}</p>
+              {(entry.dsn || entry.hours) && (
+                <dl className="directory-details">
+                  {entry.dsn && <><dt>DSN</dt><dd>{entry.dsn}</dd></>}
+                  {entry.hours && <><dt>Hours</dt><dd>{entry.hours}</dd></>}
+                </dl>
+              )}
               <p className="directory-services">{entry.services}</p>
               <div className="directory-step-links">
                 <small>Supports these steps</small>
@@ -551,11 +662,23 @@ function Directory({ onHome, onPlan }) {
               </div>
               <div className="directory-actions">
                 {entry.phone ? (
-                  <a className="directory-action directory-action--primary" href={`tel:${entry.phone.replace(/[^\d+]/g, '')}`}>
-                    Call {entry.phone}
-                  </a>
+                  <>
+                    <a className="directory-action directory-action--primary" href={`tel:${entry.phone.replace(/[^\d+]/g, '')}`}>
+                      Call {entry.phone}
+                    </a>
+                    {entry.alternatePhone && (
+                      <a className="directory-action directory-action--primary" href={`tel:${entry.alternatePhone.replace(/[^\d+]/g, '')}`}>
+                        Call {entry.alternatePhone}
+                      </a>
+                    )}
+                  </>
                 ) : (
                   <span className="directory-no-phone">Phone not listed in source</span>
+                )}
+                {entry.website && (
+                  <a className="directory-action" href={entry.website} target="_blank" rel="noreferrer">
+                    Official website ↗
+                  </a>
                 )}
                 <a className="directory-action" href={mapUrl(entry)} target="_blank" rel="noreferrer">
                   Open in Maps ↗

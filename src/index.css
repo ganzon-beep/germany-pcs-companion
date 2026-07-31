@@ -1263,6 +1263,32 @@ h1 span {
   font-weight: 800;
 }
 
+.directory-details {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.35rem 0.8rem;
+  margin: 1rem 0 0;
+  border-radius: 0.85rem;
+  padding: 0.8rem 0.95rem;
+  background: #f2f5f2;
+}
+
+.directory-details dt {
+  color: #76827e;
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.directory-details dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
 .directory-services {
   margin: 1rem 0 0;
   color: var(--ink-soft);
