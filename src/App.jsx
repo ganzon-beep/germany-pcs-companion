@@ -594,6 +594,102 @@ function ArrowIcon() {
   return <span aria-hidden="true">↗</span>
 }
 
+function InstallPwa() {
+  const [installPrompt, setInstallPrompt] = useState(null)
+  const [showGuide, setShowGuide] = useState(false)
+  const [isInstalled, setIsInstalled] = useState(() =>
+    window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true,
+  )
+
+  useEffect(() => {
+    const captureInstallPrompt = (event) => {
+      event.preventDefault()
+      setInstallPrompt(event)
+    }
+    const markInstalled = () => {
+      setIsInstalled(true)
+      setShowGuide(false)
+      setInstallPrompt(null)
+    }
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setShowGuide(false)
+    }
+
+    window.addEventListener('beforeinstallprompt', captureInstallPrompt)
+    window.addEventListener('appinstalled', markInstalled)
+    window.addEventListener('keydown', closeOnEscape)
+    return () => {
+      window.removeEventListener('beforeinstallprompt', captureInstallPrompt)
+      window.removeEventListener('appinstalled', markInstalled)
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [])
+
+  const beginInstall = async () => {
+    if (!installPrompt) {
+      setShowGuide(true)
+      return
+    }
+
+    await installPrompt.prompt()
+    const choice = await installPrompt.userChoice
+    setInstallPrompt(null)
+    if (choice.outcome === 'accepted') setIsInstalled(true)
+  }
+
+  if (isInstalled) return null
+
+  return (
+    <>
+      <button className="install-pwa-button" onClick={beginInstall} aria-haspopup="dialog">
+        <span className="install-pwa-icon" aria-hidden="true">↓</span>
+        Install this app
+      </button>
+
+      {showGuide && (
+        <div className="install-modal-backdrop" onMouseDown={() => setShowGuide(false)}>
+          <section
+            className="install-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="install-modal-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button className="install-modal-close" onClick={() => setShowGuide(false)} aria-label="Close installation guide">×</button>
+            <p className="eyebrow">Keep your companion close</p>
+            <h2 id="install-modal-title">Install the app</h2>
+            <p className="install-modal-intro">Add Germany PCS Companion to your home screen for quick, app-like access.</p>
+
+            <div className="install-guide-grid">
+              <article>
+                <span className="install-guide-number">iOS</span>
+                <h3>iPhone or iPad</h3>
+                <ol>
+                  <li>Open this website in <strong>Safari</strong>.</li>
+                  <li>Tap the <strong>Share</strong> button—the square with an upward arrow.</li>
+                  <li>Select <strong>Add to Home Screen</strong>.</li>
+                  <li>Choose a name if desired, then tap <strong>Add</strong>.</li>
+                </ol>
+              </article>
+              <article>
+                <span className="install-guide-number">Android</span>
+                <h3>Android phone or tablet</h3>
+                <ol>
+                  <li>Open this website in Chrome, Edge, Brave, or Samsung Internet.</li>
+                  <li>Open the browser menu and select <strong>Install app</strong> or <strong>Add to Home screen</strong>. In Samsung Internet, use the install icon in the address bar.</li>
+                  <li>Confirm the name, then tap <strong>Install</strong> or <strong>Add</strong>.</li>
+                </ol>
+              </article>
+            </div>
+
+            <button className="button button--primary install-modal-done" onClick={() => setShowGuide(false)}>Got it</button>
+          </section>
+        </div>
+      )}
+    </>
+  )
+}
+
 function Directory({ onHome, onPlan }) {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('All')
@@ -904,11 +1000,11 @@ function App() {
   }
 
   if (activeView === 'plan') {
-    return <Companion onHome={returnHome} onDirectory={openDirectory} />
+    return <><Companion onHome={returnHome} onDirectory={openDirectory} /><InstallPwa /></>
   }
 
   if (activeView === 'directory') {
-    return <Directory onHome={returnHome} onPlan={startPlan} />
+    return <><Directory onHome={returnHome} onPlan={startPlan} /><InstallPwa /></>
   }
 
   return (
@@ -1099,6 +1195,7 @@ function App() {
           </div>
         </section>
       </main>
+      <InstallPwa />
 
       <footer className="site-footer section-pad">
         <a className="brand" href="#top" aria-label="Back to top">

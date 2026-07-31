@@ -165,6 +165,141 @@ img {
   display: none;
 }
 
+.install-pwa-button {
+  position: fixed;
+  right: max(1.25rem, env(safe-area-inset-right));
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.78rem 1rem;
+  background: var(--navy-dark);
+  color: white;
+  box-shadow: 0 14px 40px rgba(24, 38, 48, 0.22);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.install-pwa-icon {
+  display: grid;
+  width: 1.55rem;
+  height: 1.55rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 50%;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.install-pwa-button:focus-visible,
+.install-modal-close:focus-visible,
+.install-modal-done:focus-visible {
+  outline: 3px solid rgba(49, 91, 125, 0.3);
+  outline-offset: 3px;
+}
+
+.install-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  overflow-y: auto;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(18, 30, 38, 0.58);
+  backdrop-filter: blur(8px);
+}
+
+.install-modal {
+  position: relative;
+  width: min(100%, 54rem);
+  max-height: calc(100vh - 2.5rem);
+  overflow-y: auto;
+  border-radius: 1.75rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: var(--cream);
+  box-shadow: 0 30px 90px rgba(11, 25, 35, 0.28);
+}
+
+.install-modal-close {
+  position: absolute;
+  top: 1.15rem;
+  right: 1.15rem;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid #d3dbd6;
+  border-radius: 50%;
+  background: white;
+  color: var(--ink);
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.install-modal h2 {
+  max-width: 12ch;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+}
+
+.install-modal-intro {
+  max-width: 36rem;
+  margin: 0.85rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.install-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.install-guide-grid article {
+  border: 1px solid var(--line);
+  border-radius: 1.2rem;
+  padding: 1.3rem;
+  background: white;
+}
+
+.install-guide-number {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.33rem 0.6rem;
+  background: #e4edf4;
+  color: var(--navy-dark);
+  font-size: 0.6rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.install-guide-grid h3 {
+  margin-top: 1rem;
+  font-size: 1.45rem;
+}
+
+.install-guide-grid ol {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.install-guide-grid li + li {
+  margin-top: 0.55rem;
+}
+
+.install-modal-done {
+  margin-top: 1.4rem;
+}
+
 .hero {
   display: grid;
   min-height: calc(100vh - 6.5rem);
@@ -1511,6 +1646,28 @@ h1 span {
     background: transparent;
     font-size: 0.76rem;
     font-weight: 750;
+  }
+
+  .install-pwa-button {
+    right: max(0.85rem, env(safe-area-inset-right));
+    bottom: max(0.85rem, env(safe-area-inset-bottom));
+    padding: 0.68rem 0.85rem;
+  }
+
+  .install-modal-backdrop {
+    place-items: end center;
+    padding: 0;
+  }
+
+  .install-modal {
+    width: 100%;
+    max-height: calc(100vh - 1rem);
+    border-radius: 1.5rem 1.5rem 0 0;
+    padding: 1.5rem 1.25rem max(1.5rem, env(safe-area-inset-bottom));
+  }
+
+  .install-guide-grid {
+    grid-template-columns: 1fr;
   }
 
   .companion-header {
