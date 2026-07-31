@@ -614,7 +614,7 @@ h1 span {
   font-weight: 750;
 }
 
-.command {
+.welcome {
   display: grid;
   grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
   gap: clamp(3rem, 8vw, 8rem);
@@ -623,45 +623,48 @@ h1 span {
   padding-bottom: 10rem;
 }
 
-.command-image {
+.welcome-image {
   max-width: 31rem;
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 1.75rem;
+  background: #fbf7ef;
 }
 
-.command-image img {
+.welcome-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.command-copy {
+.welcome-copy {
   max-width: 43rem;
 }
 
-.command-copy blockquote {
+.welcome-copy blockquote {
   font-size: clamp(2.5rem, 4vw, 4.8rem);
   line-height: 1.08;
 }
 
-.command-copy > p {
+.welcome-copy > p {
   max-width: 34rem;
   margin: 2rem 0;
   color: var(--ink-soft);
   line-height: 1.75;
 }
 
-.command-attribution {
+.testing-notice {
   display: grid;
-  gap: 0.2rem;
-  margin-top: 1.2rem;
+  gap: 0.3rem;
+  margin-top: 1.5rem;
+  border-left: 3px solid var(--coral);
+  padding-left: 1rem;
   color: #7b8783;
   font-size: 0.72rem;
   line-height: 1.45;
 }
 
-.command-attribution strong {
+.testing-notice strong {
   color: var(--ink);
   font-size: 0.76rem;
 }
@@ -1109,7 +1112,7 @@ h1 span {
     min-height: 22rem;
   }
 
-  .command {
+  .welcome {
     gap: 3rem;
   }
 
@@ -1262,17 +1265,17 @@ h1 span {
     min-height: 21rem;
   }
 
-  .command {
+  .welcome {
     grid-template-columns: 1fr;
     padding-top: 1rem;
     padding-bottom: 7rem;
   }
 
-  .command-image {
+  .welcome-image {
     width: 84%;
   }
 
-  .command-copy blockquote {
+  .welcome-copy blockquote {
     font-size: 2.65rem;
   }
 

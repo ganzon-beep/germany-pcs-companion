@@ -37,9 +37,9 @@ const phaseTasks = [
     id: 'sponsor',
     phase: 'Pre-arrival',
     window: '60–30 days out',
-    title: 'Connect with your LRMC sponsor',
-    detail: 'Share your arrival plan and ask about your first duty day, local access, and temporary lodging.',
-    tag: 'LRMC',
+    title: 'Connect with your relocation contact',
+    detail: 'Share your arrival plan and ask about your first workday, local requirements, and temporary lodging.',
+    tag: 'Contact',
   },
   {
     id: 'lodging',
@@ -53,34 +53,34 @@ const phaseTasks = [
     id: 'cac-sofa',
     phase: 'Arrival',
     window: 'First 48 hours',
-    title: 'Complete CAC and SOFA processing',
-    detail: 'Bring your orders, passport, and identification. Your sponsor can confirm the best current location.',
-    tag: 'Priority',
+    title: 'Confirm your arrival documents',
+    detail: 'Bring your travel documents, passport, and identification. Your relocation contact can confirm current requirements.',
+    tag: 'Arrival',
   },
   {
     id: 'license',
     phase: 'Arrival',
     window: 'First week',
-    title: 'Begin USAREUR driver licensing',
-    detail: 'Complete the required training and bring hard-copy orders and your valid state license.',
+    title: 'Review driving requirements in Germany',
+    detail: 'Confirm which training, documents, license conversions, and insurance rules apply to your situation.',
     tag: 'Driving',
   },
   {
     id: 'tqsa',
     phase: '30 · 60 · 90',
     window: 'Every 30 days',
-    title: 'Submit your TQSA reimbursement',
-    detail: 'Organize all lodging, meal, and laundry receipts and submit in 30-day increments.',
+    title: 'Submit your temporary-lodging claim',
+    detail: 'Organize all lodging, meal, and laundry receipts and follow the reimbursement schedule in your relocation paperwork.',
     tag: 'Deadline',
   },
 ]
 
 const companionPaths = [
   {
-    eyebrow: 'Your new workplace',
-    title: 'Discover LRMC',
-    copy: 'Meet the organization, understand your first days, and feel connected before you arrive.',
-    link: 'Explore LRMC',
+    eyebrow: 'Your new beginning',
+    title: 'Arrive prepared',
+    copy: 'Understand your first days, organize the essentials, and feel more grounded before you arrive.',
+    link: 'Plan your arrival',
     className: 'path-card--sky',
   },
   {
@@ -107,14 +107,14 @@ function Companion({ onHome }) {
   const [activePhase, setActivePhase] = useState('Temporary offer')
   const [completed, setCompleted] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('lrmc-pcs-progress')) || []
+      return JSON.parse(localStorage.getItem('germany-pcs-progress')) || []
     } catch {
       return []
     }
   })
 
   useEffect(() => {
-    localStorage.setItem('lrmc-pcs-progress', JSON.stringify(completed))
+    localStorage.setItem('germany-pcs-progress', JSON.stringify(completed))
   }, [completed])
 
   const visibleTasks = phaseTasks.filter((task) => task.phase === activePhase)
@@ -129,14 +129,14 @@ function Companion({ onHome }) {
   return (
     <div className="companion-shell">
       <header className="companion-header">
-        <button className="brand brand-button" onClick={onHome} aria-label="Return to LRMC PCS Companion home">
-          <span className="brand-mark">L</span>
+        <button className="brand brand-button" onClick={onHome} aria-label="Return to Germany PCS Companion home">
+          <span className="brand-mark">G</span>
           <span className="brand-copy">
-            <strong>LRMC</strong>
+            <strong>GERMANY</strong>
             <span>PCS Companion</span>
           </span>
         </button>
-        <p>Your private arrival plan</p>
+        <p>Your personal arrival plan</p>
         <button className="home-link" onClick={onHome}>Exit plan</button>
       </header>
 
@@ -217,7 +217,7 @@ function Companion({ onHome }) {
 
           <div className="planner-reassurance">
             <span aria-hidden="true">i</span>
-            <p><strong>Use this as a planning companion.</strong> Confirm appointments, locations, eligibility, and current policy with your HR team or sponsor before acting.</p>
+            <p><strong>Unofficial testing guide.</strong> This site is not affiliated with any government agency, installation, base, unit, or employer. Confirm requirements with your authorized relocation or HR contact before acting.</p>
           </div>
         </section>
       </main>
@@ -252,10 +252,10 @@ function App() {
   return (
     <div className="site-shell">
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="LRMC PCS Companion home">
-          <span className="brand-mark">L</span>
+        <a className="brand" href="#top" aria-label="Germany PCS Companion home">
+          <span className="brand-mark">G</span>
           <span className="brand-copy">
-            <strong>LRMC</strong>
+            <strong>GERMANY</strong>
             <span>PCS Companion</span>
           </span>
         </a>
@@ -263,7 +263,7 @@ function App() {
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#journey">Your journey</a>
           <a href="#explore">Explore</a>
-          <a href="#command">About LRMC</a>
+          <a href="#about">About this guide</a>
         </nav>
 
         <button className="header-action" onClick={startPlan}>
@@ -277,18 +277,16 @@ function App() {
           <div className="hero-copy">
             <p className="eyebrow">
               <span className="eyebrow-dot" />
-              Your move to Landstuhl, made clearer
+              Welcome to the U.S.–German family
             </p>
             <h1>
-              From job offer to
-              <span>feeling at home.</span>
+              Your move to Germany,
+              <span>made clearer.</span>
             </h1>
             <p className="hero-lede">
-              We’re excited to welcome you to the LRMC family and support you
-              through every step of your overseas PCS. Whether you’re preparing
-              to move, getting ready to arrive, or settling into your new home
-              in Germany, the LRMC PCS Companion will help you understand what
-              to expect and what to do next.
+              The Germany PCS Companion brings the details of an overseas move
+              into one calm, step-by-step experience—from your first job offer
+              through arrival and your first 90 days at home in Germany.
             </p>
             <div className="hero-actions">
               <button className="button button--primary" onClick={startPlan}>
@@ -296,7 +294,7 @@ function App() {
                 <span aria-hidden="true">→</span>
               </button>
               <a className="text-link" href="#explore">
-                Explore life at LRMC
+                Explore life in Germany
                 <ArrowIcon />
               </a>
             </div>
@@ -310,11 +308,11 @@ function App() {
           <div className="hero-visual">
             <div className="hero-image-wrap">
               <img
-                src="/images/lrmc-aerial.jpg"
-                alt="Aerial view of the Landstuhl Regional Medical Center campus"
+                src="/images/germany-landscape.jpg"
+                alt="Aerial view of a green community in Germany"
               />
               <div className="hero-image-caption">
-                <span>Landstuhl, Germany</span>
+                <span>Germany</span>
                 <strong>Your new chapter starts here.</strong>
               </div>
             </div>
@@ -390,31 +388,30 @@ function App() {
           </div>
         </section>
 
-        <section className="command section-pad" id="command">
-          <div className="command-image">
+        <section className="welcome section-pad" id="about">
+          <div className="welcome-image">
             <img
-              src="/images/commander-stewart.jpg"
-              alt="Official portrait of the LRMC commander"
+              src="/images/german-shepherd-welcome.png"
+              alt="A happy illustrated German shepherd beside a German home"
             />
           </div>
-          <div className="command-copy">
-            <p className="eyebrow">Welcome to LRMC</p>
-            <blockquote>
-              “You are the institutional memory, the consistent expertise, and
-              the heart of LRMC.”
-            </blockquote>
+          <div className="welcome-copy">
+            <p className="eyebrow">A friendly guide for the whole transition</p>
+            <blockquote>“A new country feels closer when you know what comes next.”</blockquote>
             <p>
-              Our civilian employees and local nationals are essential to
-              LRMC’s success and to the care we provide.
+              Use this companion from your first offer through your first 90
+              days in Germany. We’ll keep each immediate step visible while
+              helping you settle into the rhythms of your new home.
             </p>
-            <a className="text-link" href="#top">
-              Read the command philosophy
+            <button className="text-link" onClick={startPlan}>
+              Open my arrival plan
               <ArrowIcon />
-            </a>
-            <div className="command-attribution">
-              <strong>Colonel Warren A. Stewart</strong>
+            </button>
+            <div className="testing-notice">
+              <strong>Public testing edition</strong>
               <span>
-                Commander/Director, Landstuhl Regional Medical Center
+                Unofficial and unaffiliated with any government agency, base,
+                installation, unit, organization, or employer.
               </span>
             </div>
           </div>
@@ -422,8 +419,8 @@ function App() {
 
         <section className="closing section-pad">
           <img
-            src="/images/lrmc-entrance.jpg"
-            alt="Entrance to Landstuhl Regional Medical Center"
+            src="/images/germany-landscape.jpg"
+            alt="Green landscape and buildings in Germany"
           />
           <div className="closing-overlay" />
           <div className="closing-copy">
@@ -439,9 +436,9 @@ function App() {
 
       <footer className="site-footer section-pad">
         <a className="brand" href="#top" aria-label="Back to top">
-          <span className="brand-mark">L</span>
+          <span className="brand-mark">G</span>
           <span className="brand-copy">
-            <strong>LRMC</strong>
+            <strong>GERMANY</strong>
             <span>PCS Companion</span>
           </span>
         </a>
@@ -449,7 +446,7 @@ function App() {
         <div className="footer-links">
           <a href="#top">Accessibility</a>
           <a href="#top">Privacy</a>
-          <a href="#top">About this guide</a>
+          <a href="#about">Testing disclaimer</a>
         </div>
       </footer>
     </div>
