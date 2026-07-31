@@ -761,10 +761,13 @@ function App() {
           <a href="#about">About this guide</a>
         </nav>
 
-        <button className="header-action" onClick={startPlan}>
-          Find my next step
-          <span aria-hidden="true">→</span>
-        </button>
+        <div className="header-actions">
+          <button className="mobile-directory-action" onClick={openDirectory}>Directory</button>
+          <button className="header-action" onClick={startPlan} aria-label="Find my next step">
+            Find my next step
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
       </header>
 
       <main id="top">
