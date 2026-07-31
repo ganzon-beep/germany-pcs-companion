@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+const assetUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
+
 const journeyStages = [
   ['01', 'Temporary offer', 'Understand what comes next'],
   ['02', 'Final offer', 'Prepare with confidence'],
@@ -308,7 +310,7 @@ function App() {
           <div className="hero-visual">
             <div className="hero-image-wrap">
               <img
-                src="/images/germany-landscape.jpg"
+                src={assetUrl('/images/germany-landscape.jpg')}
                 alt="Aerial view of a green community in Germany"
               />
               <div className="hero-image-caption">
@@ -391,7 +393,7 @@ function App() {
         <section className="welcome section-pad" id="about">
           <div className="welcome-image">
             <img
-              src="/images/german-shepherd-welcome.png"
+              src={assetUrl('/images/german-shepherd-welcome.png')}
               alt="A happy illustrated German shepherd beside a German home"
             />
           </div>
@@ -419,7 +421,7 @@ function App() {
 
         <section className="closing section-pad">
           <img
-            src="/images/germany-landscape.jpg"
+            src={assetUrl('/images/germany-landscape.jpg')}
             alt="Green landscape and buildings in Germany"
           />
           <div className="closing-overlay" />
