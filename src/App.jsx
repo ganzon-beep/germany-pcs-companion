@@ -334,6 +334,51 @@ const directoryEntries = [
     steps: ['Complete finance and payroll in-processing', 'Submit your temporary-lodging claim'],
   },
   {
+    id: 'rob-vat-office',
+    name: 'Rhine Ordnance Barracks (ROB) VAT Office',
+    category: 'Finance',
+    location: 'Java Café, Bldg 273, 67661 Kaiserslautern',
+    area: 'Rhine Ordnance Barracks',
+    phone: '+49 (0)611-143-541-9089',
+    phoneHref: '+496111435419089',
+    dsn: '(314) 541-9089',
+    website: 'https://www.armymwr.com/location-contact?location_form_location=66955',
+    websiteLabel: 'Email office',
+    mapsUrl: 'https://www.google.com/maps/search/Rhine+Ordnance+Barracks+(ROB)+Java+Caf%C3%A9,+Kaiserslautern,+Rhineland-Palatinate,+67661,+Germany',
+    services: 'VAT form sales and support for eligible tax-free purchases. Now open during lunch.',
+    steps: ['Register for the VAT program'],
+  },
+  {
+    id: 'kleber-vat-office',
+    name: 'Kleber VAT Office',
+    category: 'Finance',
+    location: 'Kleber Kaserne, Bldg 3245, Room 116, 67657 Kaiserslautern',
+    area: 'Kleber Kaserne',
+    phone: '+49 (0)611-143-541-9120',
+    phoneHref: '+496111435419120',
+    dsn: '(314) 541-9120',
+    website: 'https://www.armymwr.com/location-contact?location_form_location=66956',
+    websiteLabel: 'Email office',
+    mapsUrl: 'https://www.google.com/maps/search/Kleber+Kaserne,+Room+116,+Kaiserslautern,+Rhineland-Palatinate,+67657,+Germany',
+    services: 'VAT form sales and support for eligible tax-free purchases.',
+    steps: ['Register for the VAT program'],
+  },
+  {
+    id: 'landstuhl-vat-office',
+    name: 'Landstuhl VAT Office',
+    category: 'Finance',
+    location: 'Landstuhl Post (Wilson Barracks), inside the Library, Bldg 3810, 66849 Landstuhl',
+    area: 'Landstuhl',
+    phone: '+49 (0)611-143-541-9126',
+    phoneHref: '+496111435419126',
+    dsn: '(314) 541-9126',
+    website: 'https://www.armymwr.com/location-contact?location_form_location=66957',
+    websiteLabel: 'Email office',
+    mapsUrl: 'https://www.google.com/maps/search/Landstuhl+Post+(Wilson+Barracks),+(Located+inside+Library),+Landstuhl,+Rhineland-Palatinate,+66849,+Germany',
+    services: 'VAT form sales and support for eligible tax-free purchases.',
+    steps: ['Register for the VAT program'],
+  },
+  {
     id: 'kmc-housing',
     name: 'KMC Housing Office',
     category: 'Housing',
@@ -574,7 +619,7 @@ function Directory({ onHome, onPlan }) {
   })
 
   const mapUrl = (entry) =>
-    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${entry.name}, ${entry.location}`)}`
+    entry.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${entry.name}, ${entry.location}`)}`
 
   return (
     <div className="companion-shell directory-shell">
@@ -663,7 +708,7 @@ function Directory({ onHome, onPlan }) {
               <div className="directory-actions">
                 {entry.phone ? (
                   <>
-                    <a className="directory-action directory-action--primary" href={`tel:${entry.phone.replace(/[^\d+]/g, '')}`}>
+                    <a className="directory-action directory-action--primary" href={`tel:${entry.phoneHref || entry.phone.replace(/[^\d+]/g, '')}`}>
                       Call {entry.phone}
                     </a>
                     {entry.alternatePhone && (
@@ -677,7 +722,7 @@ function Directory({ onHome, onPlan }) {
                 )}
                 {entry.website && (
                   <a className="directory-action" href={entry.website} target="_blank" rel="noreferrer">
-                    Official website ↗
+                    {entry.websiteLabel || 'Official website'} ↗
                   </a>
                 )}
                 <a className="directory-action" href={mapUrl(entry)} target="_blank" rel="noreferrer">
