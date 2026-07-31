@@ -245,6 +245,180 @@ const phaseTasks = [
   },
 ]
 
+const directoryEntries = [
+  {
+    id: 'ramstein-id-cards',
+    name: 'Ramstein ID Cards & DEERS',
+    category: 'Identification',
+    location: 'Ramstein Passenger Terminal, Bldg 2102',
+    area: 'Ramstein Air Base',
+    phone: '06371-47-2273',
+    services: 'CAC issuance, SOFA stamps, and DEERS support.',
+    steps: ['Complete CAC and DEERS enrollment', 'Obtain No-Fee passports and SOFA stamps'],
+  },
+  {
+    id: 'kleber-id-cards',
+    name: 'Kleber ID Cards & UTAP',
+    category: 'Identification',
+    location: 'Kleber Kaserne, Bldg 3245',
+    area: 'Kaiserslautern',
+    phone: '06311-43-5121',
+    services: 'CAC issuance, SOFA stamps, ID cards, and UTAP support.',
+    steps: ['Complete CAC and DEERS enrollment', 'Set up UTAP for eligible utilities'],
+  },
+  {
+    id: 'landstuhl-outprocessing',
+    name: 'Landstuhl Outprocessing',
+    category: 'Finance',
+    location: 'Bldg 3700',
+    area: 'Landstuhl',
+    services: 'Local badging, security keys, in-processing, travel vouchers, and TQSA forms.',
+    steps: ['Complete finance and payroll in-processing', 'Submit your temporary-lodging claim'],
+  },
+  {
+    id: 'kmc-housing',
+    name: 'KMC Housing Office',
+    category: 'Housing',
+    location: 'Vogelweh, Bldg 1001',
+    area: 'Kaiserslautern',
+    services: 'Housing registration and lease review. Register within 48 hours and obtain approval before signing a German lease.',
+    steps: ['In-process with the KMC Housing Office', 'Review the home beyond the rent'],
+  },
+  {
+    id: 'fmo',
+    name: 'Furnishings Management Office',
+    category: 'Housing',
+    location: 'Vogelweh, Bldg 1001',
+    area: 'Kaiserslautern',
+    services: 'Schedules temporary furniture and major appliance delivery, including washers, dryers, and transformers.',
+    steps: ['Schedule FMO furnishings and appliances'],
+  },
+  {
+    id: 'ramstein-licensing',
+    name: 'Ramstein USAREUR Licensing',
+    category: 'Driving',
+    location: 'Bldg 2106',
+    area: 'Ramstein Air Base',
+    services: 'USAREUR driver’s license processing. Bring JKO certificates, hard-copy orders, and the required non-cash fee.',
+    steps: ['Complete USAREUR driver training', 'Obtain your USAREUR driver’s license'],
+  },
+  {
+    id: 'kleber-licensing',
+    name: 'Kleber USAREUR Licensing',
+    category: 'Driving',
+    location: 'Bldg 3212',
+    area: 'Kleber Kaserne',
+    services: 'USAREUR driver’s license processing. Bring JKO certificates, hard-copy orders, and the required non-cash fee.',
+    steps: ['Complete USAREUR driver training', 'Obtain your USAREUR driver’s license'],
+  },
+  {
+    id: 'aafes-esso',
+    name: 'AAFES ESSO Card Service',
+    category: 'Vehicle',
+    location: 'Any local on-base AAFES gas station',
+    area: 'KMC',
+    services: 'Issues prepaid ESSO fuel cards. Bring vehicle registration, orders, and CAC.',
+    steps: ['Set up an ESSO fuel card'],
+  },
+  {
+    id: 'school-liaison',
+    name: 'School Liaison Officer',
+    category: 'Schools',
+    location: 'Rhine Ordnance Barracks, Bldg 162',
+    area: 'Kaiserslautern',
+    phone: '0631-143-541-9061',
+    services: 'Assists families with DoDEA registration and school-transition questions.',
+    steps: ['Review school and childcare options', 'Complete school registration'],
+  },
+  {
+    id: 'landstuhl-elementary',
+    name: 'Landstuhl Elementary School',
+    category: 'Schools',
+    location: 'Landstuhl Post, Bldg 3720',
+    area: 'Landstuhl',
+    services: 'DoDEA school serving grades PK–5.',
+    steps: ['Review school and childcare options', 'Complete school registration'],
+  },
+  {
+    id: 'kaiserslautern-schools',
+    name: 'Kaiserslautern DoDEA Schools',
+    category: 'Schools',
+    location: 'Vogelweh & Kleber area',
+    area: 'Kaiserslautern',
+    services: 'DoDEA elementary, middle, and high school options.',
+    steps: ['Review school and childcare options', 'Complete school registration'],
+  },
+  {
+    id: 'ramstein-schools',
+    name: 'Ramstein DoDEA Schools',
+    category: 'Schools',
+    location: 'Ramstein Air Base',
+    area: 'Ramstein',
+    services: 'DoDEA elementary, intermediate, middle, and high school options.',
+    steps: ['Review school and childcare options', 'Complete school registration'],
+  },
+  {
+    id: 'sbw-westpfalz',
+    name: 'SBW International School Westpfalz',
+    category: 'Schools',
+    location: 'Landstuhl area',
+    area: 'Landstuhl',
+    services: 'Private English-language curriculum and an alternative to DoDEA or local German schools.',
+    steps: ['Review school and childcare options', 'Complete school registration'],
+  },
+  {
+    id: 'flynn-family-medicine',
+    name: 'Flynn Family Medicine',
+    category: 'Healthcare',
+    location: 'Schulstraße 2, 66877 Ramstein-Miesenbach',
+    area: 'Ramstein-Miesenbach',
+    phone: '06371-952-7070',
+    services: 'English-speaking general practice and family care on the German economy.',
+    steps: ['Audit your overseas health coverage', 'Save local healthcare options'],
+  },
+  {
+    id: 'dentistry-4-kidz',
+    name: 'Dentistry 4 Kidz',
+    category: 'Healthcare',
+    location: 'Kaiserstraße 171, 66849 Landstuhl',
+    area: 'Landstuhl',
+    phone: '06371-130-0921',
+    services: 'English-speaking pediatric dental care.',
+    steps: ['Save local healthcare options'],
+  },
+  {
+    id: 'nardini-klinikum',
+    name: 'Nardini Klinikum',
+    category: 'Healthcare',
+    location: 'Nardinistraße 30, 66849 Landstuhl',
+    area: 'Landstuhl',
+    phone: '06371-840',
+    services: 'General emergency hospital and maternity care with on-call patient liaisons.',
+    steps: ['Save local healthcare options'],
+  },
+  {
+    id: 'westpfalz-klinikum',
+    name: 'Westpfalz-Klinikum',
+    category: 'Healthcare',
+    location: 'Hellmut-Hartert-Straße 1, Kaiserslautern',
+    area: 'Kaiserslautern',
+    phone: '0631-2030',
+    services: 'Regional hospital and major trauma center.',
+    steps: ['Save local healthcare options'],
+  },
+  {
+    id: 'pulaski-vet',
+    name: 'Pulaski Veterinary Clinic',
+    category: 'Pets',
+    location: 'Pulaski Barracks, Bldg 2928',
+    area: 'Kaiserslautern',
+    services: 'Pet registration. The storyboard directs arriving families to register within 14 days.',
+    steps: ['Start your PCS document folder'],
+  },
+]
+
+const directoryCategories = ['All', ...new Set(directoryEntries.map((entry) => entry.category))]
+
 const companionPaths = [
   {
     eyebrow: 'Your new beginning',
@@ -273,7 +447,140 @@ function ArrowIcon() {
   return <span aria-hidden="true">↗</span>
 }
 
-function Companion({ onHome }) {
+function Directory({ onHome, onPlan }) {
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('All')
+  const normalizedQuery = query.trim().toLowerCase()
+  const visibleEntries = directoryEntries.filter((entry) => {
+    const matchesCategory = category === 'All' || entry.category === category
+    const searchable = [
+      entry.name,
+      entry.category,
+      entry.location,
+      entry.area,
+      entry.phone,
+      entry.services,
+      ...entry.steps,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase()
+    return matchesCategory && (!normalizedQuery || searchable.includes(normalizedQuery))
+  })
+
+  const mapUrl = (entry) =>
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${entry.name}, ${entry.location}`)}`
+
+  return (
+    <div className="companion-shell directory-shell">
+      <header className="companion-header">
+        <button className="brand brand-button" onClick={onHome} aria-label="Return to Germany PCS Companion home">
+          <span className="brand-mark">G</span>
+          <span className="brand-copy">
+            <strong>GERMANY</strong>
+            <span>PCS Companion</span>
+          </span>
+        </button>
+        <p>Offices, services & support</p>
+        <div className="companion-nav-actions">
+          <button className="home-link" onClick={onPlan}>My plan</button>
+          <button className="home-link" onClick={onHome}>Exit</button>
+        </div>
+      </header>
+
+      <main className="directory-main">
+        <section className="directory-hero">
+          <div>
+            <p className="eyebrow">Cross-base service directory</p>
+            <h1>Find the right place,<br /><span>when you need it.</span></h1>
+          </div>
+          <p>Search offices, schools, clinics, and support services. Every listing shows which part of your PCS plan it supports.</p>
+        </section>
+
+        <a className="emergency-banner" href="tel:112">
+          <span className="emergency-icon" aria-hidden="true">!</span>
+          <span>
+            <small>Emergency in Germany</small>
+            <strong>Call 112</strong>
+          </span>
+          <span className="emergency-call">Tap to call →</span>
+        </a>
+
+        <section className="directory-tools" aria-label="Directory filters">
+          <label className="directory-search">
+            <span>Search</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Office, service, city, phone, or step"
+            />
+          </label>
+          <div className="directory-filters" aria-label="Filter by category">
+            {directoryCategories.map((item) => (
+              <button
+                key={item}
+                className={category === item ? 'is-active' : ''}
+                onClick={() => setCategory(item)}
+                aria-pressed={category === item}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <div className="directory-results-heading">
+          <h2>{category === 'All' ? 'All services' : category}</h2>
+          <span>{visibleEntries.length} {visibleEntries.length === 1 ? 'listing' : 'listings'}</span>
+        </div>
+
+        <section className="directory-grid" aria-live="polite">
+          {visibleEntries.map((entry) => (
+            <article className="directory-card" key={entry.id}>
+              <div className="directory-card-top">
+                <span className="directory-category">{entry.category}</span>
+                <span className="directory-area">{entry.area}</span>
+              </div>
+              <h3>{entry.name}</h3>
+              <p className="directory-location">{entry.location}</p>
+              <p className="directory-services">{entry.services}</p>
+              <div className="directory-step-links">
+                <small>Supports these steps</small>
+                {entry.steps.map((step) => <span key={step}>{step}</span>)}
+              </div>
+              <div className="directory-actions">
+                {entry.phone ? (
+                  <a className="directory-action directory-action--primary" href={`tel:${entry.phone.replace(/[^\d+]/g, '')}`}>
+                    Call {entry.phone}
+                  </a>
+                ) : (
+                  <span className="directory-no-phone">Phone not listed in source</span>
+                )}
+                <a className="directory-action" href={mapUrl(entry)} target="_blank" rel="noreferrer">
+                  Open in Maps ↗
+                </a>
+              </div>
+            </article>
+          ))}
+          {visibleEntries.length === 0 && (
+            <div className="directory-empty">
+              <h3>No matching services</h3>
+              <p>Try a city, building number, phone number, or a broader category.</p>
+            </div>
+          )}
+        </section>
+
+        <div className="planner-reassurance directory-disclaimer">
+          <span aria-hidden="true">i</span>
+          <p><strong>Public reference information.</strong> Details were extracted from the supplied storyboard. Confirm current hours, eligibility, fees, and appointment requirements before traveling.</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function Companion({ onHome, onDirectory }) {
   const [activePhase, setActivePhase] = useState('Temporary offer')
   const [completed, setCompleted] = useState(() => {
     try {
@@ -307,7 +614,10 @@ function Companion({ onHome }) {
           </span>
         </button>
         <p>Your personal arrival plan</p>
-        <button className="home-link" onClick={onHome}>Exit plan</button>
+        <div className="companion-nav-actions">
+          <button className="home-link" onClick={onDirectory}>Directory</button>
+          <button className="home-link" onClick={onHome}>Exit plan</button>
+        </div>
       </header>
 
       <main className="planner">
@@ -396,27 +706,41 @@ function Companion({ onHome }) {
 }
 
 function App() {
-  const [showCompanion, setShowCompanion] = useState(() => window.location.hash === '#plan')
+  const getViewFromHash = () => {
+    if (window.location.hash === '#plan') return 'plan'
+    if (window.location.hash === '#directory') return 'directory'
+    return 'home'
+  }
+  const [activeView, setActiveView] = useState(getViewFromHash)
 
   useEffect(() => {
-    const handleHash = () => setShowCompanion(window.location.hash === '#plan')
+    const handleHash = () => setActiveView(getViewFromHash())
     window.addEventListener('hashchange', handleHash)
     return () => window.removeEventListener('hashchange', handleHash)
   }, [])
 
   const startPlan = () => {
     window.location.hash = 'plan'
-    setShowCompanion(true)
+    setActiveView('plan')
+  }
+
+  const openDirectory = () => {
+    window.location.hash = 'directory'
+    setActiveView('directory')
   }
 
   const returnHome = () => {
     window.history.pushState(null, '', window.location.pathname)
-    setShowCompanion(false)
+    setActiveView('home')
     window.scrollTo(0, 0)
   }
 
-  if (showCompanion) {
-    return <Companion onHome={returnHome} />
+  if (activeView === 'plan') {
+    return <Companion onHome={returnHome} onDirectory={openDirectory} />
+  }
+
+  if (activeView === 'directory') {
+    return <Directory onHome={returnHome} onPlan={startPlan} />
   }
 
   return (
@@ -432,6 +756,7 @@ function App() {
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#journey">Your journey</a>
+          <button onClick={openDirectory}>Directory</button>
           <a href="#explore">Explore</a>
           <a href="#about">About this guide</a>
         </nav>
@@ -614,6 +939,7 @@ function App() {
         </a>
         <p>From job offer to settled in Germany.</p>
         <div className="footer-links">
+          <button onClick={openDirectory}>Directory</button>
           <a href="#top">Accessibility</a>
           <a href="#top">Privacy</a>
           <a href="#about">Testing disclaimer</a>
