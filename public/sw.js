@@ -1,4 +1,4 @@
-const CACHE_NAME = 'germany-pcs-companion-v4'
+const CACHE_NAME = 'germany-pcs-companion-v5'
 const APP_SHELL = [
   './',
   './index.html',
@@ -9,7 +9,7 @@ const APP_SHELL = [
   './icons/icon-512-maskable.png',
   './icons/apple-touch-icon.png',
   './images/germany-landscape.jpg',
-  './images/german-shepherd-welcome.png',
+  './images/german-shepherd-spring.png',
 ]
 
 const scopedUrl = (path) => new URL(path, self.registration.scope).href

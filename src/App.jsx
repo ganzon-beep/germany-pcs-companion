@@ -889,8 +889,8 @@ function App() {
         <section className="welcome section-pad" id="about">
           <div className="welcome-image">
             <img
-              src={assetUrl('/images/german-shepherd-welcome.png')}
-              alt="A happy illustrated German shepherd beside a German home"
+              src={assetUrl('/images/german-shepherd-spring.png')}
+              alt="A happy illustrated German shepherd beneath a flowering tree in Germany"
             />
           </div>
           <div className="welcome-copy">
