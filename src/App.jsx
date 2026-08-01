@@ -1297,7 +1297,10 @@ function App() {
       </header>
 
       <main id="top">
-        <section className="hero section-pad">
+        <section
+          className="hero hero--map-background section-pad"
+          style={{ '--hero-map-image': `url("${assetUrl('/images/lrmc-area-hand-drawn-map-3x2-transparent.png')}")` }}
+        >
           <div className="hero-copy">
             <p className="eyebrow">
               <span className="eyebrow-dot" />
@@ -1329,19 +1332,6 @@ function App() {
             </p>
           </div>
 
-          <div className="hero-visual">
-            <div className="hero-image-wrap hero-image-wrap--map">
-              <img
-                src={assetUrl('/images/lrmc-area-hand-drawn-map-v3-hero.jpg')}
-                alt="Hand-drawn illustrated map connecting Ramstein, Landstuhl, and the surrounding KMCC area"
-              />
-            </div>
-            <div className="arrival-card">
-              <span className="arrival-card__label">Built around you</span>
-              <strong>One clear next step</strong>
-              <p>at every stage of your move.</p>
-            </div>
-          </div>
         </section>
 
         <section className="journey section-pad" id="journey">
