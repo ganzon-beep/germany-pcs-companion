@@ -566,29 +566,145 @@ const directoryEntries = [
 
 const directoryCategories = ['All', ...new Set(directoryEntries.map((entry) => entry.category))]
 
-const companionPaths = [
+const localLifePreviews = [
   {
-    eyebrow: 'Your new beginning',
-    title: 'Arrive prepared',
-    copy: 'Understand your first days, organize the essentials, and feel more grounded before you arrive.',
-    link: 'Plan your arrival',
+    eyebrow: 'Know your surroundings',
+    title: 'Meet your local area',
+    copy: 'Get oriented to Ramstein, Kaiserslautern, Landstuhl, and the villages that connect everyday life across the region.',
+    link: 'Explore the region',
     className: 'path-card--sky',
   },
   {
-    eyebrow: 'Your relocation',
-    title: 'Move with clarity',
-    copy: 'Turn offers, orders, documents, travel, housing, and allowances into a clear next step.',
-    link: 'See your PCS journey',
+    eyebrow: 'Learn the local rhythm',
+    title: 'Make daily life easier',
+    copy: 'Understand recycling, shopping hours, transportation, village routines, and the practical systems you will use each week.',
+    link: 'See everyday essentials',
     className: 'path-card--sand',
   },
   {
-    eyebrow: 'Your everyday life',
-    title: 'Feel at home sooner',
-    copy: 'Learn how healthcare, schools, driving, utilities, and daily life work in Germany.',
-    link: 'Explore life in Germany',
+    eyebrow: 'Connect with confidence',
+    title: 'Read the culture',
+    copy: 'Learn the small courtesies, quiet-hour expectations, useful phrases, and neighborhood habits that help a new place feel like home.',
+    link: 'Explore culture & etiquette',
     className: 'path-card--sage',
   },
 ]
+
+const localAreas = [
+  {
+    name: 'Kaiserslautern',
+    label: 'City life',
+    copy: 'The region’s urban center: a walkable pedestrian district, main rail connections, restaurants, services, and a weekly market rhythm.',
+  },
+  {
+    name: 'Ramstein & Ramstein-Miesenbach',
+    label: 'Connected hub',
+    copy: 'A practical center for base-adjacent errands, family routines, local shops, restaurants, and regional rail access.',
+  },
+  {
+    name: 'Landstuhl',
+    label: 'Compact town',
+    copy: 'A smaller town center with everyday services, rail connections, wooded surroundings, and quick access across the western KMC area.',
+  },
+  {
+    name: 'The surrounding villages',
+    label: 'Village rhythm',
+    copy: 'Places such as Kindsbach, Mackenbach, Weilerbach, Bann, Queidersbach, and Bruchmühlbach-Miesau each have their own services, events, and waste calendar.',
+  },
+]
+
+const lifeTopics = [
+  {
+    category: 'Culture',
+    title: 'Small courtesies go a long way',
+    summary: 'German interactions can feel more formal at first, but the pattern is easy to learn.',
+    tips: [
+      'Say “Guten Morgen,” “Guten Tag,” or a simple “Hallo” when entering a small shop or meeting a neighbor.',
+      'Use “Sie” until invited to use “du,” especially with officials, landlords, and older adults.',
+      'Be on time for appointments and tell someone early if you will be delayed.',
+      'A direct answer is usually meant to be clear, not unfriendly.',
+    ],
+  },
+  {
+    category: 'Culture',
+    title: 'Know the neighborhood rhythm',
+    summary: 'Shared buildings and villages place a high value on consideration and predictable routines.',
+    tips: [
+      'Follow the quiet hours written in your lease or local rules; Sundays and public holidays are generally treated as rest days.',
+      'Ask before hosting a loud gathering and introduce yourself to immediate neighbors.',
+      'Local clubs—Vereine—are one of the easiest ways to meet people beyond work.',
+      'Keep sidewalks, shared stairwells, parking areas, and assigned bins tidy.',
+    ],
+  },
+  {
+    category: 'Recycling',
+    title: 'Learn the household bins first',
+    summary: 'Waste rules differ between the City and County of Kaiserslautern, so your address determines the exact system and pickup calendar.',
+    tips: [
+      'Yellow bag or yellow bin: empty sales packaging made of plastic, metal, or mixed materials—not every plastic household item.',
+      'Paper bin: clean paper and cardboard; flatten boxes and keep food-soiled paper out.',
+      'Bio bin: food and garden waste accepted by your municipality.',
+      'Residual bin: non-recyclable household waste that does not belong in another stream.',
+    ],
+  },
+  {
+    category: 'Recycling',
+    title: 'Handle glass, deposits, and special waste separately',
+    summary: 'A few common items never belong in the regular household recycling bins.',
+    tips: [
+      'Sort non-deposit glass at public containers by clear, green, and brown glass; follow posted drop-off hours.',
+      'Return bottles and cans marked “Pfand” to a supermarket deposit machine and use the receipt at checkout.',
+      'Use the local recycling center or scheduled collection for electronics, chemicals, and bulky waste.',
+      'Check the waste guide for your municipality before setting anything beside the bins.',
+    ],
+  },
+  {
+    category: 'Shopping',
+    title: 'Plan around Sundays and holidays',
+    summary: 'Most regular shops and supermarkets close on Sundays and public holidays, with limited exceptions and occasional designated shopping Sundays.',
+    tips: [
+      'Finish the main grocery run by Saturday and check holiday closures before a long weekend.',
+      'Bakeries, fuel stations, restaurants, and a few travel-location shops may have limited Sunday hours.',
+      'Kaiserslautern announces occasional “verkaufsoffene Sonntage” when participating stores open for a Sunday afternoon.',
+      'Hours can change by location—check the specific shop before traveling.',
+    ],
+  },
+  {
+    category: 'Shopping',
+    title: 'Expect a different checkout routine',
+    summary: 'German supermarkets move quickly and assume shoppers will bring or purchase what they need to carry groceries home.',
+    tips: [
+      'Bring reusable bags and pack your own groceries after they are scanned.',
+      'Keep a €1 or €2 coin—or a reusable token—for many shopping carts.',
+      'Cards are widely accepted, but keeping some euros helps at markets, bakeries, and smaller businesses.',
+      'Use weekly markets and bakeries to learn local seasonal foods and everyday phrases.',
+    ],
+  },
+  {
+    category: 'Getting around',
+    title: 'Build a local transportation toolkit',
+    summary: 'The area is car-oriented in places, but regional trains and buses can cover many routine trips.',
+    tips: [
+      'Save your nearest station and bus stop, not just the nearest city.',
+      'Use DB Navigator for rail planning and check the regional operator for local bus changes.',
+      'Look for parking signs, time limits, and the blue parking-disc symbol before walking away from the car.',
+      'Expect narrow village streets and leave driveways, sidewalks, and emergency access clear.',
+    ],
+  },
+  {
+    category: 'Home',
+    title: 'Let the house work the German way',
+    summary: 'A few habits help with comfort, moisture, utility use, and good relations with a landlord.',
+    tips: [
+      'Practice brief, wide-open window ventilation—Stoßlüften—instead of leaving windows tilted for long periods.',
+      'Learn how your heat, shutters, cellar, meters, and shared spaces work during the handover.',
+      'Photograph the move-in condition and keep the signed handover record with your lease.',
+      'Ask which bins, sweeping, snow, garden, or hallway duties belong to the tenant.',
+    ],
+  },
+]
+
+const lifeCategories = ['All', ...new Set(lifeTopics.map((topic) => topic.category))]
 
 function ArrowIcon() {
   return <span aria-hidden="true">↗</span>
@@ -969,10 +1085,146 @@ function Companion({ onHome, onDirectory }) {
   )
 }
 
+function LifeInGermany({ onHome, onPlan, onDirectory }) {
+  const [category, setCategory] = useState('All')
+  const visibleTopics = lifeTopics.filter((topic) => category === 'All' || topic.category === category)
+
+  return (
+    <div className="companion-shell life-shell">
+      <header className="companion-header">
+        <button className="brand brand-button" onClick={onHome} aria-label="Return to Germany PCS Companion home">
+          <span className="brand-mark">G</span>
+          <span className="brand-copy">
+            <strong>GERMANY</strong>
+            <span>PCS Companion</span>
+          </span>
+        </button>
+        <p>Everyday life in your new community</p>
+        <div className="companion-nav-actions">
+          <button className="home-link" onClick={onDirectory}>Directory</button>
+          <button className="home-link" onClick={onPlan}>My plan</button>
+          <button className="home-link" onClick={onHome}>Exit</button>
+        </div>
+      </header>
+
+      <main className="life-main">
+        <section className="life-hero">
+          <div>
+            <p className="eyebrow">Explore life in the KMC area</p>
+            <h1>Feel local,<br /><span>one routine at a time.</span></h1>
+          </div>
+          <div className="life-hero-copy">
+            <p>Get to know the Ramstein–Kaiserslautern–Landstuhl area through the things that shape a real week: neighbors, recycling, groceries, transportation, village life, and the small cultural cues nobody explains at first.</p>
+            <div className="life-quick-start">
+              <small>Your first local week</small>
+              <ul>
+                <li>Find your municipality’s waste calendar.</li>
+                <li>Save your closest grocery store, bakery, pharmacy, and train or bus stop.</li>
+                <li>Plan the first Sunday and public holiday before everything closes.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="local-area-section" aria-labelledby="local-area-heading">
+          <div className="life-section-heading">
+            <div>
+              <p className="eyebrow">Your local geography</p>
+              <h2 id="local-area-heading">One region,<br />many rhythms.</h2>
+            </div>
+            <p>The area works less like one city and more like a connected collection of towns, installations, and villages. Your home address will shape your commute, waste rules, school route, and everyday errands.</p>
+          </div>
+          <div className="local-area-grid">
+            {localAreas.map((area, index) => (
+              <article key={area.name}>
+                <span className="local-area-number">0{index + 1}</span>
+                <p className="path-card__eyebrow">{area.label}</p>
+                <h3>{area.name}</h3>
+                <p>{area.copy}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="life-topics" aria-labelledby="life-topics-heading">
+          <div className="life-section-heading">
+            <div>
+              <p className="eyebrow">The everyday guide</p>
+              <h2 id="life-topics-heading">What changes<br />after you arrive.</h2>
+            </div>
+            <p>Choose a topic and learn the local pattern. These are practical starting points; city, county, lease, and village rules may differ by address.</p>
+          </div>
+
+          <div className="life-topic-filters" aria-label="Filter everyday-life topics">
+            {lifeCategories.map((item) => (
+              <button
+                key={item}
+                className={category === item ? 'is-active' : ''}
+                onClick={() => setCategory(item)}
+                aria-pressed={category === item}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+
+          <div className="life-topic-grid" aria-live="polite">
+            {visibleTopics.map((topic) => (
+              <article className="life-topic-card" key={topic.title}>
+                <span className="life-topic-label">{topic.category}</span>
+                <h3>{topic.title}</h3>
+                <p>{topic.summary}</p>
+                <ul>
+                  {topic.tips.map((tip) => <li key={tip}>{tip}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="local-resources" aria-labelledby="local-resources-heading">
+          <div>
+            <p className="eyebrow">Keep the official sources close</p>
+            <h2 id="local-resources-heading">Local answers,<br />when details matter.</h2>
+          </div>
+          <div className="local-resource-links">
+            <a href="https://www.welcome-to-rlp.org/guide/overview" target="_blank" rel="noreferrer">
+              <span>Living guide</span>
+              <strong>Welcome to Rheinland-Pfalz</strong>
+              <ArrowIcon />
+            </a>
+            <a href="https://www.kaiserslautern-kreis.de/verwaltung/abfallwirtschaft/" target="_blank" rel="noreferrer">
+              <span>County addresses</span>
+              <strong>Kaiserslautern County waste information</strong>
+              <ArrowIcon />
+            </a>
+            <a href="https://stadtbildpflege-kaiserslautern.de/" target="_blank" rel="noreferrer">
+              <span>City addresses</span>
+              <strong>City of Kaiserslautern waste information</strong>
+              <ArrowIcon />
+            </a>
+            <a href="https://www3.kaiserslautern.de/gaco/" target="_blank" rel="noreferrer">
+              <span>Community help</span>
+              <strong>German-American Community Office</strong>
+              <ArrowIcon />
+            </a>
+          </div>
+        </section>
+
+        <div className="planner-reassurance life-disclaimer">
+          <span aria-hidden="true">i</span>
+          <p><strong>Address-specific rules matter.</strong> Confirm collection schedules, quiet hours, parking restrictions, and local services with your municipality, landlord, or the responsible office.</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+
 function App() {
   const getViewFromHash = () => {
     if (window.location.hash === '#plan') return 'plan'
     if (window.location.hash === '#directory') return 'directory'
+    if (window.location.hash === '#life') return 'life'
     return 'home'
   }
   const [activeView, setActiveView] = useState(getViewFromHash)
@@ -993,6 +1245,12 @@ function App() {
     setActiveView('directory')
   }
 
+  const openLife = () => {
+    window.location.hash = 'life'
+    setActiveView('life')
+    window.scrollTo(0, 0)
+  }
+
   const returnHome = () => {
     window.history.pushState(null, '', window.location.pathname)
     setActiveView('home')
@@ -1005,6 +1263,10 @@ function App() {
 
   if (activeView === 'directory') {
     return <><Directory onHome={returnHome} onPlan={startPlan} /><InstallPwa /></>
+  }
+
+  if (activeView === 'life') {
+    return <><LifeInGermany onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
   }
 
   return (
@@ -1021,7 +1283,7 @@ function App() {
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#journey">Your journey</a>
           <button onClick={openDirectory}>Directory</button>
-          <a href="#explore">Explore</a>
+          <button onClick={openLife}>Explore</button>
           <a href="#about">About this guide</a>
         </nav>
 
@@ -1055,10 +1317,10 @@ function App() {
                 Start my journey
                 <span aria-hidden="true">→</span>
               </button>
-              <a className="text-link" href="#explore">
+              <button className="text-link" onClick={openLife}>
                 Explore life in Germany
                 <ArrowIcon />
-              </a>
+              </button>
             </div>
             <p className="privacy-note">
               <span>No account required</span>
@@ -1126,25 +1388,25 @@ function App() {
         <section className="explore section-pad" id="explore">
           <div className="section-heading section-heading--center">
             <div>
-              <p className="eyebrow">More than a checklist</p>
-              <h2>Everything around the move.</h2>
+              <p className="eyebrow">Explore life in your new community</p>
+              <h2>Germany starts right outside your door.</h2>
             </div>
             <p>
-              Practical guidance for the work, the relocation, and the life
-              you’re building here.
+              A practical introduction to culture, everyday systems, and the
+              Ramstein–Kaiserslautern–Landstuhl area.
             </p>
           </div>
 
           <div className="path-grid">
-            {companionPaths.map((path) => (
+            {localLifePreviews.map((path) => (
               <article className={`path-card ${path.className}`} key={path.title}>
                 <p className="path-card__eyebrow">{path.eyebrow}</p>
                 <h3>{path.title}</h3>
                 <p>{path.copy}</p>
-                <a href="#journey">
+                <button onClick={openLife}>
                   {path.link}
                   <ArrowIcon />
-                </a>
+                </button>
               </article>
             ))}
           </div>
@@ -1207,6 +1469,7 @@ function App() {
         </a>
         <p>From job offer to settled in Germany.</p>
         <div className="footer-links">
+          <button onClick={openLife}>Explore life</button>
           <button onClick={openDirectory}>Directory</button>
           <a href="#top">Accessibility</a>
           <a href="#top">Privacy</a>
