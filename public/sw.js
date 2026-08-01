@@ -1,4 +1,4 @@
-const CACHE_NAME = 'germany-pcs-companion-v10'
+const CACHE_NAME = 'germany-pcs-companion-v11'
 const APP_SHELL = [
   './',
   './index.html',

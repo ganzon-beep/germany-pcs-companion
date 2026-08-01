@@ -1301,7 +1301,7 @@ function App() {
           <div className="hero-copy">
             <p className="eyebrow">
               <span className="eyebrow-dot" />
-              Welcome to the U.S.–German family
+              Welcome to the KMCC family
             </p>
             <h1>
               Your move to Germany,
