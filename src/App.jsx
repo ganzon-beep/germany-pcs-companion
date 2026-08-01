@@ -7,7 +7,7 @@ const journeyStages = [
   ['02', 'Final offer', 'Prepare with confidence'],
   ['03', 'Pre-arrival', 'Make the move feel manageable'],
   ['04', 'Arrival', 'Handle the first essentials'],
-  ['05', '30 · 60 · 90', 'Settle into life in Germany'],
+  ['05', 'Days 30 · 60 · 90', 'Settling into your new life'],
 ]
 
 const phaseTasks = [
@@ -181,7 +181,7 @@ const phaseTasks = [
   },
   {
     id: 'tqsa',
-    phase: '30 · 60 · 90',
+    phase: 'Days 30 · 60 · 90',
     window: 'Every 30 days',
     title: 'Submit your temporary-lodging claim',
     detail: 'Keep every lodging, meal, and laundry receipt. Submit TQSA claims in strict 30-day increments; reimbursement percentages may decrease over time.',
@@ -189,7 +189,7 @@ const phaseTasks = [
   },
   {
     id: 'review-rental-details',
-    phase: '30 · 60 · 90',
+    phase: 'Days 30 · 60 · 90',
     window: 'Before signing a lease',
     title: 'Review the home beyond the rent',
     detail: 'Confirm your LQA cap, whether an Einbauküche (EBK) is included, the heating type, shutters or cooling options, and how annual Nebenkosten reconciliation works.',
@@ -197,7 +197,7 @@ const phaseTasks = [
   },
   {
     id: 'utap',
-    phase: '30 · 60 · 90',
+    phase: 'Days 30 · 60 · 90',
     window: 'After lease approval',
     title: 'Set up UTAP for eligible utilities',
     detail: 'Bring the approved lease, IBAN details, and setup fee to Kleber Bldg 3245 or Ramstein Bldg 2118. Garbage, telephone, internet, and heating oil are not covered.',
@@ -205,7 +205,7 @@ const phaseTasks = [
   },
   {
     id: 'fmo',
-    phase: '30 · 60 · 90',
+    phase: 'Days 30 · 60 · 90',
     window: 'After signing a lease',
     title: 'Schedule FMO furnishings and appliances',
     detail: 'Visit FMO at Vogelweh Bldg 1001 for temporary loaner furniture and available tour-length appliances while you wait for household goods.',
@@ -213,7 +213,7 @@ const phaseTasks = [
   },
   {
     id: 'vehicle-registration',
-    phase: '30 · 60 · 90',
+    phase: 'Days 30 · 60 · 90',
     window: 'When your vehicle arrives',
     title: 'Inspect and register your vehicle',
     detail: 'At Kapaun Bldg 2806, obtain temporary plates, collect the vehicle, pass inspection, then secure permanent plates. Carry a DIN 13164 first-aid kit, two masks, a warning triangle, and reflective vest.',
@@ -221,7 +221,7 @@ const phaseTasks = [
   },
   {
     id: 'esso-card',
-    phase: '30 · 60 · 90',
+    phase: 'Days 30 · 60 · 90',
     window: 'After registration',
     title: 'Set up an ESSO fuel card',
     detail: 'Take your vehicle registration, orders, and CAC to an AAFES gas station to request the prepaid tax-free fuel card.',
@@ -229,7 +229,7 @@ const phaseTasks = [
   },
   {
     id: 'school-registration',
-    phase: '30 · 60 · 90',
+    phase: 'Days 30 · 60 · 90',
     window: 'After choosing housing',
     title: 'Complete school registration',
     detail: 'Register through DoDEA, your selected private school, or the local Rathaus for German public school. Confirm your final school zone from your home address.',
@@ -237,7 +237,7 @@ const phaseTasks = [
   },
   {
     id: 'german-life-rules',
-    phase: '30 · 60 · 90',
+    phase: 'Days 30 · 60 · 90',
     window: 'As you settle in',
     title: 'Learn the everyday German rules',
     detail: 'Plan for Sunday closures and quiet hours, carry some Euros, use winter-rated tires in winter conditions, and remember Germany’s 0.05 BAC limit also applies to bicycles and e-scooters.',
