@@ -1330,15 +1330,11 @@ function App() {
           </div>
 
           <div className="hero-visual">
-            <div className="hero-image-wrap">
+            <div className="hero-image-wrap hero-image-wrap--map">
               <img
-                src={assetUrl('/images/germany-landscape.jpg')}
-                alt="Aerial view of a green community in Germany"
+                src={assetUrl('/images/lrmc-area-hand-drawn-map-v3-hero.jpg')}
+                alt="Hand-drawn illustrated map connecting Ramstein, Landstuhl, and the surrounding KMCC area"
               />
-              <div className="hero-image-caption">
-                <span>Germany</span>
-                <strong>Your new chapter starts here.</strong>
-              </div>
             </div>
             <div className="arrival-card">
               <span className="arrival-card__label">Built around you</span>

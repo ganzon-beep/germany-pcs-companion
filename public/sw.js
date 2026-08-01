@@ -1,4 +1,4 @@
-const CACHE_NAME = 'germany-pcs-companion-v11'
+const CACHE_NAME = 'germany-pcs-companion-v12'
 const APP_SHELL = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const APP_SHELL = [
   './icons/icon-512-maskable.png',
   './icons/apple-touch-icon.png',
   './images/germany-landscape.jpg',
+  './images/lrmc-area-hand-drawn-map-v3-hero.jpg',
   './images/german-shepherd-spring.png',
 ]
 
