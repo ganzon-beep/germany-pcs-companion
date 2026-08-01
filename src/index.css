@@ -302,12 +302,12 @@ img {
 
 .hero {
   display: grid;
-  min-height: calc(100vh - 6.5rem);
+  min-height: clamp(39rem, calc(100vh - 6.5rem), 46rem);
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   align-items: center;
   gap: clamp(3rem, 7vw, 7.5rem);
-  padding-top: 3rem;
-  padding-bottom: 7rem;
+  padding-top: 1.5rem;
+  padding-bottom: 4.5rem;
 }
 
 .hero--map-background {
@@ -335,10 +335,16 @@ img {
       rgba(247, 248, 245, 0.18) 72%,
       rgba(247, 248, 245, 0) 100%
     ),
+    linear-gradient(
+      270deg,
+      rgba(247, 248, 245, 0.82) 0%,
+      rgba(247, 248, 245, 0.28) 9%,
+      rgba(247, 248, 245, 0) 21%
+    ),
     var(--hero-map-image);
-  background-position: center, right center;
+  background-position: center, center, right center;
   background-repeat: no-repeat;
-  background-size: cover, auto 80%;
+  background-size: cover, cover, auto 80%;
   content: "";
 }
 
