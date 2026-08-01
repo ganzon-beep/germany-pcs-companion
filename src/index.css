@@ -338,7 +338,7 @@ img {
     var(--hero-map-image);
   background-position: center, right center;
   background-repeat: no-repeat;
-  background-size: cover, auto 100%;
+  background-size: cover, auto 80%;
   content: "";
 }
 
@@ -1760,7 +1760,7 @@ h1 span {
         rgba(247, 248, 245, 0.2) 100%
       ),
       var(--hero-map-image);
-    background-size: cover, auto 90%;
+    background-size: cover, auto 74%;
   }
 
   .section-heading {
@@ -2024,7 +2024,7 @@ h1 span {
       ),
       var(--hero-map-image);
     background-position: center, 62% center;
-    background-size: cover, auto 78%;
+    background-size: cover, auto 66%;
   }
 
   .journey,
