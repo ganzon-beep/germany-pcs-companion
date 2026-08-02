@@ -1469,8 +1469,8 @@ function App() {
 
         <section className="closing section-pad">
           <img
-            src={assetUrl('/images/germany-landscape.jpg')}
-            alt="Green landscape and buildings in Germany"
+            src={assetUrl('/images/heidelberger-schloss.jpg')}
+            alt="Aerial view of Heidelberg Castle, the Neckar River, and the surrounding wooded hills"
           />
           <div className="closing-overlay" />
           <div className="closing-copy">

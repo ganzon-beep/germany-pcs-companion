@@ -1060,6 +1060,7 @@ h1 span {
 
 .closing > img {
   object-fit: cover;
+  object-position: 62% 55%;
 }
 
 .closing-overlay {
