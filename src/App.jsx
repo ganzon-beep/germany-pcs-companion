@@ -1473,11 +1473,21 @@ function App() {
             </div>
 
             <div className="about-actions">
-              <button className="text-link" onClick={startPlan}>
-                Open my arrival plan
-                <ArrowIcon />
-              </button>
-              <span>Start anywhere. Return anytime.</span>
+              <a
+                className="about-contact-card"
+                href="mailto:ganzon@gmail.com?subject=Germany%20PCS%20Companion%20feedback"
+              >
+                <span>Questions, suggestions, or corrections?</span>
+                <strong>Email me</strong>
+                <small>ganzon@gmail.com</small>
+                <span className="about-contact-arrow" aria-hidden="true">↗</span>
+              </a>
+              <div className="about-contact-card about-contact-card--placeholder" aria-disabled="true">
+                <span>Found this page useful?</span>
+                <strong>Buy me a coffee</strong>
+                <small>Link coming soon</small>
+                <span className="about-contact-arrow" aria-hidden="true">○</span>
+              </div>
             </div>
             <div className="testing-notice">
               <strong>Unofficial public testing edition</strong>

@@ -986,14 +986,13 @@ h1 span {
   display: grid;
   grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
   gap: clamp(3rem, 8vw, 8rem);
-  align-items: center;
+  align-items: stretch;
   padding-top: 3rem;
   padding-bottom: 10rem;
 }
 
 .welcome-image {
-  max-width: 31rem;
-  aspect-ratio: 1;
+  min-height: 100%;
   overflow: hidden;
   border-radius: 1.75rem;
   background: #fbf7ef;
@@ -1055,17 +1054,66 @@ h1 span {
 }
 
 .about-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 1.5rem;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
   margin-top: 2.25rem;
 }
 
-.about-actions > span {
-  color: #7b8783;
-  font-size: 0.7rem;
-  font-weight: 650;
+.about-contact-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: start;
+  gap: 0.35rem 1rem;
+  min-height: 8.5rem;
+  border: 1px solid #d5ddd8;
+  border-radius: 1rem;
+  padding: 1.1rem;
+  background: white;
+}
+
+.about-contact-card > span:first-child {
+  grid-column: 1;
+  color: #73807b;
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.about-contact-card strong {
+  grid-column: 1;
+  margin-top: auto;
+  padding-top: 1rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.about-contact-card small {
+  grid-column: 1;
+  color: var(--navy);
+  font-size: 0.67rem;
+  font-weight: 700;
+}
+
+.about-contact-arrow {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: center;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.about-contact-card--placeholder {
+  border-style: dashed;
+  background: #f6f1e7;
+}
+
+.about-contact-card--placeholder small,
+.about-contact-card--placeholder .about-contact-arrow {
+  color: #8a7a61;
 }
 
 .testing-notice {
@@ -2216,12 +2264,15 @@ h1 span {
 
   .welcome {
     grid-template-columns: 1fr;
+    align-items: start;
     padding-top: 1rem;
     padding-bottom: 7rem;
   }
 
   .welcome-image {
     width: 84%;
+    min-height: 0;
+    aspect-ratio: 1;
   }
 
   .welcome-copy h2 {
@@ -2235,6 +2286,10 @@ h1 span {
 
   .about-principles strong {
     margin-top: 0.7rem;
+  }
+
+  .about-actions {
+    grid-template-columns: 1fr;
   }
 
   .closing {
