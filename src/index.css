@@ -1554,6 +1554,68 @@ h1 span {
   line-height: 1.65;
 }
 
+.task-forms {
+  margin-top: 1rem;
+  border-top: 1px solid #e1e7e2;
+  padding-top: 0.85rem;
+}
+
+.task-forms > small {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: #78857f;
+  font-size: 0.58rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.task-forms > div {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.task-forms a {
+  display: grid;
+  grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.7rem;
+  padding: 0.65rem 0.75rem;
+  background: #eef3f6;
+  color: var(--navy-dark);
+}
+
+.task-forms a:hover {
+  background: #e5edf2;
+}
+
+.task-forms a > strong {
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+}
+
+.task-forms a > span:nth-child(2) {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.task-forms a small {
+  display: block;
+  margin-top: 0.15rem;
+  color: #74817d;
+  font-size: 0.58rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.task-forms a > span:last-child {
+  color: var(--navy);
+  font-size: 0.75rem;
+}
+
 .planner-reassurance {
   display: grid;
   margin-top: 1.4rem;

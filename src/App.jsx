@@ -27,6 +27,14 @@ const phaseTasks = [
     title: 'Review your Tentative Job Offer (TJO)',
     detail: 'Confirm the position, duty location, grade, and the HR contact listed in your offer.',
     tag: 'Offer',
+    forms: [
+      {
+        number: 'OF 306',
+        title: 'Declaration for Federal Employment',
+        note: 'Complete or recertify only when instructed by HR.',
+        url: 'https://www.opm.gov/forms/pdf_fill/of0306.pdf',
+      },
+    ],
   },
   {
     id: 'start-document-folder',
@@ -45,6 +53,14 @@ const phaseTasks = [
     title: 'Audit your overseas health coverage',
     detail: 'Review your FEHB plan for care on the German economy, overseas claims, deductibles, and direct-billing support. Federal civilians generally use military treatment facilities only on a space-available basis.',
     tag: 'Healthcare',
+    forms: [
+      {
+        number: 'SF 2809',
+        title: 'Health Benefits Election Form',
+        note: 'Your agency may require an electronic benefits system instead.',
+        url: 'https://www.opm.gov/forms/pdf_fill/sf2809.pdf',
+      },
+    ],
   },
   {
     id: 'final-offer',
@@ -54,6 +70,14 @@ const phaseTasks = [
     title: 'Verify your Final Job Offer (FJO) and travel orders',
     detail: 'Check names, dependents, allowances, and the authorized travel details before booking.',
     tag: 'Orders',
+    forms: [
+      {
+        number: 'DD 1614',
+        title: 'Request for Permanent Duty or TCS Travel',
+        note: 'Normally prepared and issued by the authorizing office.',
+        url: 'https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Civilian-Permanent-Change-of-Station-PCS-Forms/',
+      },
+    ],
   },
   {
     id: 'no-fee-passports-sofa',
@@ -63,6 +87,26 @@ const phaseTasks = [
     title: 'Obtain No-Fee passports and SOFA stamps',
     detail: 'Confirm that you and each dependent have the required No-Fee passport and SOFA stamp. Keep tourist passports available for personal travel.',
     tag: 'Passports',
+    forms: [
+      {
+        number: 'DD 1056',
+        title: 'Authorization to Apply for a No-Fee Passport and/or Visa',
+        note: 'Obtain through the DoD passport facility or authorized office.',
+        url: 'https://www.esd.whs.mil/Directives/forms/dd1000_1499/DD1056/',
+      },
+      {
+        number: 'DS-11',
+        title: 'Application for a U.S. Passport',
+        note: 'Used for first-time and other in-person applications.',
+        url: 'https://travel.state.gov/en/passports/apply/unique-needs/special-issuance-passport.html',
+      },
+      {
+        number: 'DS-82',
+        title: 'Passport Renewal Application',
+        note: 'Used when eligible to renew a special-issuance passport.',
+        url: 'https://travel.state.gov/en/passports/apply/unique-needs/special-issuance-passport.html',
+      },
+    ],
   },
   {
     id: 'advance-of-pay',
@@ -152,6 +196,26 @@ const phaseTasks = [
     title: 'Complete finance and payroll in-processing',
     detail: 'Submit your initial travel voucher and begin any authorized advance-pay or temporary-quarters allowance actions through your servicing finance office.',
     tag: 'Finance',
+    forms: [
+      {
+        number: 'DD 1351-2',
+        title: 'Travel Voucher or Subvoucher',
+        note: 'Primary form for a civilian PCS travel claim.',
+        url: 'https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Civilian-Permanent-Change-of-Station-PCS-Forms/',
+      },
+      {
+        number: 'DD 1351-2C',
+        title: 'Travel Voucher Continuation Sheet',
+        note: 'Use when the main voucher needs additional space.',
+        url: 'https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Civilian-Permanent-Change-of-Station-PCS-Forms/',
+      },
+      {
+        number: 'SF 1199A',
+        title: 'Direct Deposit Sign-Up Form',
+        note: 'DFAS requests this when banking information has changed.',
+        url: 'https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Civilian-Permanent-Change-of-Station-PCS-Forms/',
+      },
+    ],
   },
   {
     id: 'usareur-license',
@@ -200,6 +264,20 @@ const phaseTasks = [
     title: 'Submit your temporary-lodging claim',
     detail: 'Keep every lodging, meal, and laundry receipt. Submit TQSA claims in strict 30-day increments; reimbursement percentages may decrease over time.',
     tag: 'Deadline',
+    forms: [
+      {
+        number: 'SF 1190',
+        title: 'Foreign Allowances Application, Grant and Report',
+        note: 'Used to claim TQSA and other authorized foreign allowances.',
+        url: 'https://www.gsa.gov/cdnstatic/SF1190-12.pdf',
+      },
+      {
+        number: 'DSSR 120',
+        title: 'TQSA Actual Expense Worksheet',
+        note: 'Submit separate supporting calculations for each 30-day period.',
+        url: 'https://allowances.state.gov/content/documents/1851_TQSA.pdf',
+      },
+    ],
   },
   {
     id: 'review-rental-details',
@@ -1106,6 +1184,23 @@ function Companion({ onHome, onDirectory }) {
                           </div>
                           <h3>{task.title}</h3>
                           <p>{task.detail}</p>
+                          {task.forms && (
+                            <div className="task-forms">
+                              <small>Official forms</small>
+                              <div>
+                                {task.forms.map((form) => (
+                                  <a href={form.url} target="_blank" rel="noreferrer" key={`${task.id}-${form.number}`}>
+                                    <strong>{form.number}</strong>
+                                    <span>
+                                      {form.title}
+                                      <small>{form.note}</small>
+                                    </span>
+                                    <span aria-hidden="true">↗</span>
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </article>
                     )
