@@ -1446,22 +1446,46 @@ function App() {
             />
           </div>
           <div className="welcome-copy">
-            <p className="eyebrow">A friendly guide for the whole transition</p>
-            <blockquote>“A new country feels closer when you know what comes next.”</blockquote>
-            <p>
-              Use this companion from your first offer through your first 90
-              days in Germany. We’ll keep each immediate step visible while
-              helping you settle into the rhythms of your new home.
+            <p className="eyebrow">About this guide</p>
+            <h2>Clear guidance for the move—and the life around it.</h2>
+            <p className="welcome-intro">
+              Built for KMCC employees and families moving to Germany, this
+              companion connects the official PCS milestones with the everyday
+              questions that begin once Germany becomes home.
             </p>
-            <button className="text-link" onClick={startPlan}>
-              Open my arrival plan
-              <ArrowIcon />
-            </button>
+
+            <div className="about-principles">
+              <article>
+                <span>01</span>
+                <strong>Plan the move</strong>
+                <p>Follow the path from your job offer and orders through arrival and the first 90 days.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <strong>Understand the place</strong>
+                <p>Learn the local offices, culture, routines, and communities around Ramstein, Kaiserslautern, and Landstuhl.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <strong>Keep control</strong>
+                <p>No account is required. Your checklist progress stays on the device you are using.</p>
+              </article>
+            </div>
+
+            <div className="about-actions">
+              <button className="text-link" onClick={startPlan}>
+                Open my arrival plan
+                <ArrowIcon />
+              </button>
+              <span>Start anywhere. Return anytime.</span>
+            </div>
             <div className="testing-notice">
-              <strong>Public testing edition</strong>
+              <strong>Unofficial public testing edition</strong>
               <span>
-                Unofficial and unaffiliated with any government agency, base,
-                installation, unit, organization, or employer.
+                This guide is unaffiliated with any government agency, base,
+                installation, unit, organization, or employer. Confirm official
+                requirements, eligibility, deadlines, and benefits with your
+                authorized HR, relocation, or servicing office.
               </span>
             </div>
           </div>

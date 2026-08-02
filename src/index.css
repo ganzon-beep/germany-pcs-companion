@@ -1009,16 +1009,63 @@ h1 span {
   max-width: 43rem;
 }
 
-.welcome-copy blockquote {
+.welcome-copy h2 {
   font-size: clamp(2.5rem, 4vw, 4.8rem);
   line-height: 1.08;
 }
 
-.welcome-copy > p {
+.welcome-intro {
   max-width: 34rem;
   margin: 2rem 0;
   color: var(--ink-soft);
   line-height: 1.75;
+}
+
+.about-principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.about-principles article {
+  border-top: 1px solid #cfd8d2;
+  padding-top: 1rem;
+}
+
+.about-principles span {
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.about-principles strong {
+  display: block;
+  margin-top: 1.35rem;
+  color: var(--ink);
+  font-size: 0.76rem;
+}
+
+.about-principles p {
+  margin: 0.6rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: center;
+  margin-top: 2.25rem;
+}
+
+.about-actions > span {
+  color: #7b8783;
+  font-size: 0.7rem;
+  font-weight: 650;
 }
 
 .testing-notice {
@@ -2177,8 +2224,17 @@ h1 span {
     width: 84%;
   }
 
-  .welcome-copy blockquote {
+  .welcome-copy h2 {
     font-size: 2.65rem;
+  }
+
+  .about-principles {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-principles strong {
+    margin-top: 0.7rem;
   }
 
   .closing {
