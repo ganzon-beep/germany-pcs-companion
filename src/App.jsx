@@ -658,6 +658,109 @@ const directoryEntries = [
 
 const directoryCategories = ['All', ...new Set(directoryEntries.map((entry) => entry.category))]
 
+const officialLinks = [
+  {
+    title: 'Preparing for a Civilian PCS',
+    agency: 'Defense Finance and Accounting Service',
+    category: 'PCS & finance',
+    description: 'Official starting point for understanding civilian PCS orders, travel types, allowances, and required documentation.',
+    url: 'https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Preparing-Civilian-PCS/',
+  },
+  {
+    title: 'Civilian PCS forms',
+    agency: 'Defense Finance and Accounting Service',
+    category: 'PCS & finance',
+    description: 'Current travel-voucher, continuation-sheet, direct-deposit, travel-order, advance, and supporting PCS forms.',
+    url: 'https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Civilian-Permanent-Change-of-Station-PCS-Forms/',
+  },
+  {
+    title: 'Civilian PCS tax information',
+    agency: 'Defense Finance and Accounting Service',
+    category: 'PCS & finance',
+    description: 'Guidance on taxable PCS entitlements, withholding, and Relocation Income Tax Allowance claims.',
+    url: 'https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Tax-Information/nbsp/',
+  },
+  {
+    title: 'OF 306 — Declaration for Federal Employment',
+    agency: 'U.S. Office of Personnel Management',
+    category: 'Employment forms',
+    description: 'Official fillable form used during federal hiring and suitability processing.',
+    url: 'https://www.opm.gov/forms/pdf_fill/of0306.pdf',
+  },
+  {
+    title: 'SF 2809 — Health Benefits Election Form',
+    agency: 'U.S. Office of Personnel Management',
+    category: 'Employment forms',
+    description: 'Official Federal Employees Health Benefits enrollment and change form.',
+    url: 'https://www.opm.gov/forms/pdf_fill/sf2809.pdf',
+  },
+  {
+    title: 'DD 1056 — No-Fee Passport Authorization',
+    agency: 'U.S. Department of Defense',
+    category: 'Passports & travel',
+    description: 'Official form page for authorization to apply for a no-fee passport and/or visa.',
+    url: 'https://www.esd.whs.mil/Directives/forms/dd1000_1499/DD1056/',
+  },
+  {
+    title: 'Special-issuance passports',
+    agency: 'U.S. Department of State',
+    category: 'Passports & travel',
+    description: 'Eligibility and application guidance for official, service, diplomatic, and no-fee passports.',
+    url: 'https://travel.state.gov/en/passports/apply/unique-needs/special-issuance-passport.html',
+  },
+  {
+    title: 'SF 1190 — Foreign Allowances',
+    agency: 'U.S. General Services Administration',
+    category: 'Allowances & housing',
+    description: 'Official Foreign Allowances Application, Grant and Report form used for authorized overseas allowances.',
+    url: 'https://www.gsa.gov/cdnstatic/SF1190-12.pdf',
+  },
+  {
+    title: 'TQSA actual-expense worksheet',
+    agency: 'U.S. Department of State, Office of Allowances',
+    category: 'Allowances & housing',
+    description: 'Official worksheet supporting Temporary Quarters Subsistence Allowance expense calculations.',
+    url: 'https://allowances.state.gov/content/documents/1851_TQSA.pdf',
+  },
+  {
+    title: 'Welcome to Rheinland-Pfalz',
+    agency: 'State of Rheinland-Pfalz',
+    category: 'Living in Germany',
+    description: 'English-language guide to settling in, public services, work, education, transportation, and daily life in the state.',
+    url: 'https://www.welcome-to-rlp.org/guide/overview',
+  },
+  {
+    title: 'Kaiserslautern County waste services',
+    agency: 'Landkreis Kaiserslautern',
+    category: 'Living in Germany',
+    description: 'County recycling rules, waste categories, forms, collection information, and service contacts.',
+    url: 'https://www.kaiserslautern-kreis.de/verwaltung/abfallwirtschaft/',
+  },
+  {
+    title: 'Kaiserslautern County collection calendars',
+    agency: 'Landkreis Kaiserslautern',
+    category: 'Living in Germany',
+    description: 'Address-specific collection schedules for Landstuhl, Ramstein-Miesenbach, Weilerbach, and neighboring communities.',
+    url: 'https://www.kaiserslautern-kreis.de/verwaltung/abfallwirtschaft/abfuhrplaene/',
+  },
+  {
+    title: 'City of Kaiserslautern waste services',
+    agency: 'Stadtbildpflege Kaiserslautern',
+    category: 'Living in Germany',
+    description: 'Municipal waste, recycling, street-cleaning, and collection information for addresses inside Kaiserslautern city.',
+    url: 'https://stadtbildpflege-kaiserslautern.de/',
+  },
+  {
+    title: 'German-American Community Office',
+    agency: 'City of Kaiserslautern',
+    category: 'Community support',
+    description: 'Bilingual support for newcomers, German administrative questions, community referrals, and local integration.',
+    url: 'https://gaco.kaiserslautern.de/',
+  },
+]
+
+const officialLinkCategories = ['All', ...new Set(officialLinks.map((link) => link.category))]
+
 const localLifePreviews = [
   {
     eyebrow: 'Know your surroundings',
@@ -898,7 +1001,7 @@ function InstallPwa() {
   )
 }
 
-function Directory({ onHome, onPlan }) {
+function Directory({ onHome, onPlan, onLinks }) {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('All')
   const normalizedQuery = query.trim().toLowerCase()
@@ -937,6 +1040,7 @@ function Directory({ onHome, onPlan }) {
         </button>
         <p>Offices, services & support</p>
         <div className="companion-nav-actions">
+          <button className="home-link" onClick={onLinks}>Official links</button>
           <button className="home-link" onClick={onPlan}>My plan</button>
           <button className="home-link" onClick={onHome}>Exit</button>
         </div>
@@ -1052,7 +1156,102 @@ function Directory({ onHome, onPlan }) {
   )
 }
 
-function Companion({ onHome, onDirectory }) {
+function OfficialLinks({ onHome, onPlan, onDirectory }) {
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('All')
+  const normalizedQuery = query.trim().toLowerCase()
+  const visibleLinks = officialLinks.filter((link) => {
+    const matchesCategory = category === 'All' || link.category === category
+    const searchable = `${link.title} ${link.agency} ${link.category} ${link.description}`.toLowerCase()
+    return matchesCategory && (!normalizedQuery || searchable.includes(normalizedQuery))
+  })
+
+  return (
+    <div className="companion-shell links-shell">
+      <header className="companion-header">
+        <button className="brand brand-button" onClick={onHome} aria-label="Return to Germany PCS Companion home">
+          <span className="brand-mark">G</span>
+          <span className="brand-copy">
+            <strong>GERMANY</strong>
+            <span>PCS Companion</span>
+          </span>
+        </button>
+        <p>Verified starting points</p>
+        <div className="companion-nav-actions">
+          <button className="home-link" onClick={onDirectory}>Directory</button>
+          <button className="home-link" onClick={onPlan}>My plan</button>
+          <button className="home-link" onClick={onHome}>Exit</button>
+        </div>
+      </header>
+
+      <main className="links-main">
+        <section className="links-hero">
+          <div>
+            <p className="eyebrow">Official link library</p>
+            <h1>Go straight to<br /><span>the source.</span></h1>
+          </div>
+          <p>A focused list of government and municipal resources referenced throughout this guide. Use these links to verify forms, requirements, allowances, and local rules.</p>
+        </section>
+
+        <section className="directory-tools links-tools" aria-label="Official link filters">
+          <label className="directory-search">
+            <span>Search official links</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Form, topic, agency, or service"
+            />
+          </label>
+          <div className="directory-filters" aria-label="Filter by category">
+            {officialLinkCategories.map((item) => (
+              <button
+                key={item}
+                className={category === item ? 'is-active' : ''}
+                onClick={() => setCategory(item)}
+                aria-pressed={category === item}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <div className="directory-results-heading links-results-heading">
+          <h2>{category === 'All' ? 'All official links' : category}</h2>
+          <span>{visibleLinks.length} {visibleLinks.length === 1 ? 'resource' : 'resources'}</span>
+        </div>
+
+        <section className="official-link-list" aria-live="polite">
+          {visibleLinks.map((link) => (
+            <a className="official-link-row" href={link.url} target="_blank" rel="noreferrer" key={link.url}>
+              <span className="official-link-category">{link.category}</span>
+              <span className="official-link-copy">
+                <strong>{link.title}</strong>
+                <small>{link.agency}</small>
+                <span>{link.description}</span>
+              </span>
+              <span className="official-link-arrow" aria-hidden="true">↗</span>
+            </a>
+          ))}
+          {visibleLinks.length === 0 && (
+            <div className="directory-empty">
+              <h3>No matching links</h3>
+              <p>Try a form number, agency, topic, or broader category.</p>
+            </div>
+          )}
+        </section>
+
+        <div className="planner-reassurance links-disclaimer">
+          <span aria-hidden="true">i</span>
+          <p><strong>Official sources can still change.</strong> These links were reviewed in August 2026. Always follow the instructions on the destination site and confirm case-specific requirements with your authorized office.</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function Companion({ onHome, onDirectory, onLinks }) {
   const [activePhase, setActivePhase] = useState('Offer & orders')
   const [completed, setCompleted] = useState(() => {
     try {
@@ -1095,6 +1294,7 @@ function Companion({ onHome, onDirectory }) {
         <p>Your personal arrival plan</p>
         <div className="companion-nav-actions">
           <button className="home-link" onClick={onDirectory}>Directory</button>
+          <button className="home-link" onClick={onLinks}>Official links</button>
           <button className="home-link" onClick={onHome}>Exit plan</button>
         </div>
       </header>
@@ -1220,7 +1420,7 @@ function Companion({ onHome, onDirectory }) {
   )
 }
 
-function LifeInGermany({ onHome, onPlan, onDirectory }) {
+function LifeInGermany({ onHome, onPlan, onDirectory, onLinks }) {
   const [category, setCategory] = useState('All')
   const visibleTopics = lifeTopics.filter((topic) => category === 'All' || topic.category === category)
 
@@ -1237,6 +1437,7 @@ function LifeInGermany({ onHome, onPlan, onDirectory }) {
         <p>Everyday life in your new community</p>
         <div className="companion-nav-actions">
           <button className="home-link" onClick={onDirectory}>Directory</button>
+          <button className="home-link" onClick={onLinks}>Official links</button>
           <button className="home-link" onClick={onPlan}>My plan</button>
           <button className="home-link" onClick={onHome}>Exit</button>
         </div>
@@ -1360,6 +1561,7 @@ function App() {
     if (window.location.hash === '#plan') return 'plan'
     if (window.location.hash === '#directory') return 'directory'
     if (window.location.hash === '#life') return 'life'
+    if (window.location.hash === '#links') return 'links'
     return 'home'
   }
   const [activeView, setActiveView] = useState(getViewFromHash)
@@ -1395,6 +1597,12 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+  const openLinks = () => {
+    window.location.hash = 'links'
+    setActiveView('links')
+    window.scrollTo(0, 0)
+  }
+
   const returnHome = () => {
     window.history.pushState(null, '', window.location.pathname)
     setActiveView('home')
@@ -1402,15 +1610,19 @@ function App() {
   }
 
   if (activeView === 'plan') {
-    return <><Companion onHome={returnHome} onDirectory={openDirectory} /><InstallPwa /></>
+    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} /><InstallPwa /></>
   }
 
   if (activeView === 'directory') {
-    return <><Directory onHome={returnHome} onPlan={startPlan} /><InstallPwa /></>
+    return <><Directory onHome={returnHome} onPlan={startPlan} onLinks={openLinks} /><InstallPwa /></>
   }
 
   if (activeView === 'life') {
-    return <><LifeInGermany onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
+    return <><LifeInGermany onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} onLinks={openLinks} /><InstallPwa /></>
+  }
+
+  if (activeView === 'links') {
+    return <><OfficialLinks onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
   }
 
   return (
@@ -1428,6 +1640,7 @@ function App() {
           <a href="#journey">Your journey</a>
           <button onClick={openDirectory}>Directory</button>
           <button onClick={openLife}>Explore</button>
+          <button onClick={openLinks}>Official links</button>
           <a href="#about">About this guide</a>
         </nav>
 
@@ -1476,8 +1689,13 @@ function App() {
             <strong>Directory</strong>
             <span aria-hidden="true">→</span>
           </button>
-          <a href="#about" onClick={() => setMenuOpen(false)}>
+          <button onClick={() => { setMenuOpen(false); openLinks() }}>
             <span>05</span>
+            <strong>Official links</strong>
+            <span aria-hidden="true">→</span>
+          </button>
+          <a href="#about" onClick={() => setMenuOpen(false)}>
+            <span>06</span>
             <strong>About this guide</strong>
             <span aria-hidden="true">↓</span>
           </a>
