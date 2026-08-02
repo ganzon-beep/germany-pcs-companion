@@ -3,25 +3,35 @@ import { useEffect, useState } from 'react'
 const assetUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
 
 const journeyStages = [
-  ['01', 'Temporary offer', 'Understand what comes next'],
-  ['02', 'Final offer', 'Prepare with confidence'],
-  ['03', 'Pre-arrival', 'Make the move feel manageable'],
-  ['04', 'Arrival', 'Handle the first essentials'],
-  ['05', 'Days 30 · 60 · 90', 'Settling into your new life'],
+  ['01', 'Offer & orders', 'From tentative offer to travel orders'],
+  ['02', 'Pre-arrival', 'Make the move feel manageable'],
+  ['03', 'Arrival', 'Handle the first essentials'],
+  ['04', 'Days 30 · 60 · 90', 'Settling into your new life'],
 ]
+
+const phaseTips = {
+  'Offer & orders': {
+    label: 'Good to know',
+    title: 'Plan for upfront PCS costs',
+    detail: 'Many PCS expenses can come due before allowances or reimbursements are paid. As a planning target, some households may want $10,000–$25,000 readily accessible, adjusted for family size, temporary lodging, deposits, pets, and vehicle costs.',
+    note: 'This is a planning buffer, not an entitlement estimate. Ask your HR or finance office which expenses and advances are authorized for your specific move before making financial decisions.',
+  },
+}
 
 const phaseTasks = [
   {
     id: 'temporary-offer',
-    phase: 'Temporary offer',
+    phase: 'Offer & orders',
+    milestone: 'After your Tentative Job Offer (TJO)',
     window: 'Start here',
-    title: 'Review your tentative offer',
+    title: 'Review your Tentative Job Offer (TJO)',
     detail: 'Confirm the position, duty location, grade, and the HR contact listed in your offer.',
     tag: 'Offer',
   },
   {
     id: 'start-document-folder',
-    phase: 'Temporary offer',
+    phase: 'Offer & orders',
+    milestone: 'After your Tentative Job Offer (TJO)',
     window: 'This week',
     title: 'Start your PCS document folder',
     detail: 'Keep your offer, passports, marriage or birth certificates, pet records, medical records, and receipts together.',
@@ -29,7 +39,8 @@ const phaseTasks = [
   },
   {
     id: 'audit-health-insurance',
-    phase: 'Temporary offer',
+    phase: 'Offer & orders',
+    milestone: 'After your Tentative Job Offer (TJO)',
     window: 'Before enrollment closes',
     title: 'Audit your overseas health coverage',
     detail: 'Review your FEHB plan for care on the German economy, overseas claims, deductibles, and direct-billing support. Federal civilians generally use military treatment facilities only on a space-available basis.',
@@ -37,15 +48,17 @@ const phaseTasks = [
   },
   {
     id: 'final-offer',
-    phase: 'Final offer',
+    phase: 'Offer & orders',
+    milestone: 'After your Final Job Offer (FJO)',
     window: 'When received',
-    title: 'Verify your final offer and travel orders',
+    title: 'Verify your Final Job Offer (FJO) and travel orders',
     detail: 'Check names, dependents, allowances, and the authorized travel details before booking.',
     tag: 'Orders',
   },
   {
     id: 'no-fee-passports-sofa',
-    phase: 'Final offer',
+    phase: 'Offer & orders',
+    milestone: 'After your Final Job Offer (FJO)',
     window: 'As soon as authorized',
     title: 'Obtain No-Fee passports and SOFA stamps',
     detail: 'Confirm that you and each dependent have the required No-Fee passport and SOFA stamp. Keep tourist passports available for personal travel.',
@@ -53,7 +66,8 @@ const phaseTasks = [
   },
   {
     id: 'advance-of-pay',
-    phase: 'Final offer',
+    phase: 'Offer & orders',
+    milestone: 'After your Final Job Offer (FJO)',
     window: 'Up to 3 weeks before PCS',
     title: 'Consider an advance of pay',
     detail: 'Ask your HR sponsor whether you are eligible and how to submit the request. Existing Federal employees may request it before PCS; new hires may request it after arrival.',
@@ -961,7 +975,7 @@ function Directory({ onHome, onPlan }) {
 }
 
 function Companion({ onHome, onDirectory }) {
-  const [activePhase, setActivePhase] = useState('Temporary offer')
+  const [activePhase, setActivePhase] = useState('Offer & orders')
   const [completed, setCompleted] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('germany-pcs-progress')) || []
@@ -975,6 +989,13 @@ function Companion({ onHome, onDirectory }) {
   }, [completed])
 
   const visibleTasks = phaseTasks.filter((task) => task.phase === activePhase)
+  const activeTip = phaseTips[activePhase]
+  const taskGroups = activePhase === 'Offer & orders'
+    ? [
+        ['After your Tentative Job Offer (TJO)', visibleTasks.filter((task) => task.milestone === 'After your Tentative Job Offer (TJO)')],
+        ['After your Final Job Offer (FJO)', visibleTasks.filter((task) => task.milestone === 'After your Final Job Offer (FJO)')],
+      ]
+    : [[null, visibleTasks]]
   const completion = Math.round((completed.length / phaseTasks.length) * 100)
 
   const toggleTask = (id) => {
@@ -1049,30 +1070,49 @@ function Companion({ onHome, onDirectory }) {
             <span>{visibleTasks.length} essential {visibleTasks.length === 1 ? 'step' : 'steps'}</span>
           </div>
 
-          <div className="task-list">
-            {visibleTasks.map((task) => {
-              const isDone = completed.includes(task.id)
-              return (
-                <article className={`task-card ${isDone ? 'is-done' : ''}`} key={task.id}>
-                  <button
-                    className="task-check"
-                    onClick={() => toggleTask(task.id)}
-                    aria-label={`${isDone ? 'Mark incomplete' : 'Mark complete'}: ${task.title}`}
-                    aria-pressed={isDone}
-                  >
-                    {isDone ? '✓' : ''}
-                  </button>
-                  <div>
-                    <div className="task-meta">
-                      <span>{task.window}</span>
-                      <span>{task.tag}</span>
-                    </div>
-                    <h3>{task.title}</h3>
-                    <p>{task.detail}</p>
-                  </div>
-                </article>
-              )
-            })}
+          {activeTip && (
+            <aside className="good-to-know" aria-labelledby="good-to-know-title">
+              <span className="good-to-know-icon" aria-hidden="true">i</span>
+              <div>
+                <p className="good-to-know-label">{activeTip.label}</p>
+                <h3 id="good-to-know-title">{activeTip.title}</h3>
+                <p>{activeTip.detail}</p>
+                <small>{activeTip.note}</small>
+              </div>
+            </aside>
+          )}
+
+          <div className="task-groups">
+            {taskGroups.map(([milestone, tasks]) => (
+              <section className="task-group" key={milestone || activePhase} aria-label={milestone || activePhase}>
+                {milestone && <h3 className="task-group-heading">{milestone}</h3>}
+                <div className="task-list">
+                  {tasks.map((task) => {
+                    const isDone = completed.includes(task.id)
+                    return (
+                      <article className={`task-card ${isDone ? 'is-done' : ''}`} key={task.id}>
+                        <button
+                          className="task-check"
+                          onClick={() => toggleTask(task.id)}
+                          aria-label={`${isDone ? 'Mark incomplete' : 'Mark complete'}: ${task.title}`}
+                          aria-pressed={isDone}
+                        >
+                          {isDone ? '✓' : ''}
+                        </button>
+                        <div>
+                          <div className="task-meta">
+                            <span>{task.window}</span>
+                            <span>{task.tag}</span>
+                          </div>
+                          <h3>{task.title}</h3>
+                          <p>{task.detail}</p>
+                        </div>
+                      </article>
+                    )
+                  })}
+                </div>
+              </section>
+            ))}
           </div>
 
           <div className="planner-reassurance">
@@ -1363,7 +1403,7 @@ function App() {
             <span className="journey-prompt__number">01</span>
             <span>
               <small>Start here</small>
-              <strong>I’ve received my temporary job offer</strong>
+              <strong>I’ve received my Tentative Job Offer (TJO)</strong>
             </span>
             <span className="journey-prompt__arrow" aria-hidden="true">
               →
