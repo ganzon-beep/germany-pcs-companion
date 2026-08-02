@@ -161,7 +161,9 @@ img {
   gap: 1rem;
 }
 
-.mobile-directory-action {
+.mobile-menu-toggle,
+.mobile-menu,
+.mobile-menu-backdrop {
   display: none;
 }
 
@@ -1985,6 +1987,112 @@ h1 span {
     display: none;
   }
 
+  .header-action {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    position: relative;
+    z-index: 32;
+    display: grid;
+    width: 2.8rem;
+    height: 2.8rem;
+    place-content: center;
+    gap: 0.3rem;
+    border: 1px solid #cdd5d1;
+    border-radius: 50%;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.78);
+  }
+
+  .mobile-menu-toggle span {
+    display: block;
+    width: 1rem;
+    height: 1px;
+    background: var(--ink);
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  .mobile-menu-toggle.is-open span:first-child {
+    transform: translateY(0.35rem) rotate(45deg);
+  }
+
+  .mobile-menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.is-open span:last-child {
+    transform: translateY(-0.35rem) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: absolute;
+    top: calc(100% - 0.35rem);
+    right: clamp(1.25rem, 4vw, 4.5rem);
+    z-index: 31;
+    width: min(24rem, calc(100vw - 2.5rem));
+    overflow: hidden;
+    border: 1px solid #dce3de;
+    border-radius: 1.25rem;
+    padding: 0.65rem;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 22px 60px rgba(26, 42, 37, 0.2);
+  }
+
+  .mobile-menu.is-open {
+    display: grid;
+  }
+
+  .mobile-menu > small {
+    padding: 0.65rem 0.8rem 0.75rem;
+    color: #7a8782;
+    font-size: 0.58rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .mobile-menu a,
+  .mobile-menu button {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 3.25rem;
+    border-top: 1px solid #edf0ed;
+    padding: 0.7rem 0.8rem;
+    background: transparent;
+    color: var(--ink);
+    text-align: left;
+  }
+
+  .mobile-menu a > span:first-child,
+  .mobile-menu button > span:first-child {
+    color: #8b9792;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-menu strong {
+    font-size: 0.82rem;
+  }
+
+  .mobile-menu a > span:last-child,
+  .mobile-menu button > span:last-child {
+    color: var(--navy);
+    font-size: 0.72rem;
+  }
+
+  .mobile-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    display: block;
+    background: rgba(28, 41, 36, 0.18);
+    backdrop-filter: blur(2px);
+  }
+
   .hero {
     grid-template-columns: 1fr;
     padding-top: 3.5rem;
@@ -2096,27 +2204,8 @@ h1 span {
     min-height: 5.5rem;
   }
 
-  .header-action {
-    width: 2.75rem;
-    height: 2.75rem;
-    justify-content: center;
-    border: 1px solid #cdd5d1;
-    border-radius: 50%;
-    padding: 0;
-    font-size: 0;
-  }
-
   .header-actions {
     gap: 0.85rem;
-  }
-
-  .mobile-directory-action {
-    display: inline-flex;
-    border-bottom: 1px solid #aeb9b5;
-    padding: 0.4rem 0;
-    background: transparent;
-    font-size: 0.76rem;
-    font-weight: 750;
   }
 
   .install-pwa-button {

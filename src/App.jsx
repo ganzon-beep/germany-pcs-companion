@@ -1363,11 +1363,20 @@ function App() {
     return 'home'
   }
   const [activeView, setActiveView] = useState(getViewFromHash)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleHash = () => setActiveView(getViewFromHash())
     window.addEventListener('hashchange', handleHash)
     return () => window.removeEventListener('hashchange', handleHash)
+  }, [])
+
+  useEffect(() => {
+    const closeMenuOnEscape = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', closeMenuOnEscape)
+    return () => window.removeEventListener('keydown', closeMenuOnEscape)
   }, [])
 
   const startPlan = () => {
@@ -1423,13 +1432,58 @@ function App() {
         </nav>
 
         <div className="header-actions">
-          <button className="mobile-directory-action" onClick={openDirectory}>Directory</button>
           <button className="header-action" onClick={startPlan} aria-label="Find my next step">
             Find my next step
             <span aria-hidden="true">→</span>
           </button>
+          <button
+            className={`mobile-menu-toggle ${menuOpen ? 'is-open' : ''}`}
+            onClick={() => setMenuOpen((current) => !current)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-primary-menu"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+
+        <nav
+          className={`mobile-menu ${menuOpen ? 'is-open' : ''}`}
+          id="mobile-primary-menu"
+          aria-label="Mobile navigation"
+          aria-hidden={!menuOpen}
+        >
+          <small>Navigate</small>
+          <a href="#journey" onClick={() => setMenuOpen(false)}>
+            <span>01</span>
+            <strong>Your journey</strong>
+            <span aria-hidden="true">↓</span>
+          </a>
+          <button onClick={() => { setMenuOpen(false); startPlan() }}>
+            <span>02</span>
+            <strong>My arrival plan</strong>
+            <span aria-hidden="true">→</span>
+          </button>
+          <button onClick={() => { setMenuOpen(false); openLife() }}>
+            <span>03</span>
+            <strong>Explore life in Germany</strong>
+            <span aria-hidden="true">→</span>
+          </button>
+          <button onClick={() => { setMenuOpen(false); openDirectory() }}>
+            <span>04</span>
+            <strong>Directory</strong>
+            <span aria-hidden="true">→</span>
+          </button>
+          <a href="#about" onClick={() => setMenuOpen(false)}>
+            <span>05</span>
+            <strong>About this guide</strong>
+            <span aria-hidden="true">↓</span>
+          </a>
+        </nav>
       </header>
+      {menuOpen && <div className="mobile-menu-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />}
 
       <main id="top">
         <section
