@@ -469,6 +469,7 @@ h1 span {
 }
 
 .journey {
+  position: relative;
   padding-top: 8rem;
   padding-bottom: 8rem;
   background: var(--white);
@@ -482,6 +483,14 @@ h1 span {
   height: 1px;
   background: #edf0ed;
   content: "";
+}
+
+.journey::before {
+  top: 0;
+}
+
+.journey::after {
+  bottom: 0;
 }
 
 .section-heading {
