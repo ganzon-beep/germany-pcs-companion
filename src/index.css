@@ -344,7 +344,7 @@ img {
       rgba(247, 248, 245, 0) 21%
     ),
     var(--hero-map-image);
-  background-position: center, center, right center;
+  background-position: center, center, calc(100% - clamp(3rem, 5vw, 5.5rem)) center;
   background-repeat: no-repeat;
   background-size: cover, cover, auto 80%;
   content: "";
