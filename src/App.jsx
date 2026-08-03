@@ -51,7 +51,7 @@ const phaseTasks = [
     milestone: 'After your Tentative Job Offer (TJO)',
     window: 'Before enrollment closes',
     title: 'Audit your overseas health coverage',
-    detail: 'Review your FEHB plan for care on the German economy, overseas claims, deductibles, and direct-billing support. Federal civilians generally use military treatment facilities only on a space-available basis.',
+    detail: 'Review your FEHB plan for care on the German economy, overseas claims, deductibles, and direct-billing support. Civilian employees are not empaneled and generally do not receive a military primary care manager (PCM). Space-available access applies to specialty care, not primary care. Eligible retirees may apply for TRICARE Plus during an announced open-enrollment period—often beginning in November—but enrollment is capacity-based and requires LRMC approval.',
     tag: 'Healthcare',
     forms: [
       {
@@ -178,7 +178,7 @@ const phaseTasks = [
     phase: 'Arrival',
     window: 'First 48 hours',
     title: 'Set up local phone service',
-    detail: 'Use an international plan or Wi-Fi until you activate a German SIM or eSIM. Telekom, Vodafone, O2, and TKS are common local options.',
+    detail: 'Strongly consider purchasing an eSIM before departure so you have service as soon as you arrive. You can use an international plan or Wi-Fi until you activate a longer-term German SIM or eSIM; Telekom, Vodafone, O2, and TKS are common local options.',
     tag: 'Communication',
   },
   {
@@ -254,7 +254,7 @@ const phaseTasks = [
     phase: 'Arrival',
     window: 'First week',
     title: 'Register for the VAT program',
-    detail: 'VAT forms can remove eligible German tax from off-base purchases. Registration options include ROB Bldg 162 and the Ramstein BX Services Counter.',
+    detail: 'VAT forms can remove eligible German tax from off-base purchases. The Ramstein VAT Office is inside the Ramstein Enlisted Club, Bldg 2140 on Lawn Avenue—not at the BX. Eligible users can also download the Remonon micro-purchase app and obtain an Individual VAT Number from a VAT office.',
     tag: 'Benefits',
   },
   {
