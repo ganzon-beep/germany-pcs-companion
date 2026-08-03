@@ -126,6 +126,15 @@ const phaseTasks = [
     tag: 'Contact',
   },
   {
+    id: 'pov-shipment',
+    phase: 'Pre-arrival',
+    window: 'As soon as your orders authorize it',
+    title: 'Arrange shipment of your POV',
+    detail: 'Confirm the POV entitlement written on your orders, contact your transportation office, and use PCSmyPOV to prepare documents and schedule the authorized Vehicle Processing Center. Your vehicle should be operational, thoroughly clean, free of personal items, and at or below one-quarter tank of fuel for turn-in.',
+    tag: 'Vehicle',
+    guideLabel: 'Open the vehicle guide',
+  },
+  {
     id: 'lodging',
     phase: 'Pre-arrival',
     window: '60–30 days out',
@@ -308,8 +317,18 @@ const phaseTasks = [
     phase: 'Days 30 · 60 · 90',
     window: 'When your vehicle arrives',
     title: 'Inspect and register your vehicle',
-    detail: 'At Kapaun Bldg 2806, obtain temporary plates, collect the vehicle, pass inspection, then secure permanent plates. Carry a DIN 13164 first-aid kit, two masks, a warning triangle, and reflective vest.',
+    detail: 'Enter the registration queue early. Obtain the registration or temporary plates required for release, collect the vehicle from the VPC, complete the safety inspection, then return for permanent registration. Carry a DIN 13164 first-aid kit, two masks, a warning triangle, and reflective vest.',
     tag: 'Vehicle',
+    guideLabel: 'Open the vehicle guide',
+  },
+  {
+    id: 'pov-pickup',
+    phase: 'Days 30 · 60 · 90',
+    window: 'When PCSmyPOV confirms arrival',
+    title: 'Pick up and inspect your POV',
+    detail: 'Complete the registration requirement before pickup, then bring your release documents to the Kaiserslautern VPC. Inspect the exterior, interior, mileage, tires, and accessories before signing. Record every issue on the Vehicle Inspection and Shipping Form and keep a copy.',
+    tag: 'Vehicle',
+    guideLabel: 'Open the vehicle guide',
   },
   {
     id: 'esso-card',
@@ -1310,7 +1329,223 @@ function OfficialLinks({ onHome, onPlan, onDirectory }) {
   )
 }
 
-function Companion({ onHome, onDirectory, onLinks }) {
+function VehicleGuide({ onHome, onPlan, onDirectory }) {
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const statusLinks = [
+    ['01', 'I have not shipped yet', 'vehicle-before-shipping'],
+    ['02', 'My vehicle is in transit', 'vehicle-in-transit'],
+    ['03', 'My vehicle has arrived', 'vehicle-pickup'],
+    ['04', 'I need plates or registration', 'vehicle-registration-guide'],
+  ]
+
+  return (
+    <div className="companion-shell vehicle-shell">
+      <header className="companion-header">
+        <button className="brand brand-button" onClick={onHome} aria-label="Return to Germany PCS Companion home">
+          <span className="brand-mark">G</span>
+          <span className="brand-copy">
+            <strong>GERMANY</strong>
+            <span>PCS Companion</span>
+          </span>
+        </button>
+        <p>Your vehicle in Germany</p>
+        <div className="companion-nav-actions">
+          <button className="home-link" onClick={onDirectory}>Directory</button>
+          <button className="home-link" onClick={onPlan}>My plan</button>
+          <button className="home-link" onClick={onHome}>Exit</button>
+        </div>
+      </header>
+
+      <main className="vehicle-main">
+        <section className="vehicle-hero">
+          <div className="vehicle-hero-copy">
+            <p className="eyebrow">POV shipment, pickup & registration</p>
+            <h1>Your vehicle,<br /><span>one clear path.</span></h1>
+            <p>Shipping a privately owned vehicle is not one appointment. It moves through transportation, a Vehicle Processing Center, registration, inspection, and permanent plates. This page keeps those handoffs in order.</p>
+          </div>
+          <aside className="vehicle-status-card" aria-labelledby="vehicle-status-title">
+            <span>Start with your situation</span>
+            <h2 id="vehicle-status-title">Where is your vehicle now?</h2>
+            <div>
+              {statusLinks.map(([number, label, id]) => (
+                <button key={id} onClick={() => scrollToSection(id)}>
+                  <small>{number}</small>
+                  <strong>{label}</strong>
+                  <span aria-hidden="true">↓</span>
+                </button>
+              ))}
+            </div>
+          </aside>
+        </section>
+
+        <aside className="vehicle-alert">
+          <span aria-hidden="true">!</span>
+          <div>
+            <strong>Do not wait for the arrival notice to think about registration.</strong>
+            <p>The Kaiserslautern VPC warns that registration backlogs can delay release of an arrived vehicle. Enter the appropriate registration queue early and verify what temporary registration or plates you need before pickup.</p>
+          </div>
+        </aside>
+
+        <section className="vehicle-players" aria-labelledby="vehicle-players-title">
+          <div className="vehicle-section-heading">
+            <div>
+              <p className="eyebrow">Know who does what</p>
+              <h2 id="vehicle-players-title">Three services.<br />Three different jobs.</h2>
+            </div>
+            <p>These names are easy to blend together. Treat them as separate stops with separate paperwork.</p>
+          </div>
+          <div className="vehicle-player-grid">
+            <article>
+              <span>01</span>
+              <small>Ships & releases</small>
+              <h3>Vehicle Processing Center</h3>
+              <p>International Auto Logistics receives, transports, tracks, and releases the vehicle through PCSmyPOV.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <small>Checks roadworthiness</small>
+              <h3>Vehicle Inspection</h3>
+              <p>The safety inspection checks the vehicle before permanent registration. Arrive with required safety equipment installed or inside the vehicle.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <small>Issues plates & documents</small>
+              <h3>Vehicle Registration</h3>
+              <p>The registration office handles temporary and permanent plates, renewals, transfers, replacements, and registration updates.</p>
+            </article>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section" id="vehicle-before-shipping">
+          <div className="vehicle-guide-number">01</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Before shipment</p>
+            <h2>Authorize it.<br />Prepare it.</h2>
+            <p>Start with your orders and transportation counselor. Your authorization, approved VPC, timing, and any excess cost must be settled before you make independent shipping arrangements.</p>
+            <div className="vehicle-checklist-grid">
+              <article>
+                <h3>Confirm before scheduling</h3>
+                <ul>
+                  <li>POV shipment is written into your PCS orders.</li>
+                  <li>Your transportation office confirms the authorized VPC and number of vehicles.</li>
+                  <li>You have orders and amendments, DD Form 1797, current registration, and proof of ownership.</li>
+                  <li>You have written export authorization from a lienholder or leasing company when required.</li>
+                </ul>
+              </article>
+              <article>
+                <h3>Prepare for VPC turn-in</h3>
+                <ul>
+                  <li>Schedule the turn-in and review location-specific requirements in PCSmyPOV.</li>
+                  <li>Resolve open recalls or carry the documentation required by the VPC.</li>
+                  <li>Remove personal belongings and thoroughly clean the interior, exterior, trunk, and engine area.</li>
+                  <li>Keep fuel at or below one-quarter tank and make sure the vehicle is operational.</li>
+                  <li>Complete the joint condition report carefully and keep your copy.</li>
+                </ul>
+              </article>
+            </div>
+            <div className="vehicle-inline-actions">
+              <a href="https://www.pcsmypov.com/" target="_blank" rel="noreferrer">Open PCSmyPOV <span>↗</span></a>
+              <a href="https://www.ustranscom.mil/dtr/part-iv/dtr_part_iv_app_k_3.pdf" target="_blank" rel="noreferrer">Official shipping handout <span>↗</span></a>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section vehicle-guide-section--soft" id="vehicle-in-transit">
+          <div className="vehicle-guide-number">02</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">While it is in transit</p>
+            <h2>Track it.<br />Prepare the handoff.</h2>
+            <div className="vehicle-transit-grid">
+              <article>
+                <span>Track</span>
+                <h3>Watch PCSmyPOV</h3>
+                <p>Follow shipment status and the required delivery date. Keep your contact information current so the VPC can reach you.</p>
+              </article>
+              <article>
+                <span>Queue</span>
+                <h3>Start registration early</h3>
+                <p>Review the KMC registration options before arrival and enter the correct appointment or walk-in queue as early as allowed.</p>
+              </article>
+              <article>
+                <span>Plan</span>
+                <h3>Expect a transportation gap</h3>
+                <p>Plan temporary transportation without assuming routine rental-car reimbursement. If the required delivery date is missed, check PCSmyPOV for the current inconvenience-claim process.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section" id="vehicle-pickup">
+          <div className="vehicle-guide-number">03</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Pickup in the KMC</p>
+            <h2>Inspect before<br />you sign.</h2>
+            <div className="vehicle-pickup-layout">
+              <article className="vehicle-location-card">
+                <small>Kaiserslautern Vehicle Processing Center</small>
+                <h3>Kapaun Air Station<br />Building 2806</h3>
+                <dl>
+                  <div><dt>Hours</dt><dd>Mon–Fri, 0800–1600</dd></div>
+                  <div><dt>Local</dt><dd><a href="tel:+4963156000905">+49 631 56000905</a></dd></div>
+                  <div><dt>Email</dt><dd><a href="mailto:Kaiserslautern.VPC@ialpov.us">Kaiserslautern.VPC@ialpov.us</a></dd></div>
+                </dl>
+                <p>PCSmyPOV currently states that pickup appointments are not required at this VPC. Recheck the location page before traveling.</p>
+                <a href="https://pcsmypov.com/locations/name/Kaiserslautern%20VPC" target="_blank" rel="noreferrer">Current VPC information ↗</a>
+              </article>
+              <article className="vehicle-pickup-checklist">
+                <h3>At the pickup window</h3>
+                <ol>
+                  <li><span>01</span><p>Bring the identification, shipment documents, registration or plate documentation, and any authorization PCSmyPOV lists for your case.</p></li>
+                  <li><span>02</span><p>Inspect the exterior, interior, mileage, tires, glass, accessories, and every item documented at turn-in.</p></li>
+                  <li><span>03</span><p>Record all damage or missing items on the Vehicle Inspection and Shipping Form before signing. Photograph the condition.</p></li>
+                  <li><span>04</span><p>Keep copies, wash the vehicle soon after pickup, and report concealed damage immediately using the current claim instructions.</p></li>
+                </ol>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section vehicle-guide-section--navy" id="vehicle-registration-guide">
+          <div className="vehicle-guide-number">04</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Registration after arrival</p>
+            <h2>The practical<br />arrival order.</h2>
+            <ol className="vehicle-arrival-order">
+              <li><span>01</span><div><strong>Enter the registration queue</strong><p>Choose the location that handles your transaction and confirm whether it uses an appointment, 2-Meters queue, or walk-in sign-in sheet.</p></div></li>
+              <li><span>02</span><div><strong>Obtain release-ready registration or temporary plates</strong><p>Confirm what the VPC requires before it can release the vehicle to you.</p></div></li>
+              <li><span>03</span><div><strong>Collect and inspect the vehicle</strong><p>Complete the joint pickup inspection at the Kaiserslautern VPC before accepting it.</p></div></li>
+              <li><span>04</span><div><strong>Pass the safety inspection</strong><p>Carry the required first-aid kit, warning triangle, reflective vest, and other current safety equipment.</p></div></li>
+              <li><span>05</span><div><strong>Finish permanent registration</strong><p>Return with the inspection and required documents, then set up the ESSO fuel card after registration.</p></div></li>
+            </ol>
+            <button className="vehicle-directory-button" onClick={onDirectory}>Compare vehicle offices in the directory <span>→</span></button>
+          </div>
+        </section>
+
+        <section className="vehicle-resources" aria-labelledby="vehicle-resources-title">
+          <div>
+            <p className="eyebrow">Verify before you go</p>
+            <h2 id="vehicle-resources-title">Official starting points.</h2>
+          </div>
+          <div>
+            <a href="https://www.pcsmypov.com/" target="_blank" rel="noreferrer"><span>Shipment, tracking & VPCs</span><strong>PCSmyPOV</strong><i>↗</i></a>
+            <a href="https://www.dfas.mil/civilianemployees/civrelo/povoconus/" target="_blank" rel="noreferrer"><span>Civilian allowance guidance</span><strong>DFAS POV shipment</strong><i>↗</i></a>
+            <a href="https://www.europeafrica.army.mil/RMV/" target="_blank" rel="noreferrer"><span>Registration & RMV guidance</span><strong>USAREUR-AF RMV</strong><i>↗</i></a>
+          </div>
+        </section>
+
+        <div className="planner-reassurance vehicle-disclaimer">
+          <span aria-hidden="true">i</span>
+          <p><strong>Orders and current office instructions control.</strong> Entitlements, required documents, appointment systems, operating hours, inspection standards, and claim procedures can change. Verify your case with your transportation counselor, PCSmyPOV, and the servicing registration office.</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function Companion({ onHome, onDirectory, onLinks, onVehicle }) {
   const [activePhase, setActivePhase] = useState('Offer & orders')
   const [completed, setCompleted] = useState(() => {
     try {
@@ -1443,6 +1678,11 @@ function Companion({ onHome, onDirectory, onLinks }) {
                           </div>
                           <h3>{task.title}</h3>
                           <p>{task.detail}</p>
+                          {task.guideLabel && (
+                            <button className="task-guide-link" onClick={onVehicle}>
+                              {task.guideLabel} <span aria-hidden="true">→</span>
+                            </button>
+                          )}
                           {task.forms && (
                             <div className="task-forms">
                               <small>Official forms</small>
@@ -1471,7 +1711,7 @@ function Companion({ onHome, onDirectory, onLinks }) {
 
           <div className="planner-reassurance">
             <span aria-hidden="true">i</span>
-            <p><strong>Unofficial testing guide.</strong> This site is not affiliated with any government agency, installation, base, unit, or employer. Confirm requirements with your authorized relocation or HR contact before acting.</p>
+            <p><strong>Unofficial public guide.</strong> This site is not affiliated with any government agency, installation, base, unit, or employer. Confirm requirements with your authorized relocation or HR contact before acting.</p>
           </div>
         </section>
       </main>
@@ -1621,6 +1861,7 @@ function App() {
     if (window.location.hash === '#directory') return 'directory'
     if (window.location.hash === '#life') return 'life'
     if (window.location.hash === '#links') return 'links'
+    if (window.location.hash === '#vehicle') return 'vehicle'
     return 'home'
   }
   const [activeView, setActiveView] = useState(getViewFromHash)
@@ -1662,6 +1903,12 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+  const openVehicle = () => {
+    window.location.hash = 'vehicle'
+    setActiveView('vehicle')
+    window.scrollTo(0, 0)
+  }
+
   const returnHome = () => {
     window.history.pushState(null, '', window.location.pathname)
     setActiveView('home')
@@ -1669,7 +1916,7 @@ function App() {
   }
 
   if (activeView === 'plan') {
-    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} /><InstallPwa /></>
+    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} /><InstallPwa /></>
   }
 
   if (activeView === 'directory') {
@@ -1682,6 +1929,10 @@ function App() {
 
   if (activeView === 'links') {
     return <><OfficialLinks onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
+  }
+
+  if (activeView === 'vehicle') {
+    return <><VehicleGuide onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
   }
 
   return (
@@ -1697,6 +1948,7 @@ function App() {
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#journey">Your journey</a>
+          <button onClick={openVehicle}>Vehicle</button>
           <button onClick={openDirectory}>Directory</button>
           <button onClick={openLife}>Explore</button>
           <button onClick={openLinks}>Official links</button>
@@ -1743,18 +1995,23 @@ function App() {
             <strong>Explore life in Germany</strong>
             <span aria-hidden="true">→</span>
           </button>
-          <button onClick={() => { setMenuOpen(false); openDirectory() }}>
+          <button onClick={() => { setMenuOpen(false); openVehicle() }}>
             <span>04</span>
+            <strong>Your vehicle in Germany</strong>
+            <span aria-hidden="true">→</span>
+          </button>
+          <button onClick={() => { setMenuOpen(false); openDirectory() }}>
+            <span>05</span>
             <strong>Directory</strong>
             <span aria-hidden="true">→</span>
           </button>
           <button onClick={() => { setMenuOpen(false); openLinks() }}>
-            <span>05</span>
+            <span>06</span>
             <strong>Official links</strong>
             <span aria-hidden="true">→</span>
           </button>
           <a href="#about" onClick={() => setMenuOpen(false)}>
-            <span>06</span>
+            <span>07</span>
             <strong>About this guide</strong>
             <span aria-hidden="true">↓</span>
           </a>
@@ -1920,8 +2177,8 @@ function App() {
                 <span className="coffee-cup-icon" aria-hidden="true"><span /></span>
               </a>
             </div>
-            <div className="testing-notice">
-              <strong>Unofficial public testing edition</strong>
+            <div className="public-edition-notice">
+              <strong>Unofficial Public Edition</strong>
               <span>
                 This guide is unaffiliated with any government agency, base,
                 installation, unit, organization, or employer. Confirm official
@@ -1961,10 +2218,11 @@ function App() {
         <p>From job offer to settled in Germany.</p>
         <div className="footer-links">
           <button onClick={openLife}>Explore life</button>
+          <button onClick={openVehicle}>Vehicle</button>
           <button onClick={openDirectory}>Directory</button>
           <a href="#top">Accessibility</a>
           <a href="#top">Privacy</a>
-          <a href="#about">Testing disclaimer</a>
+          <a href="#about">Edition disclaimer</a>
         </div>
       </footer>
     </div>
