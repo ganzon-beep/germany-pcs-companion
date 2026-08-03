@@ -1849,12 +1849,17 @@ function App() {
                 <small>ganzon@gmail.com</small>
                 <span className="about-contact-arrow" aria-hidden="true">↗</span>
               </a>
-              <div className="about-contact-card about-contact-card--placeholder" aria-disabled="true">
+              <a
+                className="about-contact-card about-contact-card--coffee"
+                href="https://buymeacoffee.com/denverg"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <span>Found this page useful?</span>
                 <strong>Buy me a coffee</strong>
-                <small>Link coming soon</small>
-                <span className="about-contact-arrow" aria-hidden="true">○</span>
-              </div>
+                <small>buymeacoffee.com/denverg</small>
+                <span className="coffee-cup-icon" aria-hidden="true"><span /></span>
+              </a>
             </div>
             <div className="testing-notice">
               <strong>Unofficial public testing edition</strong>
