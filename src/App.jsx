@@ -1448,7 +1448,6 @@ function VehicleGuide({ onHome, onPlan, onDirectory }) {
             </div>
             <div className="vehicle-inline-actions">
               <a href="https://www.pcsmypov.com/" target="_blank" rel="noreferrer">Open PCSmyPOV <span>↗</span></a>
-              <a href="https://www.ustranscom.mil/dtr/part-iv/dtr_part_iv_app_k_3.pdf" target="_blank" rel="noreferrer">Official shipping handout <span>↗</span></a>
             </div>
           </div>
         </section>
