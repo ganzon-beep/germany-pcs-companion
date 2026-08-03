@@ -507,6 +507,57 @@ const directoryEntries = [
     steps: ['Complete USAREUR driver training', 'Obtain your USAREUR driver’s license'],
   },
   {
+    id: 'rmv-online-renewal',
+    name: 'USAREUR-AF RMV Online Renewal',
+    category: 'Vehicle',
+    location: 'Online renewal with certified delivery to your APO address',
+    area: 'Germany',
+    services: 'For same-community renewals, scan the QR code on your mailed renewal notice and upload the notice, AE Form 190-1O, and qualifying inspection documentation at least 30 days before expiration. After verification, use the payment link and code, then sign for the updated registration and decal at APO pickup. Renewals within 30 days of expiration must be completed at a local Field Registration Station.',
+    steps: ['Inspect and register your vehicle'],
+    website: 'https://www.europeafrica.army.mil/RMV/',
+    websiteLabel: 'RMV online guidance',
+    hideMap: true,
+  },
+  {
+    id: 'kapaun-vehicle-registration-main',
+    name: 'Kapaun Vehicle Registration — Main Station',
+    category: 'Vehicle',
+    location: 'Kapaun Air Station, Bldg 2806',
+    area: 'Kaiserslautern',
+    hours: 'Mon–Fri 0700–1500; last customer 1430. De-registration walk-ins 0700–1500.',
+    email: '569USFPS.S5BV.VehicleRegistration@us.af.mil',
+    services: 'Appointments or the 2-Meters queue are used for initial registrations after purchasing or shipping a vehicle, temporary plates, transfers between DoD ID cardholders, and vehicles driven to the KMC from another country. Closed federal holidays, USAFE and 86 AW down days, and the last duty day of each month.',
+    steps: ['Inspect and register your vehicle'],
+    website: 'https://www.europeafrica.army.mil/RMV/',
+    websiteLabel: 'Official RMV site',
+  },
+  {
+    id: 'kapaun-vehicle-registration-substation',
+    name: 'Kapaun Vehicle Registration — Substation',
+    category: 'Vehicle',
+    location: 'Kapaun Air Station, Bldg 2807',
+    area: 'Kaiserslautern',
+    hours: 'Mon–Fri 0700–1130 and 1230–1500; last customer 1430. Walk-in sign-in sheet.',
+    email: '569USFPS.S5BV.VehicleRegistration@us.af.mil',
+    services: 'Handles renewals, registration updates, temporary-to-permanent plates, replacements, emissions or inspection decals, and in-Germany PCS transfers. Renewals require a new vehicle safety inspection completed within the previous 75 days. Closed federal holidays, USAFE and 86 AW down days, and the last duty day of each month.',
+    steps: ['Inspect and register your vehicle'],
+    website: 'https://www.europeafrica.army.mil/RMV/',
+    websiteLabel: 'Official RMV site',
+  },
+  {
+    id: 'ramstein-vehicle-registration-substation',
+    name: 'Ramstein Vehicle Registration — Substation',
+    category: 'Vehicle',
+    location: 'KMCC, 2nd floor near the theater',
+    area: 'Ramstein Air Base',
+    hours: 'Mon–Thu 0700–1500; Fri 0700–1330. Last customer 1430 on full days; closes 1330 before down days or holidays.',
+    email: '569USFPS.S5BV.VehicleRegistration@us.af.mil',
+    services: 'Use an appointment or the 2-Meters queue for renewals, DoD ID-cardholder transfers, qualifying initial registrations, information changes, in-Germany PCS transfers, lost or stolen plates, replacements, and emissions or inspection decals. Closed federal holidays, USAFE and 86 AW down days, and the last duty day of each month.',
+    steps: ['Inspect and register your vehicle'],
+    website: 'https://www.europeafrica.army.mil/RMV/',
+    websiteLabel: 'Official RMV site',
+  },
+  {
     id: 'aafes-esso',
     name: 'AAFES ESSO Card Service',
     category: 'Vehicle',
@@ -1014,6 +1065,7 @@ function Directory({ onHome, onPlan, onLinks }) {
       entry.area,
       entry.phone,
       entry.alternatePhone,
+      entry.email,
       entry.dsn,
       entry.hours,
       entry.services,
@@ -1125,17 +1177,24 @@ function Directory({ onHome, onPlan, onLinks }) {
                       </a>
                     )}
                   </>
-                ) : (
+                ) : !entry.email ? (
                   <span className="directory-no-phone">Phone not listed in source</span>
+                ) : null}
+                {entry.email && (
+                  <a className="directory-action directory-action--primary" href={`mailto:${entry.email}`}>
+                    Email office
+                  </a>
                 )}
                 {entry.website && (
                   <a className="directory-action" href={entry.website} target="_blank" rel="noreferrer">
                     {entry.websiteLabel || 'Official website'} ↗
                   </a>
                 )}
-                <a className="directory-action" href={mapUrl(entry)} target="_blank" rel="noreferrer">
-                  Open in Maps ↗
-                </a>
+                {!entry.hideMap && (
+                  <a className="directory-action" href={mapUrl(entry)} target="_blank" rel="noreferrer">
+                    Open in Maps ↗
+                  </a>
+                )}
               </div>
             </article>
           ))}
