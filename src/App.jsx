@@ -126,6 +126,16 @@ const phaseTasks = [
     tag: 'Contact',
   },
   {
+    id: 'pet-travel-plan',
+    phase: 'Pre-arrival',
+    window: 'Start 4–6 months out',
+    title: 'Build your pet travel plan',
+    detail: 'Confirm that your pet may enter Germany, verify the microchip-before-rabies sequence, reserve airline space, and check crate, route, lodging, and breed restrictions before buying nonrefundable travel.',
+    tag: 'Pets',
+    guideLabel: 'Open the pet guide',
+    guideType: 'pets',
+  },
+  {
     id: 'pov-shipment',
     phase: 'Pre-arrival',
     window: 'As soon as your orders authorize it',
@@ -175,6 +185,16 @@ const phaseTasks = [
     tag: 'Healthcare',
   },
   {
+    id: 'pet-health-certificate',
+    phase: 'Pre-arrival',
+    window: 'Inside the official travel window',
+    title: 'Complete your pet’s EU health certificate',
+    detail: 'Use the current USDA APHIS Germany instructions. Have an accredited veterinarian complete the correct certificate, obtain USDA endorsement when required, and hand-carry every original with the rabies and microchip records.',
+    tag: 'Pets',
+    guideLabel: 'Review the pet document sequence',
+    guideType: 'pets',
+  },
+  {
     id: 'cac-deers',
     phase: 'Arrival',
     window: 'First 48 hours',
@@ -183,11 +203,21 @@ const phaseTasks = [
     tag: 'Identification',
   },
   {
+    id: 'pet-arrival-registration',
+    phase: 'Arrival',
+    window: 'Within the first 2 weeks',
+    title: 'Register and settle your pet',
+    detail: 'Contact the Pulaski Veterinary Clinic promptly for installation registration, then ask your landlord and municipality about local dog registration, Hundesteuer, insurance, and leash requirements for your address.',
+    tag: 'Pets',
+    guideLabel: 'Open the pet arrival checklist',
+    guideType: 'pets',
+  },
+  {
     id: 'local-phone',
     phase: 'Arrival',
     window: 'First 48 hours',
-    title: 'Set up local phone service',
-    detail: 'Strongly consider purchasing an eSIM before departure so you have service as soon as you arrive. You can use an international plan or Wi-Fi until you activate a longer-term German SIM or eSIM; Telekom, Vodafone, O2, and TKS are common local options.',
+    title: 'Set up phone, cell, and internet service',
+    detail: 'Strongly consider purchasing an eSIM before departure so you have service immediately. After choosing housing, check internet availability for the exact street address before signing a contract—not just the village or postal code. Some established neighborhoods may rely on slower DSL, while newer areas may offer fiber or cable. Compare the expected download and upload speed, installation lead time, equipment fees, and minimum contract term. Telekom, Vodafone, O2, and TKS are common local options.',
     tag: 'Communication',
   },
   {
@@ -721,8 +751,13 @@ const directoryEntries = [
     category: 'Pets',
     location: 'Pulaski Barracks, Bldg 2928',
     area: 'Kaiserslautern',
-    services: 'Pet registration. The storyboard directs arriving families to register within 14 days.',
-    steps: ['Start your PCS document folder'],
+    phone: '06371-9464-1900',
+    dsn: '590-1900',
+    hours: 'Mon–Fri 0700–1600; closed federal holidays. Verify before visiting.',
+    services: 'Installation pet registration and space-available routine veterinary care for eligible DoD beneficiaries. The current Army civilian sponsorship checklist directs employees to register pets within two weeks of arrival. This is not an emergency clinic.',
+    steps: ['Build your pet travel plan', 'Register and settle your pet'],
+    website: 'https://home.army.mil/rheinland-pfalz/usag-rheinland-pfalz/all-services/public-health-command-europe-veterinary-services',
+    websiteLabel: 'Veterinary services',
   },
 ]
 
@@ -826,6 +861,27 @@ const officialLinks = [
     category: 'Community support',
     description: 'Bilingual support for newcomers, German administrative questions, community referrals, and local integration.',
     url: 'https://gaco.kaiserslautern.de/',
+  },
+  {
+    title: 'Pet travel from the United States to Germany',
+    agency: 'USDA Animal and Plant Health Inspection Service',
+    category: 'Pets & travel',
+    description: 'Current Germany-specific microchip, rabies, health-certificate, endorsement, and travel-timing requirements by pet type.',
+    url: 'https://www.aphis.usda.gov/pet-travel/us-to-another-country-export/pet-travel-us-germany',
+  },
+  {
+    title: 'EU rules for travelling with pets',
+    agency: 'European Union',
+    category: 'Pets & travel',
+    description: 'Entry rules for dogs, cats, and ferrets, including identification, rabies vaccination, certificates, owner travel, and points of entry.',
+    url: 'https://europa.eu/youreurope/citizens/travel/carry/pets-and-other-animals/index_en.htm',
+  },
+  {
+    title: 'Dangerous-dog import restrictions',
+    agency: 'German Customs',
+    category: 'Pets & travel',
+    description: 'German federal restrictions and exceptions for certain dog breeds and their crosses. Check this before booking travel.',
+    url: 'https://www.zoll.de/DE/Privatpersonen/Reisen/Rueckkehr-aus-einem-Nicht-EU-Staat/Einschraenkungen/Gefaehrliche-Hunde/gefaehrliche_hunde.html',
   },
 ]
 
@@ -995,14 +1051,17 @@ function InstallPwa() {
     const closeOnEscape = (event) => {
       if (event.key === 'Escape') setShowGuide(false)
     }
+    const openInstallGuide = () => setShowGuide(true)
 
     window.addEventListener('beforeinstallprompt', captureInstallPrompt)
     window.addEventListener('appinstalled', markInstalled)
     window.addEventListener('keydown', closeOnEscape)
+    window.addEventListener('open-pwa-install', openInstallGuide)
     return () => {
       window.removeEventListener('beforeinstallprompt', captureInstallPrompt)
       window.removeEventListener('appinstalled', markInstalled)
       window.removeEventListener('keydown', closeOnEscape)
+      window.removeEventListener('open-pwa-install', openInstallGuide)
     }
   }, [])
 
@@ -1544,7 +1603,206 @@ function VehicleGuide({ onHome, onPlan, onDirectory }) {
   )
 }
 
-function Companion({ onHome, onDirectory, onLinks, onVehicle }) {
+function PetGuide({ onHome, onPlan, onDirectory }) {
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const statusLinks = [
+    ['01', 'I am planning the move', 'pets-plan'],
+    ['02', 'I need the travel documents', 'pets-documents'],
+    ['03', 'We are close to departure', 'pets-travel-day'],
+    ['04', 'My pet is in Germany', 'pets-arrival'],
+  ]
+
+  return (
+    <div className="companion-shell pet-shell">
+      <header className="companion-header">
+        <button className="brand brand-button" onClick={onHome} aria-label="Return to Germany PCS Companion home">
+          <span className="brand-mark">G</span>
+          <span className="brand-copy">
+            <strong>GERMANY</strong>
+            <span>PCS Companion</span>
+          </span>
+        </button>
+        <p>Moving with pets</p>
+        <div className="companion-nav-actions">
+          <button className="home-link" onClick={onDirectory}>Directory</button>
+          <button className="home-link" onClick={onPlan}>My plan</button>
+          <button className="home-link" onClick={onHome}>Exit</button>
+        </div>
+      </header>
+
+      <main className="vehicle-main pet-main">
+        <section className="vehicle-hero pet-hero">
+          <div className="vehicle-hero-copy">
+            <p className="eyebrow">Pet entry, travel & arrival</p>
+            <h1>Bring them home,<br /><span>without surprises.</span></h1>
+            <p>Germany’s pet-entry rules are manageable, but the order and timing matter. Start early, keep the official documents together, and treat the airline’s rules as a separate checklist from the country-entry requirements.</p>
+          </div>
+          <aside className="vehicle-status-card pet-status-card" aria-labelledby="pet-status-title">
+            <span>Start with your situation</span>
+            <h2 id="pet-status-title">Where are you in the process?</h2>
+            <div>
+              {statusLinks.map(([number, label, id]) => (
+                <button key={id} onClick={() => scrollToSection(id)}>
+                  <small>{number}</small>
+                  <strong>{label}</strong>
+                  <span aria-hidden="true">↓</span>
+                </button>
+              ))}
+            </div>
+          </aside>
+        </section>
+
+        <aside className="vehicle-alert pet-alert">
+          <span aria-hidden="true">!</span>
+          <div>
+            <strong>Check breed eligibility before spending money.</strong>
+            <p>Germany restricts the import of Pit Bull Terriers, American Staffordshire Terriers, Staffordshire Bull Terriers, Bull Terriers, and their crosses, with limited exceptions. State rules can cover additional breeds. Ask German Customs or the responsible local authority about your exact dog before booking.</p>
+          </div>
+        </aside>
+
+        <section className="vehicle-players pet-sequence" aria-labelledby="pet-sequence-title">
+          <div className="vehicle-section-heading">
+            <div>
+              <p className="eyebrow">The sequence that protects the move</p>
+              <h2 id="pet-sequence-title">Chip first.<br />Then vaccinate.</h2>
+            </div>
+            <p>A valid rabies vaccination for EU travel must follow a readable microchip. Reversing that order can force you to vaccinate again and restart the waiting period.</p>
+          </div>
+          <div className="vehicle-player-grid pet-sequence-grid">
+            <article>
+              <span>01</span>
+              <small>Identify</small>
+              <h3>ISO-compatible microchip</h3>
+              <p>Have the veterinarian scan the chip at each key visit. If it is not ISO-compatible, APHIS explains the scanner or second-chip options.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <small>Protect</small>
+              <h3>Rabies vaccination</h3>
+              <p>The vaccination must be given after the chip is implanted or scanned. A primary vaccination requires the official immunity waiting period before entry.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <small>Document</small>
+              <h3>EU health certificate</h3>
+              <p>Use the current Germany certificate and endorsement instructions from USDA APHIS. Do not rely on an old saved form.</p>
+            </article>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section" id="pets-plan">
+          <div className="vehicle-guide-number">01</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Four to six months out</p>
+            <h2>Confirm the path<br />before booking.</h2>
+            <div className="vehicle-checklist-grid">
+              <article>
+                <h3>Country and route</h3>
+                <ul>
+                  <li>Use the USDA APHIS Germany page for your specific species and travel arrangement.</li>
+                  <li>Check federal and Rheinland-Pfalz breed rules for dogs and crosses.</li>
+                  <li>Confirm the EU point of entry and any connection-country requirements.</li>
+                  <li>If the owner will not travel within five days of the pet, review commercial-movement rules immediately.</li>
+                </ul>
+              </article>
+              <article>
+                <h3>Airline and housing</h3>
+                <ul>
+                  <li>Reserve pet space early; a passenger ticket does not automatically reserve a pet.</li>
+                  <li>Confirm carrier dimensions, hard-sided crate requirements, weight limits, check-in time, and seasonal restrictions directly with the operating carrier.</li>
+                  <li>Verify every operating airline on a codeshare itinerary.</li>
+                  <li>Confirm that temporary lodging and prospective housing accept your pet, size, breed, and number of animals.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section vehicle-guide-section--soft pet-documents" id="pets-documents">
+          <div className="vehicle-guide-number">02</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Documents and timing</p>
+            <h2>Build the file<br />in the right order.</h2>
+            <ol className="pet-timeline">
+              <li><span>Early</span><div><strong>Scan the microchip and review rabies history</strong><p>Ask an accredited veterinarian to verify the chip, vaccination sequence, expiration dates, and whether a new dose or waiting period is required.</p></div></li>
+              <li><span>Before booking</span><div><strong>Match the certificate to how the pet travels</strong><p>Non-commercial rules generally apply when five or fewer pets travel and the owner or an authorized person travels within five days. Other arrangements can require commercial documentation and tighter timing.</p></div></li>
+              <li><span>Official window</span><div><strong>Complete and endorse the current EU health certificate</strong><p>Follow APHIS timing exactly. A USDA-accredited veterinarian completes the certificate and USDA endorsement is normally required unless a qualifying military veterinarian issues it.</p></div></li>
+              <li><span>Before departure</span><div><strong>Sign the non-commercial declaration and check every identifier</strong><p>The owner name, microchip number, rabies information, dates, flight arrangement, and certificate pages must agree. Carry originals rather than placing them in checked baggage.</p></div></li>
+            </ol>
+            <div className="pet-transition-note">
+              <strong>2026 certificate transition</strong>
+              <p>USDA APHIS says new non-commercial certificates take effect October 1, 2026. Download the current version only when you are ready to begin the certificate process.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section" id="pets-travel-day">
+          <div className="vehicle-guide-number">03</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Departure and entry</p>
+            <h2>Keep the originals<br />within reach.</h2>
+            <div className="pet-travel-grid">
+              <article>
+                <small>Hand-carry</small>
+                <h3>The document packet</h3>
+                <p>Endorsed health certificate, signed declaration, rabies certificates, microchip record, owner identification, orders when applicable, airline confirmation, and copies stored separately.</p>
+              </article>
+              <article>
+                <small>At check-in</small>
+                <h3>The carrier setup</h3>
+                <p>Use the carrier and labeling required by the operating airline. Pack only permitted accessories and follow veterinarian and airline guidance for food, water, medication, and arrival time.</p>
+              </article>
+              <article>
+                <small>At EU entry</small>
+                <h3>The compliance check</h3>
+                <p>Be ready to present the pet, scan the microchip, and show the original documents to the competent authority at the designated point of entry.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section vehicle-guide-section--navy" id="pets-arrival">
+          <div className="vehicle-guide-number">04</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Your first weeks in Germany</p>
+            <h2>Register locally.<br />Settle in safely.</h2>
+            <ol className="vehicle-arrival-order">
+              <li><span>01</span><div><strong>Contact Pulaski Veterinary Clinic</strong><p>The current Army civilian sponsorship checklist says employees should register pets with the USAG Rheinland-Pfalz clinic within two weeks of arrival. Confirm eligibility, the current process, and the deadline directly with the clinic.</p></div></li>
+              <li><span>02</span><div><strong>Ask your municipality about dog registration</strong><p>Dog tax, registration, local forms, and any insurance requirements depend on where you live. Contact your Gemeinde, Verbandsgemeinde, or city office after securing housing.</p></div></li>
+              <li><span>03</span><div><strong>Establish local veterinary care</strong><p>Military clinics provide limited space-available care and are not emergency hospitals. Save an off-base veterinarian and an after-hours emergency option before you need one.</p></div></li>
+              <li><span>04</span><div><strong>Prepare for future European travel</strong><p>Ask an authorized local veterinarian whether an EU pet passport is appropriate. Keep rabies coverage continuous and check each destination’s rules before crossing borders.</p></div></li>
+              <li><span>05</span><div><strong>Follow housing and public-space rules</strong><p>Confirm landlord and installation limits, leash and cleanup rules, public-transit requirements, and any breed-specific muzzle or insurance obligations.</p></div></li>
+            </ol>
+            <button className="vehicle-directory-button" onClick={onDirectory}>Open pet services in the directory <span>→</span></button>
+          </div>
+        </section>
+
+        <section className="vehicle-resources" aria-labelledby="pet-resources-title">
+          <div>
+            <p className="eyebrow">Verify before you travel</p>
+            <h2 id="pet-resources-title">Official starting points.</h2>
+          </div>
+          <div>
+            <a href="https://www.aphis.usda.gov/pet-travel/us-to-another-country-export/pet-travel-us-germany" target="_blank" rel="noreferrer"><span>U.S. departure requirements</span><strong>USDA APHIS — Germany</strong><i>↗</i></a>
+            <a href="https://europa.eu/youreurope/citizens/travel/carry/pets-and-other-animals/index_en.htm" target="_blank" rel="noreferrer"><span>EU entry and movement rules</span><strong>Your Europe — pet travel</strong><i>↗</i></a>
+            <a href="https://www.zoll.de/DE/Privatpersonen/Reisen/Rueckkehr-aus-einem-Nicht-EU-Staat/Einschraenkungen/Gefaehrliche-Hunde/gefaehrliche_hunde.html" target="_blank" rel="noreferrer"><span>Breed import restrictions</span><strong>German Customs</strong><i>↗</i></a>
+            <a href="https://home.army.mil/rheinland-pfalz/usag-rheinland-pfalz/newcomers/newcomers-kaiserslautern" target="_blank" rel="noreferrer"><span>KMC newcomer resources</span><strong>USAG Rheinland-Pfalz</strong><i>↗</i></a>
+          </div>
+        </section>
+
+        <div className="planner-reassurance vehicle-disclaimer">
+          <span aria-hidden="true">i</span>
+          <p><strong>Your species, origin, route, and travel date control.</strong> This overview focuses on non-commercial movement of dogs, cats, and ferrets from the United States. Other animals and arrangements can follow different rules. Verify the current APHIS, EU, German, airline, and local requirements before acting.</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets }) {
   const [activePhase, setActivePhase] = useState('Offer & orders')
   const [completed, setCompleted] = useState(() => {
     try {
@@ -1678,7 +1936,7 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle }) {
                           <h3>{task.title}</h3>
                           <p>{task.detail}</p>
                           {task.guideLabel && (
-                            <button className="task-guide-link" onClick={onVehicle}>
+                            <button className="task-guide-link" onClick={task.guideType === 'pets' ? onPets : onVehicle}>
                               {task.guideLabel} <span aria-hidden="true">→</span>
                             </button>
                           )}
@@ -1861,10 +2119,12 @@ function App() {
     if (window.location.hash === '#life') return 'life'
     if (window.location.hash === '#links') return 'links'
     if (window.location.hash === '#vehicle') return 'vehicle'
+    if (window.location.hash === '#pets') return 'pets'
     return 'home'
   }
   const [activeView, setActiveView] = useState(getViewFromHash)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [desktopMenu, setDesktopMenu] = useState(null)
 
   useEffect(() => {
     const handleHash = () => setActiveView(getViewFromHash())
@@ -1874,7 +2134,10 @@ function App() {
 
   useEffect(() => {
     const closeMenuOnEscape = (event) => {
-      if (event.key === 'Escape') setMenuOpen(false)
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        setDesktopMenu(null)
+      }
     }
     window.addEventListener('keydown', closeMenuOnEscape)
     return () => window.removeEventListener('keydown', closeMenuOnEscape)
@@ -1908,6 +2171,18 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+  const openPets = () => {
+    window.location.hash = 'pets'
+    setActiveView('pets')
+    window.scrollTo(0, 0)
+  }
+
+  const openInstall = () => {
+    setMenuOpen(false)
+    setDesktopMenu(null)
+    window.dispatchEvent(new Event('open-pwa-install'))
+  }
+
   const returnHome = () => {
     window.history.pushState(null, '', window.location.pathname)
     setActiveView('home')
@@ -1915,7 +2190,7 @@ function App() {
   }
 
   if (activeView === 'plan') {
-    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} /><InstallPwa /></>
+    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} onPets={openPets} /><InstallPwa /></>
   }
 
   if (activeView === 'directory') {
@@ -1934,6 +2209,10 @@ function App() {
     return <><VehicleGuide onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
   }
 
+  if (activeView === 'pets') {
+    return <><PetGuide onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
+  }
+
   return (
     <div className="site-shell">
       <header className="site-header">
@@ -1947,16 +2226,72 @@ function App() {
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#journey">Your journey</a>
-          <button onClick={openVehicle}>Vehicle</button>
-          <button onClick={openDirectory}>Directory</button>
-          <button onClick={openLife}>Explore</button>
-          <button onClick={openLinks}>Official links</button>
-          <a href="#about">About this guide</a>
+          <div
+            className={`desktop-nav-group ${desktopMenu === 'guides' ? 'is-open' : ''}`}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) setDesktopMenu(null)
+            }}
+          >
+            <button
+              className="desktop-nav-toggle"
+              onClick={() => setDesktopMenu((current) => current === 'guides' ? null : 'guides')}
+              aria-expanded={desktopMenu === 'guides'}
+              aria-haspopup="menu"
+            >
+              Guides <span aria-hidden="true">⌄</span>
+            </button>
+            <div className="desktop-nav-dropdown" role="menu" aria-label="Practical guides">
+              <small>Practical guides</small>
+              <button onClick={() => { setDesktopMenu(null); openVehicle() }} role="menuitem">
+                <strong>Vehicle</strong>
+                <span>Shipment, pickup and registration</span>
+              </button>
+              <button onClick={() => { setDesktopMenu(null); openPets() }} role="menuitem">
+                <strong>Moving with pets</strong>
+                <span>Entry, travel and settling in</span>
+              </button>
+            </div>
+          </div>
+          <button onClick={openLife}>Explore Germany</button>
+          <div
+            className={`desktop-nav-group ${desktopMenu === 'resources' ? 'is-open' : ''}`}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) setDesktopMenu(null)
+            }}
+          >
+            <button
+              className="desktop-nav-toggle"
+              onClick={() => setDesktopMenu((current) => current === 'resources' ? null : 'resources')}
+              aria-expanded={desktopMenu === 'resources'}
+              aria-haspopup="menu"
+            >
+              Resources <span aria-hidden="true">⌄</span>
+            </button>
+            <div className="desktop-nav-dropdown" role="menu" aria-label="Reference resources">
+              <small>Reference</small>
+              <button onClick={() => { setDesktopMenu(null); openDirectory() }} role="menuitem">
+                <strong>Directory</strong>
+                <span>Offices, numbers and services</span>
+              </button>
+              <button onClick={() => { setDesktopMenu(null); openLinks() }} role="menuitem">
+                <strong>Official links</strong>
+                <span>Forms and verified starting points</span>
+              </button>
+              <a href="#about" onClick={() => setDesktopMenu(null)} role="menuitem">
+                <strong>About this guide</strong>
+                <span>Purpose, contact and disclaimer</span>
+              </a>
+              <button onClick={openInstall} role="menuitem">
+                <strong>Install the app</strong>
+                <span>Add the companion to your device</span>
+              </button>
+            </div>
+          </div>
         </nav>
 
         <div className="header-actions">
-          <button className="header-action" onClick={startPlan} aria-label="Find my next step">
-            Find my next step
+          <button className="header-action" onClick={startPlan} aria-label="Open my arrival plan">
+            My plan
             <span aria-hidden="true">→</span>
           </button>
           <button
@@ -1978,42 +2313,54 @@ function App() {
           aria-label="Mobile navigation"
           aria-hidden={!menuOpen}
         >
-          <small>Navigate</small>
-          <a href="#journey" onClick={() => setMenuOpen(false)}>
-            <span>01</span>
-            <strong>Your journey</strong>
-            <span aria-hidden="true">↓</span>
-          </a>
-          <button onClick={() => { setMenuOpen(false); startPlan() }}>
-            <span>02</span>
-            <strong>My arrival plan</strong>
-            <span aria-hidden="true">→</span>
-          </button>
-          <button onClick={() => { setMenuOpen(false); openLife() }}>
-            <span>03</span>
-            <strong>Explore life in Germany</strong>
-            <span aria-hidden="true">→</span>
-          </button>
-          <button onClick={() => { setMenuOpen(false); openVehicle() }}>
-            <span>04</span>
-            <strong>Your vehicle in Germany</strong>
-            <span aria-hidden="true">→</span>
-          </button>
-          <button onClick={() => { setMenuOpen(false); openDirectory() }}>
-            <span>05</span>
-            <strong>Directory</strong>
-            <span aria-hidden="true">→</span>
-          </button>
-          <button onClick={() => { setMenuOpen(false); openLinks() }}>
-            <span>06</span>
-            <strong>Official links</strong>
-            <span aria-hidden="true">→</span>
-          </button>
-          <a href="#about" onClick={() => setMenuOpen(false)}>
-            <span>07</span>
-            <strong>About this guide</strong>
-            <span aria-hidden="true">↓</span>
-          </a>
+          <div className="mobile-menu-section">
+            <small>My move</small>
+            <button onClick={() => { setMenuOpen(false); startPlan() }}>
+              <strong>My arrival plan</strong>
+              <span aria-hidden="true">→</span>
+            </button>
+            <a href="#journey" onClick={() => setMenuOpen(false)}>
+              <strong>Your journey</strong>
+              <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+          <div className="mobile-menu-section">
+            <small>Practical guides</small>
+            <button onClick={() => { setMenuOpen(false); openVehicle() }}>
+              <strong>Your vehicle in Germany</strong>
+              <span aria-hidden="true">→</span>
+            </button>
+            <button onClick={() => { setMenuOpen(false); openPets() }}>
+              <strong>Moving with pets</strong>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <div className="mobile-menu-section">
+            <small>Living here</small>
+            <button onClick={() => { setMenuOpen(false); openLife() }}>
+              <strong>Explore life in Germany</strong>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <div className="mobile-menu-section">
+            <small>Reference</small>
+            <button onClick={() => { setMenuOpen(false); openDirectory() }}>
+              <strong>Directory</strong>
+              <span aria-hidden="true">→</span>
+            </button>
+            <button onClick={() => { setMenuOpen(false); openLinks() }}>
+              <strong>Official links</strong>
+              <span aria-hidden="true">→</span>
+            </button>
+            <a href="#about" onClick={() => setMenuOpen(false)}>
+              <strong>About this guide</strong>
+              <span aria-hidden="true">↓</span>
+            </a>
+            <button onClick={openInstall}>
+              <strong>Install the app</strong>
+              <span aria-hidden="true">↓</span>
+            </button>
+          </div>
         </nav>
       </header>
       {menuOpen && <div className="mobile-menu-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />}
@@ -2218,6 +2565,7 @@ function App() {
         <div className="footer-links">
           <button onClick={openLife}>Explore life</button>
           <button onClick={openVehicle}>Vehicle</button>
+          <button onClick={openPets}>Pets</button>
           <button onClick={openDirectory}>Directory</button>
           <a href="#top">Accessibility</a>
           <a href="#top">Privacy</a>
