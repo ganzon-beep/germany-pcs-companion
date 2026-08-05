@@ -194,6 +194,8 @@ const phaseTasks = [
     title: 'Save local healthcare options',
     detail: 'Identify nearby English-speaking primary, emergency, specialty, therapy, and dental care. Save 112 as the German emergency number.',
     tag: 'Healthcare',
+    guideLabel: 'Review healthcare in Germany',
+    guideType: 'life',
   },
   {
     id: 'pet-health-certificate',
@@ -212,6 +214,8 @@ const phaseTasks = [
     title: 'Complete CAC and DEERS enrollment',
     detail: 'Make this an early priority for installation access, network access, and payroll processing. Dependents should also obtain ID cards and confirm authorized patronage.',
     tag: 'Identification',
+    guideLabel: 'Review installation and visitor access',
+    guideType: 'life',
   },
   {
     id: 'pet-arrival-registration',
@@ -441,6 +445,37 @@ const directoryEntries = [
     dsn: '590-5917',
     services: 'Local DEERS enrollment and identification support.',
     steps: ['Complete CAC and DEERS enrollment'],
+  },
+  {
+    id: 'ramstein-vcc',
+    name: 'Ramstein Visitor Control Center',
+    category: 'Installation Access',
+    location: 'Verify the current VCC location and operating status before traveling',
+    area: 'Ramstein Air Base',
+    phone: '+49 6371-47-5775',
+    phoneHref: '+496371475775',
+    dsn: '480-5775',
+    services: 'Visitor passes, guest access questions, event access requests, and current Ramstein Air Base sponsorship requirements. A visitor pass does not itself grant shopping or service privileges.',
+    steps: ['Complete CAC and DEERS enrollment'],
+    website: 'https://www.ramstein.af.mil/About/Fact-Sheets/Article/726166/ramstein-visitor-control-center/',
+    websiteLabel: 'Current VCC guidance',
+    hideMap: true,
+  },
+  {
+    id: 'pulaski-iacs',
+    name: 'Pulaski Barracks IACS',
+    category: 'Installation Access',
+    location: 'Pulaski Barracks, Bldg 2974, Pariser Straße',
+    area: 'Kaiserslautern',
+    phone: '+49 611-143-541-7153',
+    phoneHref: '+496111435417153',
+    alternatePhone: '+49 611-143-541-7152',
+    dsn: '541-7153 / 541-7152',
+    hours: 'Mon–Fri 0830–1145 and 1300–1545; closed weekends and federal holidays. Verify before visiting.',
+    services: 'IACS registration for eligible DoD ID cardholders plus Army installation passes, visitor access, vendors, and access rosters.',
+    steps: ['Complete CAC and DEERS enrollment'],
+    website: 'https://home.army.mil/rheinland-pfalz/index.php/about/directorates-support-offices/directorate-emergency-services-des/installation-access-control',
+    websiteLabel: 'Army access guidance',
   },
   {
     id: 'kleber-utap',
@@ -693,6 +728,21 @@ const directoryEntries = [
     steps: ['Audit your overseas health coverage', 'Save local healthcare options'],
   },
   {
+    id: 'medical-on-call-116117',
+    name: 'German Medical On-Call Service',
+    category: 'Healthcare',
+    location: 'Germany-wide telephone service',
+    area: 'Germany',
+    phone: '116117',
+    phoneHref: '116117',
+    hours: 'Available 24/7. Call 112 instead for potentially life-threatening emergencies.',
+    services: 'Routes urgent, non-life-threatening medical needs to an appropriate open practice, on-call clinic, hospital service, or telephone consultation, particularly when regular practices are closed.',
+    steps: ['Save local healthcare options'],
+    website: 'https://gesund.bund.de/en',
+    websiteLabel: 'Federal health portal',
+    hideMap: true,
+  },
+  {
     id: 'kleber-tricare',
     name: 'Kleber TRICARE Service Center',
     category: 'Healthcare',
@@ -819,6 +869,34 @@ const officialLinks = [
     category: 'Employment forms',
     description: 'Official Federal Employees Health Benefits enrollment and change form.',
     url: 'https://www.opm.gov/forms/pdf_fill/sf2809.pdf',
+  },
+  {
+    title: 'Important facts about FEHB overseas coverage',
+    agency: 'U.S. Office of Personnel Management',
+    category: 'Healthcare',
+    description: 'Official overview of overseas claims, upfront payment, translations, currency information, prescriptions, provider assistance, and plan-specific coverage.',
+    url: 'https://www.opm.gov/healthcare-insurance/healthcare/plan-information/important-facts-about-overseas-coverage/',
+  },
+  {
+    title: 'Ramstein Visitor Control Center',
+    agency: '86th Airlift Wing, Ramstein Air Base',
+    category: 'Installation access',
+    description: 'Current Air Force installation visitor-pass, sponsorship, identification, event-access, screening, and contact guidance.',
+    url: 'https://www.ramstein.af.mil/About/Fact-Sheets/Article/726166/ramstein-visitor-control-center/',
+  },
+  {
+    title: 'Army installation access control',
+    agency: 'U.S. Army Garrison Rheinland-Pfalz',
+    category: 'Installation access',
+    description: 'Official IACS registration, visitor escort, family-visitor pass, access-roster, and installation-pass requirements for local Army installations.',
+    url: 'https://home.army.mil/rheinland-pfalz/index.php/about/directorates-support-offices/directorate-emergency-services-des/installation-access-control',
+  },
+  {
+    title: 'Germany’s federal health portal',
+    agency: 'German Federal Ministry of Health',
+    category: 'Healthcare',
+    description: 'Official doctor and hospital search plus guidance for 112 emergencies and the 116117 non-emergency medical on-call service.',
+    url: 'https://gesund.bund.de/en',
   },
   {
     title: 'DD 1056 — No-Fee Passport Authorization',
@@ -1052,6 +1130,31 @@ const lifeTopics = [
       'Use DB Navigator for rail planning and check the regional operator for local bus changes.',
       'Look for parking signs, time limits, and the blue parking-disc symbol before walking away from the car.',
       'Expect narrow village streets and leave driveways, sidewalks, and emergency access clear.',
+    ],
+  },
+  {
+    category: 'Installations',
+    title: 'Separate installation access from patronage',
+    summary: 'Getting through a gate and being eligible to use a service are two different questions—and Air Force and Army visitor processes are not interchangeable.',
+    tips: [
+      'Make sure newly issued CAC and dependent ID cards are registered in the access system required by the installation you use.',
+      'Guests without an authorized DoD credential may need an escort, approved roster, or visitor pass. Check the responsible Air Force VCC or Army IACS office before the visit.',
+      'Visitors should carry the identification specified by the current access office; nationality, purpose, length of visit, and requested level of access can change the process and lead time.',
+      'A gate pass does not create Exchange, commissary, MWR, gym, fuel, ration, or other patronage privileges. Eligibility follows the sponsor or visitor’s authorized status, ID, orders, and applicable overseas rules.',
+      'Do not promise access for an event or visiting family until the responsible office confirms the current sponsorship and screening requirements.',
+    ],
+  },
+  {
+    category: 'Healthcare',
+    title: 'Build a civilian healthcare routine before you need it',
+    summary: 'Most civilian employees rely on their FEHB plan and German-economy providers for routine primary care, so the practical work is understanding the plan and preserving claim documentation.',
+    tips: [
+      'Read the overseas-care and claims section of your current FEHB brochure; plan rules, assistance networks, precertification, prescriptions, dental benefits, and reimbursement procedures differ.',
+      'Expect that many overseas providers may require payment up front. Request an itemized Rechnung showing the patient, provider, dates, diagnosis or reason for care, each service, and each charge, then keep proof of payment.',
+      'Ask your plan whether it needs an English translation, claim form, currency-conversion documentation, referral, or prior approval before arranging non-emergency treatment.',
+      'Civilian employees generally are not assigned a military primary care manager. Military specialty access may be space available, while TRICARE and TRICARE Plus rules apply only to eligible beneficiaries.',
+      'Use 112 for potentially life-threatening emergencies. For urgent, non-life-threatening care when regular practices are closed, Germany’s medical on-call service is 116117.',
+      'Save a nearby primary-care practice, dentist, pharmacy, hospital, and after-hours option; dental and vision reimbursement may follow different plan rules from medical care.',
     ],
   },
   {
@@ -2097,7 +2200,7 @@ function PetGuide({ onHome, onPlan, onDirectory }) {
   )
 }
 
-function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHouseholdGoods }) {
+function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHouseholdGoods, onLife }) {
   const [activePhase, setActivePhase] = useState('Offer & orders')
   const [completed, setCompleted] = useState(() => {
     try {
@@ -2132,6 +2235,7 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHousehol
   const openTaskGuide = (guideType) => {
     if (guideType === 'pets') return onPets()
     if (guideType === 'household-goods') return onHouseholdGoods()
+    if (guideType === 'life') return onLife()
     return onVehicle()
   }
 
@@ -2364,13 +2468,14 @@ function LifeInGermany({ onHome, onPlan, onDirectory, onLinks }) {
             <h1>Feel local,<br /><span>one routine at a time.</span></h1>
           </div>
           <div className="life-hero-copy">
-            <p>Get to know the Ramstein–Kaiserslautern–Landstuhl area through the things that shape a real week: neighbors, recycling, groceries, transportation, village life, and the small cultural cues nobody explains at first.</p>
+            <p>Get to know the Ramstein–Kaiserslautern–Landstuhl area through the things that shape a real week: neighbors, recycling, groceries, transportation, healthcare, installation access, village life, and the small cultural cues nobody explains at first.</p>
             <div className="life-quick-start">
               <small>Your first local week</small>
               <ul>
                 <li>Find your municipality’s waste calendar.</li>
                 <li>Save your closest grocery store, bakery, pharmacy, and train or bus stop.</li>
                 <li>Plan the first Sunday and public holiday before everything closes.</li>
+                <li>Save 112, 116117, and the access office for the installations you use.</li>
               </ul>
             </div>
           </div>
@@ -2458,12 +2563,32 @@ function LifeInGermany({ onHome, onPlan, onDirectory, onLinks }) {
               <strong>German-American Community Office</strong>
               <ArrowIcon />
             </a>
+            <a href="https://www.ramstein.af.mil/About/Fact-Sheets/Article/726166/ramstein-visitor-control-center/" target="_blank" rel="noreferrer">
+              <span>Air Force installations</span>
+              <strong>Ramstein visitor access guidance</strong>
+              <ArrowIcon />
+            </a>
+            <a href="https://home.army.mil/rheinland-pfalz/index.php/about/directorates-support-offices/directorate-emergency-services-des/installation-access-control" target="_blank" rel="noreferrer">
+              <span>Army installations</span>
+              <strong>USAG Rheinland-Pfalz access guidance</strong>
+              <ArrowIcon />
+            </a>
+            <a href="https://www.opm.gov/healthcare-insurance/healthcare/plan-information/important-facts-about-overseas-coverage/" target="_blank" rel="noreferrer">
+              <span>Civilian health coverage</span>
+              <strong>OPM overseas FEHB guidance</strong>
+              <ArrowIcon />
+            </a>
+            <a href="https://gesund.bund.de/en" target="_blank" rel="noreferrer">
+              <span>German healthcare</span>
+              <strong>Federal health portal and provider search</strong>
+              <ArrowIcon />
+            </a>
           </div>
         </section>
 
         <div className="planner-reassurance life-disclaimer">
           <span aria-hidden="true">i</span>
-          <p><strong>Address-specific rules matter.</strong> Confirm collection schedules, quiet hours, parking restrictions, and local services with your municipality, landlord, or the responsible office.</p>
+          <p><strong>Local and status-specific rules matter.</strong> Confirm community requirements with your municipality or landlord, installation access and patronage with the responsible security or service office, and healthcare coverage with your current FEHB plan.</p>
         </div>
       </main>
     </div>
@@ -2573,7 +2698,7 @@ function App() {
   }
 
   if (activeView === 'plan') {
-    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} onPets={openPets} onHouseholdGoods={openHouseholdGoods} /><InstallPwa /></>
+    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} onPets={openPets} onHouseholdGoods={openHouseholdGoods} onLife={openLife} /><InstallPwa /></>
   }
 
   if (activeView === 'directory') {
