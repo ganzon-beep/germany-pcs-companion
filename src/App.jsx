@@ -127,6 +127,16 @@ const phaseTasks = [
     tag: 'Contact',
   },
   {
+    id: 'household-goods-plan',
+    phase: 'Pre-arrival',
+    window: 'After orders are issued',
+    title: 'Plan household-goods and baggage shipments',
+    detail: 'Confirm what your orders authorize, then coordinate household goods, unaccompanied baggage, storage, pickup dates, and destination contact details with your transportation office. Photograph high-value items and keep shipment inventories with your hand-carried records.',
+    tag: 'Household goods',
+    guideLabel: 'Open the household-goods guide',
+    guideType: 'household-goods',
+  },
+  {
     id: 'pet-travel-plan',
     phase: 'Pre-arrival',
     window: 'Start 4–6 months out',
@@ -342,6 +352,16 @@ const phaseTasks = [
     title: 'Schedule FMO furnishings and appliances',
     detail: 'Visit FMO at Vogelweh Bldg 1001 for temporary loaner furniture and available tour-length appliances while you wait for household goods.',
     tag: 'Home',
+  },
+  {
+    id: 'household-goods-delivery',
+    phase: 'Days 30 · 60 · 90',
+    window: 'When delivery can be scheduled',
+    title: 'Receive and inspect your household goods',
+    detail: 'Confirm the delivery address and access, keep your inventory ready, and inspect as items arrive. Record visible loss or damage before the crew leaves, photograph concerns, and follow the current transportation-office instructions for concealed damage and claims.',
+    tag: 'Household goods',
+    guideLabel: 'Review delivery day and claims',
+    guideType: 'household-goods',
   },
   {
     id: 'vehicle-registration',
@@ -827,6 +847,27 @@ const officialLinks = [
     category: 'Allowances & housing',
     description: 'Official worksheet supporting Temporary Quarters Subsistence Allowance expense calculations.',
     url: 'https://allowances.state.gov/content/documents/1851_TQSA.pdf',
+  },
+  {
+    title: 'Department of State Standardized Regulations',
+    agency: 'U.S. Department of State, Office of Allowances',
+    category: 'Allowances & housing',
+    description: 'Current controlling framework for TQSA, LQA, Post Allowance, and other authorized foreign-area allowances.',
+    url: 'https://allowances.state.gov/content.asp?content_id=282&menu_id=101',
+  },
+  {
+    title: 'Home leave rules and agency discretion',
+    agency: 'U.S. Office of Personnel Management',
+    category: 'Allowances & housing',
+    description: 'Official explanation of qualifying overseas service, permissible use, and the agency’s authority to grant home leave.',
+    url: 'https://www.opm.gov/policy-data-oversight/pay-leave/claim-decisions/compensation-leave/claims/2020/20-0003/',
+  },
+  {
+    title: 'Household-goods claims fact sheet',
+    agency: 'Defense Personal Property Management Office',
+    category: 'PCS & finance',
+    description: 'Official loss-and-damage notice, documentation, and claim-filing overview. Confirm the current process for your shipment with the transportation office.',
+    url: 'https://www.navsup.navy.mil/Portals/65/HHG/Documents/ClaimsFactSheet-PersonalPropertyClaims-2023.pdf',
   },
   {
     title: 'Welcome to Rheinland-Pfalz',
@@ -1604,6 +1645,259 @@ function VehicleGuide({ onHome, onPlan, onDirectory }) {
   )
 }
 
+function HouseholdGoodsGuide({ onHome, onPlan, onLinks }) {
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const statusLinks = [
+    ['01', 'I am preparing the shipment', 'hhg-before-pickup'],
+    ['02', 'My shipment is in transit', 'hhg-in-transit'],
+    ['03', 'I am scheduling delivery', 'hhg-delivery'],
+    ['04', 'Something is missing or damaged', 'hhg-claims'],
+  ]
+
+  return (
+    <div className="companion-shell vehicle-shell household-shell">
+      <header className="companion-header">
+        <button className="brand brand-button" onClick={onHome} aria-label="Return to Germany PCS Companion home">
+          <span className="brand-mark">G</span>
+          <span className="brand-copy"><strong>GERMANY</strong><span>PCS Companion</span></span>
+        </button>
+        <p>Household goods & baggage</p>
+        <div className="companion-nav-actions">
+          <button className="home-link" onClick={onLinks}>Official links</button>
+          <button className="home-link" onClick={onPlan}>My plan</button>
+          <button className="home-link" onClick={onHome}>Exit</button>
+        </div>
+      </header>
+
+      <main className="vehicle-main">
+        <section className="vehicle-hero">
+          <div className="vehicle-hero-copy">
+            <p className="eyebrow">Household goods, baggage & delivery</p>
+            <h1>Pack the move,<br /><span>protect the handoff.</span></h1>
+            <p>Your orders, transportation counselor, carrier, and destination office each control a different part of the shipment. Keep the paperwork together and document condition at every handoff.</p>
+          </div>
+          <aside className="vehicle-status-card" aria-labelledby="hhg-status-title">
+            <span>Start with your situation</span>
+            <h2 id="hhg-status-title">Where are your belongings now?</h2>
+            <div>
+              {statusLinks.map(([number, label, id]) => (
+                <button key={id} onClick={() => scrollToSection(id)}>
+                  <small>{number}</small><strong>{label}</strong><span aria-hidden="true">↓</span>
+                </button>
+              ))}
+            </div>
+          </aside>
+        </section>
+
+        <aside className="vehicle-alert">
+          <span aria-hidden="true">!</span>
+          <div>
+            <strong>Your orders and transportation office define the entitlement.</strong>
+            <p>Do not assume weight limits, storage, unaccompanied baggage, personally procured moves, or reimbursement rules. Confirm authorization before arranging or paying for a shipment yourself.</p>
+          </div>
+        </aside>
+
+        <section className="vehicle-guide-section" id="hhg-before-pickup">
+          <div className="vehicle-guide-number">01</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Before pickup</p>
+            <h2>Authorize it.<br />Inventory it.</h2>
+            <div className="vehicle-checklist-grid">
+              <article>
+                <h3>Confirm the shipment plan</h3>
+                <ul>
+                  <li>Review the authorized weight, storage, shipment types, pickup location, and destination with the transportation office.</li>
+                  <li>Separate what must travel with you from household goods and unaccompanied baggage.</li>
+                  <li>Keep orders, amendments, inventories, carrier contacts, and shipment numbers outside the packed shipment.</li>
+                  <li>Tell the counselor about items requiring special handling before pickup day.</li>
+                </ul>
+              </article>
+              <article>
+                <h3>Build your own record</h3>
+                <ul>
+                  <li>Photograph rooms and valuable items before packing begins.</li>
+                  <li>Record serial numbers and keep receipts or appraisals when available.</li>
+                  <li>Read the carrier inventory before signing and question vague descriptions or pre-existing-damage codes.</li>
+                  <li>Keep medications, passports, valuables, irreplaceable records, and immediate-arrival essentials with you.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section vehicle-guide-section--soft" id="hhg-in-transit">
+          <div className="vehicle-guide-number">02</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">While it is moving</p>
+            <h2>Track it.<br />Prepare the address.</h2>
+            <div className="vehicle-transit-grid">
+              <article><span>Track</span><h3>Keep contact details current</h3><p>Monitor the shipment through the system or contacts provided by your transportation office. Update your phone, email, and delivery address promptly.</p></article>
+              <article><span>Access</span><h3>Walk the delivery route</h3><p>Check parking, stairs, elevators, narrow doors, low ceilings, and building rules. Tell the carrier about access restrictions before delivery day.</p></article>
+              <article><span>Plan</span><h3>Bridge the gap</h3><p>Coordinate FMO loaner furnishings and tour-length appliances where eligible, and keep essential household items accessible until every shipment arrives.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section" id="hhg-delivery">
+          <div className="vehicle-guide-number">03</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Delivery day</p>
+            <h2>Count it.<br />Inspect it.</h2>
+            <div className="vehicle-checklist-grid">
+              <article>
+                <h3>As items enter</h3>
+                <ul>
+                  <li>Have an adult check inventory numbers while another directs placement when possible.</li>
+                  <li>Open visibly damaged cartons and inspect high-value items before the crew leaves.</li>
+                  <li>Photograph damage, missing inventory numbers, wet cartons, mold, or damage to the residence.</li>
+                  <li>Record visible loss or damage on the delivery paperwork before signing.</li>
+                </ul>
+              </article>
+              <article>
+                <h3>Before the crew leaves</h3>
+                <ul>
+                  <li>Ask for authorized furniture reassembly and unpacking services rather than assuming what is included.</li>
+                  <li>Confirm how cartons and packing debris will be handled under the shipment instructions.</li>
+                  <li>Keep copies of every signed document and note unresolved concerns.</li>
+                  <li>Contact the destination transportation office immediately for serious safety, water, mold, or property-damage concerns.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="vehicle-guide-section vehicle-guide-section--navy" id="hhg-claims">
+          <div className="vehicle-guide-number">04</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">After delivery</p>
+            <h2>Document first.<br />Then file.</h2>
+            <ol className="vehicle-arrival-order">
+              <li><span>01</span><div><strong>Inspect every room promptly</strong><p>Look for concealed damage and compare delivered items against the signed inventory.</p></div></li>
+              <li><span>02</span><div><strong>Preserve evidence</strong><p>Take clear photographs, retain damaged items and packaging when practical, and gather receipts, serial numbers, and repair estimates.</p></div></li>
+              <li><span>03</span><div><strong>Submit notice using the current process</strong><p>Notice of loss or damage and the itemized claim are separate actions. Use the system and deadlines given for your shipment.</p></div></li>
+              <li><span>04</span><div><strong>Ask before discarding or repairing</strong><p>The carrier or claims office may need inspection or salvage. Get instructions before changing the evidence.</p></div></li>
+            </ol>
+            <button className="vehicle-directory-button" onClick={onLinks}>Open the official link library <span>→</span></button>
+          </div>
+        </section>
+
+        <section className="vehicle-resources" aria-labelledby="hhg-resources-title">
+          <div><p className="eyebrow">Verify the current process</p><h2 id="hhg-resources-title">Official starting points.</h2></div>
+          <div>
+            <a href="https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Preparing-Civilian-PCS/" target="_blank" rel="noreferrer"><span>Civilian PCS entitlements</span><strong>DFAS — Preparing for a Civilian PCS</strong><i>↗</i></a>
+            <a href="https://www.navsup.navy.mil/Portals/65/HHG/Documents/ClaimsFactSheet-PersonalPropertyClaims-2023.pdf" target="_blank" rel="noreferrer"><span>Loss, damage & claims</span><strong>Defense Personal Property claims fact sheet</strong><i>↗</i></a>
+          </div>
+        </section>
+
+        <div className="planner-reassurance vehicle-disclaimer">
+          <span aria-hidden="true">i</span>
+          <p><strong>Shipment-specific instructions control.</strong> Authorization, services, systems, deadlines, and claim procedures can vary. Follow your orders and the current direction from your transportation office, carrier, and servicing claims office.</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function AllowancesGuide({ onHome, onPlan, onLinks }) {
+  const allowances = [
+    ['TQSA', 'Temporary quarters', 'May reimburse authorized temporary lodging, meals, laundry, and related subsistence costs while entering or leaving a foreign post. Receipts and claim periods matter.'],
+    ['LQA', 'Permanent quarters', 'May reimburse eligible housing costs up to an authorized maximum. Lease review, allowable costs, utilities, and reconciliation requirements matter.'],
+    ['Post Allowance', 'Local cost difference', 'A cost-of-living allowance that may apply at a foreign post. Eligibility and the payment index can change; it is not a fixed percentage for every employee.'],
+    ['Advance Pay', 'Upfront cash flow', 'An advance of basic pay may be available when authorized, but it is repaid through payroll. Ask how repayment will affect take-home pay.'],
+    ['Home Leave', 'Qualifying overseas service', 'A separate leave category earned under qualifying conditions. Accrual does not guarantee approval to use it; agency rules and future overseas service requirements apply.'],
+  ]
+
+  return (
+    <div className="companion-shell vehicle-shell allowances-shell">
+      <header className="companion-header">
+        <button className="brand brand-button" onClick={onHome} aria-label="Return to Germany PCS Companion home">
+          <span className="brand-mark">G</span>
+          <span className="brand-copy"><strong>GERMANY</strong><span>PCS Companion</span></span>
+        </button>
+        <p>Civilian pay & allowances</p>
+        <div className="companion-nav-actions">
+          <button className="home-link" onClick={onLinks}>Official links</button>
+          <button className="home-link" onClick={onPlan}>My plan</button>
+          <button className="home-link" onClick={onHome}>Exit</button>
+        </div>
+      </header>
+
+      <main className="vehicle-main">
+        <section className="allowances-hero">
+          <div>
+            <p className="eyebrow">Civilian pay, housing & overseas allowances</p>
+            <h1>Know the name.<br /><span>Know what it does.</span></h1>
+          </div>
+          <p>Overseas allowances solve different problems and follow different rules. This guide helps you ask the right questions without treating an estimate as an entitlement.</p>
+        </section>
+
+        <aside className="vehicle-alert allowances-alert">
+          <span aria-hidden="true">!</span>
+          <div>
+            <strong>Your offer, orders, agency determination, and servicing office control.</strong>
+            <p>Do not sign a lease, incur a major expense, or count on a payment based only on a general guide or another employee’s experience. Ask what is authorized for you and what documentation is required.</p>
+          </div>
+        </aside>
+
+        <section className="allowance-overview" aria-labelledby="allowance-overview-title">
+          <div className="vehicle-section-heading">
+            <div><p className="eyebrow">At a glance</p><h2 id="allowance-overview-title">Five terms that<br />should not blur together.</h2></div>
+            <p>Think of each as a separate lane: temporary lodging, permanent housing, local purchasing power, repayable cash flow, and leave.</p>
+          </div>
+          <div className="allowance-grid">
+            {allowances.map(([name, label, copy], index) => (
+              <article key={name}><span>{String(index + 1).padStart(2, '0')}</span><small>{label}</small><h3>{name}</h3><p>{copy}</p></article>
+            ))}
+          </div>
+        </section>
+
+        <section className="allowance-timeline" aria-labelledby="allowance-timeline-title">
+          <div className="vehicle-guide-number">→</div>
+          <div className="vehicle-guide-copy">
+            <p className="eyebrow">Use the move as your timeline</p>
+            <h2 id="allowance-timeline-title">Ask before.<br />Document during.</h2>
+            <div className="allowance-step-grid">
+              <article><span>Before accepting costs</span><h3>Confirm eligibility in writing</h3><p>Ask HR or relocation which PCS expenses, foreign allowances, advances, and tax treatments apply to your appointment and orders.</p></article>
+              <article><span>During temporary lodging</span><h3>Protect the TQSA record</h3><p>Keep itemized lodging, meal, and laundry records and follow the claim intervals and local submission process you are given.</p></article>
+              <article><span>Before signing housing</span><h3>Protect the LQA decision</h3><p>Confirm the maximum, lease-review requirement, included utilities, allowable costs, and how annual reconciliation will be handled.</p></article>
+              <article><span>After settling in</span><h3>Review the first payments</h3><p>Compare LES entries and reimbursements with approvals. Ask promptly about missing, unexpected, or taxable amounts.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section className="allowance-questions" aria-labelledby="allowance-questions-title">
+          <div><p className="eyebrow">Take these questions with you</p><h2 id="allowance-questions-title">A better finance conversation.</h2></div>
+          <ul>
+            <li>Which allowances are specifically authorized for my appointment and dependents?</li>
+            <li>Which costs require approval before I incur them?</li>
+            <li>What receipts, worksheets, exchange rates, and claim intervals are required?</li>
+            <li>Which PCS payments are taxable, and is RITA potentially applicable?</li>
+            <li>Who reviews my lease and confirms the LQA ceiling before I sign?</li>
+            <li>How will an advance of pay be repaid, and what will that do to my net pay?</li>
+          </ul>
+        </section>
+
+        <section className="vehicle-resources" aria-labelledby="allowance-resources-title">
+          <div><p className="eyebrow">Use current official rules</p><h2 id="allowance-resources-title">Official starting points.</h2></div>
+          <div>
+            <a href="https://allowances.state.gov/content.asp?content_id=282&menu_id=101" target="_blank" rel="noreferrer"><span>TQSA, LQA & Post Allowance</span><strong>Department of State Standardized Regulations</strong><i>↗</i></a>
+            <a href="https://www.dfas.mil/CivilianEmployees/Civilian-Permanent-Change-of-Station-PCS/Preparing-Civilian-PCS/" target="_blank" rel="noreferrer"><span>Orders, claims & PCS finance</span><strong>DFAS — Preparing for a Civilian PCS</strong><i>↗</i></a>
+            <a href="https://www.opm.gov/policy-data-oversight/pay-leave/claim-decisions/compensation-leave/claims/2020/20-0003/" target="_blank" rel="noreferrer"><span>Eligibility and agency discretion</span><strong>OPM — Home leave</strong><i>↗</i></a>
+          </div>
+        </section>
+
+        <div className="planner-reassurance vehicle-disclaimer">
+          <span aria-hidden="true">i</span>
+          <p><strong>This is an orientation, not an entitlement determination.</strong> Rates, eligibility, tax treatment, documentation, and agency implementation can change. Confirm your case with your servicing HR, CPAC, relocation, payroll, or finance office.</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+
 function PetGuide({ onHome, onPlan, onDirectory }) {
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -1803,7 +2097,7 @@ function PetGuide({ onHome, onPlan, onDirectory }) {
   )
 }
 
-function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets }) {
+function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHouseholdGoods }) {
   const [activePhase, setActivePhase] = useState('Offer & orders')
   const [completed, setCompleted] = useState(() => {
     try {
@@ -1831,6 +2125,14 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets }) {
     setCompleted((current) =>
       current.includes(id) ? current.filter((taskId) => taskId !== id) : [...current, id],
     )
+  }
+
+  const printChecklist = () => window.print()
+
+  const openTaskGuide = (guideType) => {
+    if (guideType === 'pets') return onPets()
+    if (guideType === 'household-goods') return onHouseholdGoods()
+    return onVehicle()
   }
 
   return (
@@ -1897,7 +2199,13 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets }) {
               <p className="eyebrow">Focus now</p>
               <h2>{activePhase}</h2>
             </div>
-            <span>{visibleTasks.length} essential {visibleTasks.length === 1 ? 'step' : 'steps'}</span>
+            <div className="task-heading-actions">
+              <span>{visibleTasks.length} essential {visibleTasks.length === 1 ? 'step' : 'steps'}</span>
+              <button className="print-plan-button" onClick={printChecklist}>
+                <span aria-hidden="true">⇩</span>
+                Print / save PDF
+              </button>
+            </div>
           </div>
 
           {activeTip && (
@@ -1937,7 +2245,7 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets }) {
                           <h3>{task.title}</h3>
                           <p>{task.detail}</p>
                           {task.guideLabel && (
-                            <button className="task-guide-link" onClick={task.guideType === 'pets' ? onPets : onVehicle}>
+                            <button className="task-guide-link" onClick={() => openTaskGuide(task.guideType)}>
                               {task.guideLabel} <span aria-hidden="true">→</span>
                             </button>
                           )}
@@ -1973,6 +2281,53 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets }) {
           </div>
         </section>
       </main>
+
+      <section className="print-checklist" aria-label="Complete four-stage Germany PCS checklist">
+        <header className="print-checklist-header">
+          <div>
+            <span className="print-brand-mark">G</span>
+            <p><strong>GERMANY</strong><span>PCS Companion</span></p>
+          </div>
+          <p>Unofficial community resource · Complete four-stage checklist</p>
+          <h1>Your move to Germany,<br /><span>one step at a time.</span></h1>
+          <p>Use this printable copy alongside your personalized online checklist. Confirm eligibility, deadlines, documents, and case-specific requirements with your servicing CPAC, HR, relocation, transportation, finance, or responsible government office.</p>
+        </header>
+
+        {journeyStages.map(([number, phase, copy]) => {
+          const printTasks = phaseTasks.filter((task) => task.phase === phase)
+          return (
+            <section className="print-phase" key={phase}>
+              <header>
+                <span>{number}</span>
+                <div><p>{copy}</p><h2>{phase}</h2></div>
+                <strong>{printTasks.length} steps</strong>
+              </header>
+              <div className="print-task-list">
+                {printTasks.map((task) => (
+                  <article className="print-task" key={task.id}>
+                    <span className="print-checkbox" aria-hidden="true" />
+                    <div>
+                      <p className="print-task-meta">{task.milestone ? `${task.milestone} · ` : ''}{task.window} · {task.tag}</p>
+                      <h3>{task.title}</h3>
+                      <p>{task.detail}</p>
+                      {task.forms && (
+                        <div className="print-task-forms">
+                          <strong>Official forms:</strong>{' '}
+                          {task.forms.map((form) => `${form.number} — ${form.title}`).join(' · ')}
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )
+        })}
+
+        <footer className="print-checklist-footer">
+          <strong>Unofficial public guide.</strong> Content and official-source links can change. Visit pcscompanion.de for the current interactive edition and verify requirements with the responsible office before acting.
+        </footer>
+      </section>
     </div>
   )
 }
@@ -2121,6 +2476,8 @@ function App() {
     if (window.location.hash === '#links') return 'links'
     if (window.location.hash === '#vehicle') return 'vehicle'
     if (window.location.hash === '#pets') return 'pets'
+    if (window.location.hash === '#household-goods') return 'household-goods'
+    if (window.location.hash === '#allowances') return 'allowances'
     if (window.location.hash === '#suggest-update') return 'suggest-update'
     return 'home'
   }
@@ -2179,6 +2536,20 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+  const openHouseholdGoods = () => {
+    window.location.hash = 'household-goods'
+    setActiveView('household-goods')
+    window.scrollTo(0, 0)
+  }
+
+  const openAllowances = () => {
+    setMenuOpen(false)
+    setDesktopMenu(null)
+    window.location.hash = 'allowances'
+    setActiveView('allowances')
+    window.scrollTo(0, 0)
+  }
+
   const openSuggestUpdate = () => {
     setMenuOpen(false)
     setDesktopMenu(null)
@@ -2200,7 +2571,7 @@ function App() {
   }
 
   if (activeView === 'plan') {
-    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} onPets={openPets} /><InstallPwa /></>
+    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} onPets={openPets} onHouseholdGoods={openHouseholdGoods} /><InstallPwa /></>
   }
 
   if (activeView === 'directory') {
@@ -2221,6 +2592,14 @@ function App() {
 
   if (activeView === 'pets') {
     return <><PetGuide onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
+  }
+
+  if (activeView === 'household-goods') {
+    return <><HouseholdGoodsGuide onHome={returnHome} onPlan={startPlan} onLinks={openLinks} /><InstallPwa /></>
+  }
+
+  if (activeView === 'allowances') {
+    return <><AllowancesGuide onHome={returnHome} onPlan={startPlan} onLinks={openLinks} /><InstallPwa /></>
   }
 
   if (activeView === 'suggest-update') {
@@ -2290,6 +2669,10 @@ function App() {
               <button onClick={() => { setDesktopMenu(null); openLinks() }} role="menuitem">
                 <strong>Official links</strong>
                 <span>Forms and verified starting points</span>
+              </button>
+              <button onClick={openAllowances} role="menuitem">
+                <strong>Pay & allowances</strong>
+                <span>TQSA, LQA, Post Allowance and more</span>
               </button>
               <button onClick={openSuggestUpdate} role="menuitem">
                 <strong>Suggest an update</strong>
@@ -2368,6 +2751,10 @@ function App() {
             </button>
             <button onClick={() => { setMenuOpen(false); openLinks() }}>
               <strong>Official links</strong>
+              <span aria-hidden="true">→</span>
+            </button>
+            <button onClick={openAllowances}>
+              <strong>Pay & allowances</strong>
               <span aria-hidden="true">→</span>
             </button>
             <button onClick={openSuggestUpdate}>
@@ -2596,6 +2983,7 @@ function App() {
           <button onClick={openLife}>Explore life</button>
           <button onClick={openVehicle}>Vehicle</button>
           <button onClick={openPets}>Pets</button>
+          <button onClick={openAllowances}>Pay & allowances</button>
           <button onClick={openDirectory}>Directory</button>
           <button onClick={openSuggestUpdate}>Suggest an update</button>
           <a href="#top">Accessibility</a>
