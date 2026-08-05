@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import SuggestUpdate from './pages/SuggestUpdate.jsx'
 
 const assetUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
 
@@ -2120,6 +2121,7 @@ function App() {
     if (window.location.hash === '#links') return 'links'
     if (window.location.hash === '#vehicle') return 'vehicle'
     if (window.location.hash === '#pets') return 'pets'
+    if (window.location.hash === '#suggest-update') return 'suggest-update'
     return 'home'
   }
   const [activeView, setActiveView] = useState(getViewFromHash)
@@ -2177,6 +2179,14 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+  const openSuggestUpdate = () => {
+    setMenuOpen(false)
+    setDesktopMenu(null)
+    window.location.hash = 'suggest-update'
+    setActiveView('suggest-update')
+    window.scrollTo(0, 0)
+  }
+
   const openInstall = () => {
     setMenuOpen(false)
     setDesktopMenu(null)
@@ -2211,6 +2221,10 @@ function App() {
 
   if (activeView === 'pets') {
     return <><PetGuide onHome={returnHome} onPlan={startPlan} onDirectory={openDirectory} /><InstallPwa /></>
+  }
+
+  if (activeView === 'suggest-update') {
+    return <><SuggestUpdate onHome={returnHome} onDirectory={openDirectory} /><InstallPwa /></>
   }
 
   return (
@@ -2276,6 +2290,10 @@ function App() {
               <button onClick={() => { setDesktopMenu(null); openLinks() }} role="menuitem">
                 <strong>Official links</strong>
                 <span>Forms and verified starting points</span>
+              </button>
+              <button onClick={openSuggestUpdate} role="menuitem">
+                <strong>Suggest an update</strong>
+                <span>Send a correction for review</span>
               </button>
               <a href="#about" onClick={() => setDesktopMenu(null)} role="menuitem">
                 <strong>About this guide</strong>
@@ -2352,6 +2370,10 @@ function App() {
               <strong>Official links</strong>
               <span aria-hidden="true">→</span>
             </button>
+            <button onClick={openSuggestUpdate}>
+              <strong>Suggest an update</strong>
+              <span aria-hidden="true">→</span>
+            </button>
             <a href="#about" onClick={() => setMenuOpen(false)}>
               <strong>About this guide</strong>
               <span aria-hidden="true">↓</span>
@@ -2407,6 +2429,7 @@ function App() {
           <div>
             <strong>Open community resource.</strong>
             <p>This companion is unofficial and maintained for the community. Official requirements, eligibility, deadlines, and case-specific direction must come from your servicing Civilian Personnel Advisory Center (CPAC), authorized HR or relocation office, or the responsible government agency.</p>
+            <button className="community-notice-button" onClick={openSuggestUpdate}>Suggest an update <span aria-hidden="true">→</span></button>
           </div>
         </aside>
 
@@ -2511,11 +2534,11 @@ function App() {
             <div className="about-actions">
               <a
                 className="about-contact-card"
-                href="mailto:ganzon@gmail.com?subject=Germany%20PCS%20Companion%20feedback"
+                href="mailto:help@pcscompanion.de?subject=Germany%20PCS%20Companion%20feedback"
               >
                 <span>Questions, suggestions, or corrections?</span>
                 <strong>Email me</strong>
-                <small>ganzon@gmail.com</small>
+                <small>help@pcscompanion.de</small>
                 <span className="about-contact-arrow" aria-hidden="true">↗</span>
               </a>
               <a
@@ -2574,6 +2597,7 @@ function App() {
           <button onClick={openVehicle}>Vehicle</button>
           <button onClick={openPets}>Pets</button>
           <button onClick={openDirectory}>Directory</button>
+          <button onClick={openSuggestUpdate}>Suggest an update</button>
           <a href="#top">Accessibility</a>
           <a href="#top">Privacy</a>
           <a href="#about">Edition disclaimer</a>
