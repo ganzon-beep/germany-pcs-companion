@@ -297,6 +297,10 @@ export default function UpdateSuggestionForm() {
         </button>
         <p>You must press Send in your email app to complete the suggestion.</p>
       </div>
+
+      <p className="update-email-fallback">
+        Unable to use this form? <a href="mailto:updates@pcscompanion.de?subject=Germany%20PCS%20Companion%20update">Email updates@pcscompanion.de directly.</a>
+      </p>
     </form>
   )
 }

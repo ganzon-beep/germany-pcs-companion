@@ -3254,6 +3254,23 @@ h1 span {
   font-size: 0.68rem;
 }
 
+.update-email-fallback {
+  margin: 1.5rem 0 0;
+  border-top: 1px solid #d9e1dc;
+  padding-top: 1.25rem;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.update-email-fallback a {
+  color: var(--navy);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
 .update-success {
   outline: none;
 }
