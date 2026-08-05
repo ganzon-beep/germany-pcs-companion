@@ -552,6 +552,36 @@ h1 span {
   font-size: 0.75rem;
 }
 
+.community-notice {
+  padding-bottom: clamp(3rem, 6vw, 5.5rem);
+}
+
+.community-notice > div {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.3fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 4vw, 4rem);
+  align-items: start;
+  border-left: 4px solid #b4534b;
+  padding: 0.45rem 0 0.45rem clamp(1.1rem, 2.5vw, 2rem);
+}
+
+.community-notice strong {
+  color: #7f382f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.community-notice p {
+  max-width: 62rem;
+  margin: 0;
+  color: #34434c;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.7;
+}
+
 .journey {
   position: relative;
   padding-top: 8rem;
@@ -3579,6 +3609,17 @@ h1 span {
 }
 
 @media (max-width: 680px) {
+  .community-notice > div {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    border-left-width: 3px;
+    padding-left: 1rem;
+  }
+
+  .community-notice p {
+    font-size: 0.9375rem;
+  }
+
   .mobile-menu-section > small {
     font-size: 0.7rem;
   }

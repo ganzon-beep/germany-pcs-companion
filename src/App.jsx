@@ -2403,6 +2403,13 @@ function App() {
 
         </section>
 
+        <aside className="community-notice section-pad" aria-label="Unofficial community resource notice">
+          <div>
+            <strong>Open community resource.</strong>
+            <p>This companion is unofficial and maintained for the community. Official requirements, eligibility, deadlines, and case-specific direction must come from your servicing Civilian Personnel Advisory Center (CPAC), authorized HR or relocation office, or the responsible government agency.</p>
+          </div>
+        </aside>
+
         <section className="journey section-pad" id="journey">
           <div className="section-heading">
             <div>
