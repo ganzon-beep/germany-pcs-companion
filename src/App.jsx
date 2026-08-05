@@ -2165,16 +2165,16 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHousehol
             <div className="progress-bar" aria-label={`${completion}% complete`}>
               <span style={{ width: `${completion}%` }} />
             </div>
-            <button className="print-plan-button" onClick={printChecklist}>
-              <span aria-hidden="true">⇩</span>
-              <span>
-                <strong>Print the complete checklist</strong>
-                <small>Save all four stages as a PDF</small>
-              </span>
-              <span aria-hidden="true">→</span>
-            </button>
             <small>{completed.length} of {phaseTasks.length} essential steps complete</small>
           </div>
+          <button className="print-plan-button" onClick={printChecklist}>
+            <span aria-hidden="true">⇩</span>
+            <span>
+              <strong>Print the complete checklist</strong>
+              <small>Save all four stages as a PDF</small>
+            </span>
+            <span aria-hidden="true">→</span>
+          </button>
           <p className="device-note">Your checkmarks are saved only on this device.</p>
         </aside>
 
@@ -2645,6 +2645,10 @@ function App() {
                 <strong>Moving with pets</strong>
                 <span>Entry, travel and settling in</span>
               </button>
+              <button onClick={openAllowances} role="menuitem">
+                <strong>Pay & allowances</strong>
+                <span>TQSA, LQA, Post Allowance and more</span>
+              </button>
             </div>
           </div>
           <button onClick={openLife}>Explore Germany</button>
@@ -2671,10 +2675,6 @@ function App() {
               <button onClick={() => { setDesktopMenu(null); openLinks() }} role="menuitem">
                 <strong>Official links</strong>
                 <span>Forms and verified starting points</span>
-              </button>
-              <button onClick={openAllowances} role="menuitem">
-                <strong>Pay & allowances</strong>
-                <span>TQSA, LQA, Post Allowance and more</span>
               </button>
               <button onClick={openSuggestUpdate} role="menuitem">
                 <strong>Suggest an update</strong>
@@ -2737,6 +2737,10 @@ function App() {
               <strong>Moving with pets</strong>
               <span aria-hidden="true">→</span>
             </button>
+            <button onClick={openAllowances}>
+              <strong>Pay & allowances</strong>
+              <span aria-hidden="true">→</span>
+            </button>
           </div>
           <div className="mobile-menu-section">
             <small>Living here</small>
@@ -2753,10 +2757,6 @@ function App() {
             </button>
             <button onClick={() => { setMenuOpen(false); openLinks() }}>
               <strong>Official links</strong>
-              <span aria-hidden="true">→</span>
-            </button>
-            <button onClick={openAllowances}>
-              <strong>Pay & allowances</strong>
               <span aria-hidden="true">→</span>
             </button>
             <button onClick={openSuggestUpdate}>
