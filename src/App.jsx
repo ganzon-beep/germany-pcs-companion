@@ -2165,6 +2165,14 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHousehol
             <div className="progress-bar" aria-label={`${completion}% complete`}>
               <span style={{ width: `${completion}%` }} />
             </div>
+            <button className="print-plan-button" onClick={printChecklist}>
+              <span aria-hidden="true">⇩</span>
+              <span>
+                <strong>Print the complete checklist</strong>
+                <small>Save all four stages as a PDF</small>
+              </span>
+              <span aria-hidden="true">→</span>
+            </button>
             <small>{completed.length} of {phaseTasks.length} essential steps complete</small>
           </div>
           <p className="device-note">Your checkmarks are saved only on this device.</p>
@@ -2199,13 +2207,7 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHousehol
               <p className="eyebrow">Focus now</p>
               <h2>{activePhase}</h2>
             </div>
-            <div className="task-heading-actions">
-              <span>{visibleTasks.length} essential {visibleTasks.length === 1 ? 'step' : 'steps'}</span>
-              <button className="print-plan-button" onClick={printChecklist}>
-                <span aria-hidden="true">⇩</span>
-                Print / save PDF
-              </button>
-            </div>
+            <span>{visibleTasks.length} essential {visibleTasks.length === 1 ? 'step' : 'steps'}</span>
           </div>
 
           {activeTip && (
