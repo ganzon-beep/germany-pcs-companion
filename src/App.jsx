@@ -3063,7 +3063,6 @@ function App() {
               >
                 <span>Found this page useful?</span>
                 <strong>Buy me a coffee</strong>
-                <small>buymeacoffee.com/denverg</small>
                 <span className="coffee-cup-icon" aria-hidden="true"><span /></span>
               </a>
             </div>
