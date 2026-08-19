@@ -93,7 +93,7 @@ const phaseTasks = [
         number: 'DD 1056',
         title: 'Authorization to Apply for a No-Fee Passport and/or Visa',
         note: 'Obtain through the DoD passport facility or authorized office.',
-        url: 'https://www.esd.whs.mil/Directives/forms/dd1000_1499/DD1056/',
+        url: 'https://travel.state.gov/en/passports/apply/unique-needs/special-issuance-passport.html',
       },
       {
         number: 'DS-11',
