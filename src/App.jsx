@@ -418,6 +418,54 @@ const phaseTasks = [
   },
 ]
 
+const journeyTaskOrder = [
+  // Offer & orders: establish the offer, records, and coverage before acting on final orders.
+  'temporary-offer',
+  'start-document-folder',
+  'audit-health-insurance',
+  'final-offer',
+  'no-fee-passports-sofa',
+  'advance-of-pay',
+  // Pre-arrival: start long-lead work first, then orders-dependent logistics and departure prep.
+  'pet-travel-plan',
+  'household-goods-plan',
+  'pov-shipment',
+  'sponsor',
+  'plan-school-path',
+  'lodging',
+  'usareur-training',
+  'save-healthcare-options',
+  'install-essential-apps',
+  'pet-health-certificate',
+  // Arrival: complete 48-hour essentials before first-week and two-week actions.
+  'cac-deers',
+  'housing-inprocess',
+  'local-phone',
+  'finance-inprocess',
+  'usareur-license',
+  'apo-box',
+  'iban-account',
+  'ration-card',
+  'vat-program',
+  'pet-arrival-registration',
+  // Days 30/60/90: protect deadlines, then follow lease, household, school, and vehicle dependencies.
+  'tqsa',
+  'review-rental-details',
+  'utap',
+  'fmo',
+  'household-goods-delivery',
+  'school-registration',
+  'vehicle-registration',
+  'pov-pickup',
+  'esso-card',
+  'german-life-rules',
+]
+
+const journeyTaskRank = new Map(journeyTaskOrder.map((id, index) => [id, index]))
+const orderedPhaseTasks = [...phaseTasks].sort(
+  (first, second) => (journeyTaskRank.get(first.id) ?? Number.MAX_SAFE_INTEGER) - (journeyTaskRank.get(second.id) ?? Number.MAX_SAFE_INTEGER),
+)
+
 const directoryEntries = [
   {
     id: 'ramstein-id-cards',
@@ -2222,7 +2270,7 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHousehol
     localStorage.setItem('germany-pcs-progress', JSON.stringify(completed))
   }, [completed])
 
-  const visibleTasks = phaseTasks.filter((task) => task.phase === activePhase)
+  const visibleTasks = orderedPhaseTasks.filter((task) => task.phase === activePhase)
   const activeTip = phaseTips[activePhase]
   const taskGroups = activePhase === 'Offer & orders'
     ? [
@@ -2448,7 +2496,7 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHousehol
         </header>
 
         {journeyStages.map(([number, phase, copy]) => {
-          const printTasks = phaseTasks.filter((task) => task.phase === phase)
+          const printTasks = orderedPhaseTasks.filter((task) => task.phase === phase)
           return (
             <section className="print-phase" key={phase}>
               <header>
