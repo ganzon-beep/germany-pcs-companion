@@ -582,7 +582,7 @@ const directoryEntries = [
     category: 'Finance',
     location: 'Bldg 3700',
     area: 'Landstuhl',
-    services: 'Local badging, security keys, in-processing, travel vouchers, and TQSA forms.',
+    services: 'First stop in your hospital in-processing, travel vouchers, and TQSA forms.',
     steps: ['Complete finance and payroll in-processing', 'Submit your temporary-lodging claim'],
   },
   {
