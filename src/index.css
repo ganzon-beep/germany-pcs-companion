@@ -384,6 +384,72 @@ img {
   margin-top: 1.4rem;
 }
 
+.community-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  overflow-y: auto;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(18, 30, 38, 0.68);
+  backdrop-filter: blur(10px);
+}
+
+.community-modal {
+  position: relative;
+  width: min(100%, 40rem);
+  max-height: calc(100vh - 2.5rem);
+  overflow-y: auto;
+  border-radius: 1.75rem;
+  padding: clamp(1.6rem, 5vw, 3.25rem);
+  background: var(--cream);
+  box-shadow: 0 30px 90px rgba(11, 25, 35, 0.32);
+}
+
+.community-modal-mark {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.5rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--navy-dark);
+  color: white;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-style: italic;
+}
+
+.community-modal h2 {
+  max-width: 13ch;
+  margin-top: 0.45rem;
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  line-height: 0.98;
+}
+
+.community-modal-copy {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.community-modal-copy p {
+  margin: 0;
+}
+
+.community-modal-accept {
+  margin-top: 1.75rem;
+}
+
+.community-modal-accept:focus-visible {
+  outline: 3px solid rgba(49, 91, 125, 0.35);
+  outline-offset: 3px;
+}
+
 .hero {
   display: grid;
   min-height: clamp(39rem, calc(100vh - 6.5rem), 46rem);
