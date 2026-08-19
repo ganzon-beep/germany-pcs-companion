@@ -1000,7 +1000,7 @@ const officialLinks = [
     agency: 'Defense Personal Property Management Office',
     category: 'PCS & finance',
     description: 'Official loss-and-damage notice, documentation, and claim-filing overview. Confirm the current process for your shipment with the transportation office.',
-    url: 'https://www.navsup.navy.mil/Portals/65/HHG/Documents/ClaimsFactSheet-PersonalPropertyClaims-2023.pdf',
+    url: 'https://media.defense.gov/2026/Mar/30/2003904392/-1/-1/1/PERSONALPROPERTYCLAIMS_FACTSHEET_FEB2026.PDF',
   },
   {
     title: 'Welcome to Rheinland-Pfalz',
