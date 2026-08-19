@@ -2707,12 +2707,37 @@ function App() {
   const [activeView, setActiveView] = useState(getViewFromHash)
   const [menuOpen, setMenuOpen] = useState(false)
   const [desktopMenu, setDesktopMenu] = useState(null)
+  const [showCommunityNotice, setShowCommunityNotice] = useState(() => {
+    try {
+      return localStorage.getItem('germany-pcs-community-notice') !== 'accepted'
+    } catch {
+      return true
+    }
+  })
+
+  const acceptCommunityNotice = () => {
+    try {
+      localStorage.setItem('germany-pcs-community-notice', 'accepted')
+    } catch {
+      // Keep the acknowledgment usable when browser storage is unavailable.
+    }
+    setShowCommunityNotice(false)
+  }
 
   useEffect(() => {
     const handleHash = () => setActiveView(getViewFromHash())
     window.addEventListener('hashchange', handleHash)
     return () => window.removeEventListener('hashchange', handleHash)
   }, [])
+
+  useEffect(() => {
+    if (!showCommunityNotice) return undefined
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [showCommunityNotice])
 
   useEffect(() => {
     const closeMenuOnEscape = (event) => {
@@ -3005,6 +3030,30 @@ function App() {
       </header>
       {menuOpen && <div className="mobile-menu-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />}
 
+      {showCommunityNotice && (
+        <div className="community-modal-backdrop">
+          <section
+            className="community-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="community-modal-title"
+            aria-describedby="community-modal-description"
+          >
+            <div className="community-modal-mark" aria-hidden="true">i</div>
+            <p className="eyebrow">Before you continue</p>
+            <h2 id="community-modal-title">Open community resource</h2>
+            <div id="community-modal-description" className="community-modal-copy">
+              <p>This companion is unofficial and maintained for the community. It is not affiliated with or endorsed by any government agency, base, installation, unit, organization, or employer.</p>
+              <p>Information here is general guidance, not official direction. Requirements, eligibility, deadlines, benefits, and case-specific decisions must be confirmed with your servicing Civilian Personnel Advisory Center (CPAC), authorized HR or relocation office, or the responsible government agency.</p>
+            </div>
+            <button className="button button--primary community-modal-accept" onClick={acceptCommunityNotice} autoFocus>
+              I understand — continue
+              <span aria-hidden="true">→</span>
+            </button>
+          </section>
+        </div>
+      )}
+
       <main id="top">
         <section
           className="hero hero--map-background section-pad"
@@ -3042,14 +3091,6 @@ function App() {
           </div>
 
         </section>
-
-        <aside className="community-notice section-pad" aria-label="Unofficial community resource notice">
-          <div>
-            <strong>Open community resource.</strong>
-            <p>This companion is unofficial and maintained for the community. Official requirements, eligibility, deadlines, and case-specific direction must come from your servicing Civilian Personnel Advisory Center (CPAC), authorized HR or relocation office, or the responsible government agency.</p>
-            <button className="community-notice-button" onClick={openSuggestUpdate}>Suggest an update <span aria-hidden="true">→</span></button>
-          </div>
-        </aside>
 
         <section className="journey section-pad" id="journey">
           <div className="section-heading">
@@ -3218,7 +3259,7 @@ function App() {
           <button onClick={openSuggestUpdate}>Suggest an update</button>
           <a href="#top">Accessibility</a>
           <a href="#top">Privacy</a>
-          <a href="#about">Edition disclaimer</a>
+          <button onClick={() => setShowCommunityNotice(true)}>Edition disclaimer</button>
         </div>
       </footer>
     </div>
