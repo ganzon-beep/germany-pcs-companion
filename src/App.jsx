@@ -213,6 +213,13 @@ const phaseTasks = [
     window: 'First 48 hours',
     title: 'Complete CAC and DEERS enrollment',
     detail: 'Make this an early priority for installation access, network access, and payroll processing. Dependents should also obtain ID cards and confirm authorized patronage.',
+    critical: true,
+    criticalNote: 'Your employing agency or component may determine which personnel and DEERS office should support you. Air Force civilians generally start with their servicing Civilian Personnel office and MPF; Army civilians should follow CPAC in-processing before visiting the ID Cards/DEERS office; DHA and LRMC civilians should use the onboarding instructions from their servicing HR or personnel office. Confirm your record is ready and which office will serve your affiliation before booking—the nearest RAPIDS site may not be your correct first stop.',
+    criticalLinks: [
+      { label: 'Find a RAPIDS site', url: 'https://idco.dmdc.osd.mil/idco/locator' },
+      { label: 'Army ID Cards & DEERS guidance', url: 'https://home.army.mil/rheinland-pfalz/about/directorates-support-offices/directorate-human-resources-dhr/id-cards-deers-enrollment' },
+      { label: 'Ramstein passports & ID cards', url: 'https://www.ramstein.af.mil/About/Fact-Sheets/Article/303618/passports-id-cards/' },
+    ],
     tag: 'Identification',
     guideLabel: 'Review installation and visitor access',
     guideType: 'life',
@@ -2200,8 +2207,9 @@ function PetGuide({ onHome, onPlan, onDirectory }) {
   )
 }
 
-function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHouseholdGoods, onLife }) {
+function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHouseholdGoods, onAllowances, onLife, onSuggestUpdate, onInstall }) {
   const [activePhase, setActivePhase] = useState('Offer & orders')
+  const [menuOpen, setMenuOpen] = useState(false)
   const [completed, setCompleted] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('germany-pcs-progress')) || []
@@ -2251,11 +2259,41 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHousehol
         </button>
         <p>Your personal arrival plan</p>
         <div className="companion-nav-actions">
-          <button className="home-link" onClick={onDirectory}>Directory</button>
-          <button className="home-link" onClick={onLinks}>Official links</button>
           <button className="home-link" onClick={onHome}>Exit plan</button>
+          <button
+            className={`mobile-menu-toggle companion-menu-toggle ${menuOpen ? 'is-open' : ''}`}
+            onClick={() => setMenuOpen((current) => !current)}
+            aria-expanded={menuOpen}
+            aria-controls="companion-primary-menu"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+        <nav className={`mobile-menu companion-menu ${menuOpen ? 'is-open' : ''}`} id="companion-primary-menu" aria-label="Plan navigation" aria-hidden={!menuOpen}>
+          <div className="mobile-menu-section">
+            <small>Practical guides</small>
+            <button onClick={() => { setMenuOpen(false); onVehicle() }}><strong>Your vehicle in Germany</strong><span aria-hidden="true">→</span></button>
+            <button onClick={() => { setMenuOpen(false); onPets() }}><strong>Moving with pets</strong><span aria-hidden="true">→</span></button>
+            <button onClick={() => { setMenuOpen(false); onHouseholdGoods() }}><strong>Household goods & baggage</strong><span aria-hidden="true">→</span></button>
+            <button onClick={() => { setMenuOpen(false); onAllowances() }}><strong>Pay & allowances</strong><span aria-hidden="true">→</span></button>
+          </div>
+          <div className="mobile-menu-section">
+            <small>Living here</small>
+            <button onClick={() => { setMenuOpen(false); onLife() }}><strong>Explore life in Germany</strong><span aria-hidden="true">→</span></button>
+          </div>
+          <div className="mobile-menu-section">
+            <small>Reference</small>
+            <button onClick={() => { setMenuOpen(false); onDirectory() }}><strong>Directory</strong><span aria-hidden="true">→</span></button>
+            <button onClick={() => { setMenuOpen(false); onLinks() }}><strong>Official links</strong><span aria-hidden="true">→</span></button>
+            <button onClick={() => { setMenuOpen(false); onSuggestUpdate() }}><strong>Suggest an update</strong><span aria-hidden="true">→</span></button>
+            <button onClick={() => { setMenuOpen(false); onInstall() }}><strong>Install the app</strong><span aria-hidden="true">↓</span></button>
+          </div>
+        </nav>
       </header>
+      {menuOpen && <div className="mobile-menu-backdrop companion-menu-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />}
 
       <main className="planner">
         <aside className="planner-sidebar">
@@ -2347,9 +2385,19 @@ function Companion({ onHome, onDirectory, onLinks, onVehicle, onPets, onHousehol
                           <div className="task-meta">
                             <span>{task.window}</span>
                             <span>{task.tag}</span>
+                            {task.critical && <strong className="critical-badge">Critical</strong>}
                           </div>
                           <h3>{task.title}</h3>
                           <p>{task.detail}</p>
+                          {task.criticalNote && (
+                            <aside className="critical-note">
+                              <strong>Confirm your servicing path before you go</strong>
+                              <p>{task.criticalNote}</p>
+                              <div>
+                                {task.criticalLinks.map((link) => <a href={link.url} target="_blank" rel="noreferrer" key={link.url}>{link.label} ↗</a>)}
+                              </div>
+                            </aside>
+                          )}
                           {task.guideLabel && (
                             <button className="task-guide-link" onClick={() => openTaskGuide(task.guideType)}>
                               {task.guideLabel} <span aria-hidden="true">→</span>
@@ -2698,7 +2746,7 @@ function App() {
   }
 
   if (activeView === 'plan') {
-    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} onPets={openPets} onHouseholdGoods={openHouseholdGoods} onLife={openLife} /><InstallPwa /></>
+    return <><Companion onHome={returnHome} onDirectory={openDirectory} onLinks={openLinks} onVehicle={openVehicle} onPets={openPets} onHouseholdGoods={openHouseholdGoods} onAllowances={openAllowances} onLife={openLife} onSuggestUpdate={openSuggestUpdate} onInstall={openInstall} /><InstallPwa /></>
   }
 
   if (activeView === 'directory') {
@@ -2769,6 +2817,10 @@ function App() {
               <button onClick={() => { setDesktopMenu(null); openPets() }} role="menuitem">
                 <strong>Moving with pets</strong>
                 <span>Entry, travel and settling in</span>
+              </button>
+              <button onClick={() => { setDesktopMenu(null); openHouseholdGoods() }} role="menuitem">
+                <strong>Household goods & baggage</strong>
+                <span>Shipment, delivery and claims</span>
               </button>
               <button onClick={openAllowances} role="menuitem">
                 <strong>Pay & allowances</strong>
@@ -2860,6 +2912,10 @@ function App() {
             </button>
             <button onClick={() => { setMenuOpen(false); openPets() }}>
               <strong>Moving with pets</strong>
+              <span aria-hidden="true">→</span>
+            </button>
+            <button onClick={() => { setMenuOpen(false); openHouseholdGoods() }}>
+              <strong>Household goods & baggage</strong>
               <span aria-hidden="true">→</span>
             </button>
             <button onClick={openAllowances}>
